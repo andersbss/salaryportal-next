@@ -2,18 +2,18 @@ import styles from './home-page.module.scss';
 
 import { NextPage } from 'next';
 
-import { MainIcon } from '../../components';
+import { MainIcon, ScrollTitle } from '../../components';
 
 export const HomePage: NextPage = () => {
   return (
     <main className={styles.main}>
-      <section>
+      <section className={styles.icon_section}>
         <MainIcon />
       </section>
-      <section>
-        <h1>Hva tjener en __?</h1>
+      <section className={styles.title_section}>
+        <ScrollTitle />
       </section>
-      <section>
+      <section className={styles.input_section}>
         <div>Input field goes here</div>
       </section>
     </main>

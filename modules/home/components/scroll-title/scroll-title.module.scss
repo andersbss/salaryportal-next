@@ -1,0 +1,73 @@
+.wrapper {
+  display: block;
+
+  @media (min-width: 576px) {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.scroll {
+  margin-top: 8px;
+
+  height: 1.2em;
+  line-height: 1.2em;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+
+  span {
+    position: absolute;
+    top: 0;
+    animation: slide 5s infinite;
+  }
+
+  @media (min-width: 576px) {
+    height: 1.2em;
+  }
+
+  @keyframes slide {
+    0% {
+      top: 0;
+    }
+    25% {
+      top: -1.2em;
+    }
+    50% {
+      top: -2.4em;
+    }
+    75% {
+      top: -3.6em;
+    }
+  }
+}
+
+.h1 {
+  width: 100%;
+  white-space: nowrap;
+
+  font-size: 2rem;
+
+  div {
+    width: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (min-width: 576px) {
+    font-size: 2rem;
+
+    div {
+      width: 100%;
+      display: block;
+    }
+  }
+
+  @media (min-width: 768px) {
+    font-size: 2.5rem;
+  }
+
+  @media (min-width: 992px) {
+    font-size: 3rem;
+  }
+}

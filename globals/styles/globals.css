@@ -21,4 +21,23 @@ a {
   --secondary-text-color: #3a4649;
   --main-background-color: #ffffff;
   --secondary-background-color: #0565f2;
+
+  --br-mobile: 576px;
+  --br-tablet: 768px;
+  --br-desktop: 992px;
+  --br-large-desktop: 1200px;
 }
+
+/*
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) { ... }
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+*/

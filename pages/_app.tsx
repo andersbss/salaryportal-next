@@ -1,4 +1,5 @@
 import '../globals/styles/globals.css';
+
 import type { AppProps } from 'next/app';
 import { DefaultLayout } from '@globals';
 
