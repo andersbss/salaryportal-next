@@ -15,7 +15,9 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@globals": ["./globals/index.ts"]
+      "@globals": ["./globals/index.ts"],
+
+      "@modules/home": ["./modules/home/index.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
