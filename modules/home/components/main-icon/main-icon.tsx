@@ -4,7 +4,7 @@ import Image from 'next/image';
 export const MainIcon = (): JSX.Element => {
   return (
     <>
-      <Image className={styles.image} height={400} width={400} src="/savings-icon.svg" />
+      <Image className={styles.image} height={500} width={500} src="/savings-icon.svg" />
     </>
   );
 };

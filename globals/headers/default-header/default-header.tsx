@@ -4,7 +4,7 @@ export const DefaultHeader = () => {
   return (
     <header className={styles.header}>
       <div className={styles.logo_wrapper}>
-        <a className={styles.link}>Hva tjener folk?</a>
+        <a className={styles.link}>Hva tjener en _?</a>
       </div>
       <nav className={styles.nav}>
         <ul className={styles.nav_list}>

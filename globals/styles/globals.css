@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: #ffffff;
+  overflow-x: hidden;
 }
 
 a {
@@ -21,11 +22,6 @@ a {
   --secondary-text-color: #3a4649;
   --main-background-color: #ffffff;
   --secondary-background-color: #0565f2;
-
-  --br-mobile: 576px;
-  --br-tablet: 768px;
-  --br-desktop: 992px;
-  --br-large-desktop: 1200px;
 }
 
 /*

@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import styles from './scroll-title.module.scss';
 
-const placegolderTitles = ['systemutvikler', 'sosionom', 'sykepleier', 'lege'];
+const placegolderTitles = ['systemutvikler', 'sosionom', 'sykepleier', 'systemutvikler'];
 
 export const ScrollTitle = (): JSX.Element => {
   return (
