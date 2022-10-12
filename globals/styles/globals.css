@@ -1,0 +1,24 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #ffffff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #2ae180;
+  --primary-text-color: #012f54;
+  --secondary-text-color: #3a4649;
+  --main-background-color: #ffffff;
+  --secondary-background-color: #0565f2;
+}
