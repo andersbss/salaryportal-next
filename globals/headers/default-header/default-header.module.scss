@@ -4,11 +4,18 @@
   display: flex;
   justify-content: space-between;
 
-  padding: 14px;
-
-  padding-left: 48px;
+  padding: 8px;
 
   box-shadow: 1px -1px 21px -5px rgba(87, 87, 87, 0.4);
+
+  @media (min-width: 576px) {
+    padding: 14px;
+    padding-left: 24px;
+  }
+
+  @media (min-width: 768px) {
+    padding-left: 36px;
+  }
 }
 
 .logo_wrapper {
@@ -16,10 +23,18 @@
   align-items: center;
 
   a {
-    font-size: 2rem;
+    font-size: 1.3rem;
     text-decoration: none;
     white-space: nowrap;
     font-weight: bold;
+
+    @media (min-width: 576px) {
+      font-size: 1.6rem;
+    }
+
+    @media (min-width: 768px) {
+      font-size: 2rem;
+    }
   }
 }
 
@@ -46,9 +61,13 @@
 }
 
 .secondary_items_wrapper {
-  margin-left: auto;
-  display: flex;
-  justify-content: space-between;
+  display: none;
+
+  @media (min-width: 576px) {
+    display: flex;
+    justify-content: space-between;
+    margin-left: auto;
+  }
 }
 
 .sign_up_li {

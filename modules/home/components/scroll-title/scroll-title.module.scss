@@ -1,9 +1,14 @@
 .wrapper {
-  display: block;
+  width: 100%;
+  display: inline-block;
+
+  margin-left: 16px;
 
   @media (min-width: 576px) {
     display: flex;
     justify-content: center;
+
+    margin-left: 0x;
   }
 }
 
@@ -14,12 +19,11 @@
   line-height: 1.2em;
   position: relative;
   overflow: hidden;
-  width: 100%;
 
   span {
     position: absolute;
     top: 0;
-    animation: slide 5s infinite;
+    animation: slide 6s infinite;
   }
 
   @media (min-width: 576px) {
@@ -50,8 +54,6 @@
 
   div {
     width: auto;
-    display: flex;
-    justify-content: center;
   }
 
   @media (min-width: 576px) {
@@ -70,4 +72,8 @@
   @media (min-width: 992px) {
     font-size: 3rem;
   }
+}
+
+.job_poisition {
+  color: var(--primary-color);
 }

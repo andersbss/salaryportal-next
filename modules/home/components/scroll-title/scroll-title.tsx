@@ -1,19 +1,19 @@
 import { Fragment } from 'react';
 import styles from './scroll-title.module.scss';
 
-const placegolderTitles = ['1test', '2test', '3test', '4test', '5test', '6test', '7test', '8test', '9test', '10test'];
+const placegolderTitles = ['systemutvikler', 'sosionom', 'sykepleier', 'lege'];
 
 export const ScrollTitle = (): JSX.Element => {
   return (
     <h1 className={styles.h1}>
       <div>
         <span className={styles.wrapper}>
-          Hva tjener en &nbsp;
+          <span className={styles.label}>Hva tjener en &nbsp;</span>
           <div className={styles.scroll}>
-            <span>
+            <span className={styles.job_poisition}>
               {placegolderTitles.map((title) => (
                 <Fragment key={title}>
-                  {title}
+                  {title}?
                   <br />
                 </Fragment>
               ))}
