@@ -17,6 +17,9 @@
     "paths": {
       "@globals": ["./globals/index.ts"],
 
+      "@api/reports": ["./api/reports/index.ts"],
+      "@api/utils": ["./api/utils/index.ts"],
+
       "@modules/home": ["./modules/home/index.ts"]
     }
   },

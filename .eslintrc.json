@@ -9,7 +9,6 @@
   "plugins": ["prettier", "@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
   "rules": {
-    "no-console": "warn",
     "react/react-in-jsx-scope": "off",
     "prettier/prettier": "error",
     "@typescript-eslint/no-explicit-any": "error",
