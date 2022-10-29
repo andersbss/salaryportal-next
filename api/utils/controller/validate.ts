@@ -1,19 +1,23 @@
 import Joi from 'joi';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest } from 'next';
+import { BadRequestError } from '../error';
 import { controller } from './controller';
-import { response } from './response';
+
+const formatErrorMessage = (error: Joi.ValidationError) => {
+  const message = error.details.map((detail) => detail.message).join(', ');
+  return message;
+};
 
 export const validate = (schema: Joi.Schema) =>
   controller(
-    async (req: NextApiRequest, res: NextApiResponse) => {
+    async (req: NextApiRequest) => {
       try {
-        await schema.validateAsync(req.body);
+        await schema.validateAsync(req.body, { abortEarly: false });
       } catch (error) {
         if (error instanceof Joi.ValidationError) {
-          console.error(error);
-          throw new Error(error.message);
-          //response(res, { status: 400 });
-          //TODO: Handle error
+          // Stops the controller from running in router.ts
+          req.body = 'stop';
+          throw new BadRequestError(formatErrorMessage(error));
         }
       }
     },

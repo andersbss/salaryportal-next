@@ -29,7 +29,8 @@ export const router = (routes: Route[]) => {
       }
     }
 
-    if (route) {
+    // If the middleware has already sent a response, we don't want to call the controller
+    if (route && req.body !== 'stop') {
       await route.controller(req, res);
       return;
     }

@@ -21,7 +21,7 @@ export const controller = (
       // The actual controller function
       await func(req, res);
     } catch (error) {
-      //TODO: Log error
+      //TODO: Log error to db
       console.log(error);
 
       if (error instanceof BadRequestError) {
