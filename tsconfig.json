@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -15,14 +19,32 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@globals": ["./globals/index.ts"],
-
-      "@api/reports": ["./api/reports/index.ts"],
-      "@api/utils": ["./api/utils/index.ts"],
-
-      "@modules/home": ["./modules/home/index.ts"]
-    }
+      "@globals": [
+        "./globals/index.ts"
+      ],
+      "@api/reports": [
+        "./api/reports/index.ts"
+      ],
+      "@api/utils": [
+        "./api/utils/index.ts"
+      ],
+      "@modules/home": [
+        "./modules/home/index.ts"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
