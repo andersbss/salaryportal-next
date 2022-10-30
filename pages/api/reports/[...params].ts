@@ -1,15 +1,4 @@
-import { router, Route, validate } from '@api/utils';
+import { router } from '@api/utils';
+import { reportRoutes } from '@api/reports';
 
-import { getAllReports, createReport, CreateReportInputSchema } from '@api/reports';
-
-const routes: Route[] = [
-  { route: '/api/reports/all', method: 'GET', controller: getAllReports },
-  {
-    route: '/api/reports/create',
-    method: 'POST',
-    controller: createReport,
-    middlewares: [validate(CreateReportInputSchema)],
-  },
-];
-
-export default router(routes);
+export default router(reportRoutes);

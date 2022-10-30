@@ -12,6 +12,10 @@ export type Route = {
 
 export const router = (routes: Route[]) => {
   return async (req: NextApiRequest, res: NextApiResponse) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`Request ${req.method} ${req.url} body: ${JSON.stringify(req.body)}`);
+    }
+
     const { method, url } = req;
 
     const route = routes.find((route) => {

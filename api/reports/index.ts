@@ -1,2 +1,2 @@
-export * from './controller';
+export * from './report-routes';
 export * from './dto';
