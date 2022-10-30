@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { ErrorLogService } from '@api/error-logs';
+
 import { response } from './response';
 
 import { BadRequestError, InternalServerError, NotFoundError, UnauthorizedError } from '../error';
@@ -15,13 +17,16 @@ export const controller = (
     try {
       // Connect to MongoDB
       if (!options?.skipDbConnection) {
-        await connectDB();
+        const connected = await connectDB();
+        if (!connected) {
+          response(res, { status: 500, message: 'Database connection failed', error: 'Failed to connect to MongoDB' });
+          return;
+        }
       }
 
       // The actual controller function
       await func(req, res);
     } catch (error) {
-      //TODO: Log error to db
       console.log(error);
 
       if (error instanceof BadRequestError) {
@@ -39,13 +44,18 @@ export const controller = (
         return;
       }
 
-      if (error instanceof InternalServerError) {
-        response(res, { status: 500, message: 'Internal server error', error: error.message });
-        return;
-      }
+      // Add more error types here..
 
-      if (error instanceof Error) {
+      if (error instanceof InternalServerError || error instanceof Error) {
         response(res, { status: 500, message: 'Internal server error', error: error.message });
+
+        try {
+          await ErrorLogService.createErrorLog({ message: error.message, stack: error.stack || '' });
+        } catch (errorLogError) {
+          console.error(errorLogError);
+          return;
+        }
+
         return;
       }
 
