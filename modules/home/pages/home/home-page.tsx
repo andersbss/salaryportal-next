@@ -2,6 +2,8 @@ import styles from './home-page.module.scss';
 
 import { NextPage } from 'next';
 
+import { NewReportForm } from '@modules/report';
+
 import { MainIcon, ScrollTitle } from '../../components';
 
 export const HomePage: NextPage = () => {
@@ -14,7 +16,7 @@ export const HomePage: NextPage = () => {
         <ScrollTitle />
       </section>
       <section className={styles.input_section}>
-        <div>Input field goes here</div>
+        <NewReportForm />
       </section>
     </main>
   );

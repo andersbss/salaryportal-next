@@ -16,10 +16,12 @@
     "incremental": true,
     "paths": {
       "@globals": ["./globals/index.ts"],
+      "@ui/*": ["./ui/*"],
       "@api/reports": ["./api/reports/index.ts"],
       "@api/error-logs": ["./api/error-logs/index.ts"],
       "@api/utils": ["./api/utils/index.ts"],
-      "@modules/home": ["./modules/home/index.ts"]
+      "@modules/home": ["./modules/home/index.ts"],
+      "@modules/report": ["./modules/report/index.ts"]
     },
     "plugins": [
       {
