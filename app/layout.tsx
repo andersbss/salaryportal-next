@@ -7,7 +7,7 @@ type RootLayoutProps = {
   children: React.ReactNode;
 };
 
-const poppins = Poppins({ weight: '600' });
+const poppins = Poppins({ weight: '600', subsets: ['latin'] });
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
