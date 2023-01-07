@@ -14,7 +14,7 @@ const getAll = async (): Promise<ReportModel[]> => {
   return reports;
 };
 
-const deleteByid = async (id: string): Promise<ReportModel> => {
+const deleteById = async (id: string): Promise<ReportModel> => {
   const report = await ReportModelSchema.findByIdAndDelete(id);
   return report;
 };
@@ -27,6 +27,6 @@ export default {
   getById,
   create,
   getAll,
-  deleteByid,
+  deleteById,
   deleteAll,
 };

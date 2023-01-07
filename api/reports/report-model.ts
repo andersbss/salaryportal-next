@@ -1,4 +1,5 @@
 import { Schema as MongooseSchema, model, models } from 'mongoose';
+import { Sector, WorkFlow, WorkPlace } from './constants';
 
 export interface ReportModel {
   // Required
@@ -6,17 +7,17 @@ export interface ReportModel {
   jobTitle: string;
   age: number;
   field: string;
-  sector: 'private' | 'public';
+  sector: Sector;
   totalYearlySalary: number;
   county: string;
-  workPlace: 'remote' | 'office' | 'hybrid';
+  workPlace: WorkPlace;
   degrees: string[];
   tags: string[];
   totalYearsExperienceInField: number;
   yearsInCurrentRole: number;
   workTimePercent: number;
   vacationDays: number;
-  workFlow: 'fulltime' | 'parttime' | 'freelance' | 'substitute' | 'call guard' | 'other';
+  workFlow: WorkFlow;
 
   // Optional
   leaderShipPosition: boolean | null;
