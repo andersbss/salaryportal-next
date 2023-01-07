@@ -1,17 +1,18 @@
 import '../globals/styles/globals.css';
 
-import { Poppins } from '@next/font/google';
+//import { Poppins } from '@next/font/google';
 import { DefaultLayout } from '@globals';
 
 type RootLayoutProps = {
   children: React.ReactNode;
 };
 
-const poppins = Poppins({ weight: '600', subsets: ['latin'] });
+//const poppins = Poppins({ weight: '600', subsets: ['latin'] });
+//  <html className={poppins.className}>
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html className={poppins.className}>
+    <html>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Hva tjener en _?</title>
