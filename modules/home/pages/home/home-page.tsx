@@ -1,21 +1,19 @@
-import styles from './home-page.module.scss';
-
 import { NextPage } from 'next';
 
 import { NewReportForm } from '@modules/report';
 
-import { MainIcon, ScrollTitle } from '../../components';
+import { ScrollTitle } from '../../components';
 
 export const HomePage: NextPage = () => {
+  // Fetch job titles from API
+  const jobTitles = ['HEI', '2', '3', '4', '1'];
+
   return (
-    <main className={styles.main}>
-      <section className={styles.icon_section}>
-        <MainIcon />
+    <main className="max-w-7xl rounded-xl mx-auto border">
+      <section className="py-5 sm:py-20">
+        <ScrollTitle jobTitles={jobTitles} />
       </section>
-      <section className={styles.title_section}>
-        <ScrollTitle />
-      </section>
-      <section className={styles.input_section}>
+      <section>
         <NewReportForm />
       </section>
     </main>

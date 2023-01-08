@@ -1,4 +1,3 @@
-import styles from './default-layout.module.scss';
 import { ReactNode } from 'react';
 import { DefaultFooter } from '../../footers';
 import { DefaultHeader } from '../../headers';
@@ -9,7 +8,7 @@ export type DefaultLayoutProps = {
 
 export const DefaultLayout = ({ children }: DefaultLayoutProps): JSX.Element => {
   return (
-    <div className={styles.wrapper}>
+    <div>
       <DefaultHeader />
       {children}
       <DefaultFooter />

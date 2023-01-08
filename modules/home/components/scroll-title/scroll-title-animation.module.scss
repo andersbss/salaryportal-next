@@ -1,0 +1,32 @@
+.scrolling-words-container {
+  display: flex;
+  align-items: center;
+}
+
+.scrolling-words-box {
+  height: 3rem;
+  overflow: hidden;
+
+  ul {
+    animation: scrollUp 6s infinite;
+
+    li {
+      height: 3rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+/* Change the value of this variable to 20 */
+$item-count: 5;
+
+@keyframes scrollUp {
+  @for $i from 1 through ($item-count - 1) {
+    #{($i * 25) - 10%},
+    #{$i * 25%} {
+      transform: translateY((-100% / $item-count) * $i);
+    }
+  }
+}
