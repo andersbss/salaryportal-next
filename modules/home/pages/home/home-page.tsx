@@ -6,7 +6,7 @@ import { ScrollTitle } from '../../components';
 
 export const HomePage: NextPage = () => {
   // Fetch job titles from API
-  const jobTitles = ['HEI', '2', '3', '4', '1'];
+  const jobTitles = ['1', '2', '3', '4', '1'];
 
   return (
     <main className="max-w-7xl rounded-xl mx-auto border">

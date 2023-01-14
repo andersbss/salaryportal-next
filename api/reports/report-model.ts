@@ -19,6 +19,8 @@ export interface ReportModel {
   vacationDays: number;
   workFlow: WorkFlow;
 
+  // Turnus??
+
   // Optional
   leaderShipPosition: boolean | null;
   graduateYear: number | null;

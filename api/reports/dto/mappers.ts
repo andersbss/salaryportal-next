@@ -11,7 +11,12 @@ export const reportModelToReportResponse = (model: ReportModel): ReportResponse 
 };
 
 export const reportInputToReportModel = (input: CreateReportInput): Omit<ReportModel, 'id'> => {
+  const { workFlow, ...rest } = input;
+
+  // TODO: Fix workflow mapping
+
   return {
-    jobTitle: input.jobTitle,
+    ...rest,
+    workFlow: 'fulltime',
   };
 };
