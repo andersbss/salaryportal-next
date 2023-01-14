@@ -14,6 +14,17 @@ const getThreadById = async (id: string): Promise<ThreadResponse> => {
   return threadModelToThreadResponse(thread);
 };
 
+const getByUrlId = async (urlId: string): Promise<ThreadResponse> => {
+  const thread = await ThreadRepository.getByUrlId(urlId);
+
+  if (!thread) {
+    throw new NotFoundError(`Thread ${urlId} not found`);
+  }
+
+  return threadModelToThreadResponse(thread);
+};
+
 export default {
   getThreadById,
+  getByUrlId,
 };

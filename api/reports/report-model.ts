@@ -1,4 +1,4 @@
-import { Schema as MongooseSchema, model, models } from 'mongoose';
+import { Schema as MongooseSchema, model, models, Model } from 'mongoose';
 import { Sector, WorkFlow, WorkPlace } from './constants';
 
 export interface ReportModel {
@@ -135,6 +135,6 @@ const Schema = new MongooseSchema<ReportModel>({
   },
 });
 
-const ReportModelSchema = models.Report || model<ReportModel>('Report', Schema);
+const ReportModelSchema: Model<ReportModel> = models.Report || model<ReportModel>('Report', Schema);
 
 export default ReportModelSchema;

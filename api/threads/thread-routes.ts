@@ -11,4 +11,10 @@ export const threadRoutes: Route[] = [
     controller: ThreadController.getById,
     middlewares: [validate(GetThreadByIdInputSchema)],
   },
+  {
+    route: '/api/threads/url-id',
+    method: 'GET',
+    controller: ThreadController.getByUrlId,
+    middlewares: [validate(GetThreadByIdInputSchema)],
+  },
 ];
