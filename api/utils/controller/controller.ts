@@ -4,8 +4,8 @@ import { ErrorLogService } from '@api/error-logs';
 
 import { response } from './response';
 
-import { BadRequestError, InternalServerError, NotFoundError, UnauthorizedError } from '../error';
 import { connectDB } from '../mongo';
+import { BadRequestError, InternalServerError, NotFoundError, UnauthorizedError } from '../error';
 
 export const controller = (
   func: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
