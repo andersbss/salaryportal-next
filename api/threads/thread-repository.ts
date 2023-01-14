@@ -18,9 +18,14 @@ const insertMany = async (threads: Omit<ThreadModel, 'id'>[]): Promise<ThreadMod
   return ThreadModelSchema.insertMany(threads);
 };
 
+const findOneAndUpdateById = async (id: string, updatedModel: ThreadModel): Promise<ThreadModel | null> => {
+  return ThreadModelSchema.findOneAndUpdate({ id }, updatedModel, { new: true });
+};
+
 export default {
   findById,
   findByUrlId,
   create,
   insertMany,
+  findOneAndUpdateById,
 };

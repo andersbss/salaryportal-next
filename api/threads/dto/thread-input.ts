@@ -13,3 +13,12 @@ export type GetThreadByUrlIdInput = {
 export const GetThreadByUrlIdInputSchema = Joi.object({
   urlId: Joi.string().required(),
 });
+
+export type CreateThreadDiscussionCommentInput = {
+  threadId: string;
+  comment: string;
+};
+export const CreateThreadDiscussionCommentInputSchema = Joi.object({
+  threadId: Joi.string().required(),
+  comment: Joi.string().required(),
+});

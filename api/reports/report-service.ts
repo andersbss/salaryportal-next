@@ -6,6 +6,8 @@ import { CreateReportInput, ReportResponse, reportInputToReportModel, reportMode
 
 import ReportRepository from './report-repository';
 
+// Public functions
+
 const getReportById = async (id: string): Promise<ReportResponse> => {
   const report = await ReportRepository.getById(id);
 
@@ -39,6 +41,8 @@ const deleteReportById = async (id: string): Promise<ReportResponse> => {
 
   return reportModelToReportResponse(report);
 };
+
+// Internal functions
 
 const deleteAllReports = async (): Promise<ReportResponse[]> => {
   const reports = await getAllReports();
