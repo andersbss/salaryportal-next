@@ -1,5 +1,7 @@
 import { NotFoundError } from '@api/utils';
 
+import ThreadService from '../threads/thread-service';
+
 import { CreateReportInput, ReportResponse, reportInputToReportModel, reportModelToReportResponse } from './dto';
 
 import ReportRepository from './report-repository';
@@ -16,12 +18,16 @@ const getReportById = async (id: string): Promise<ReportResponse> => {
 
 const createReport = async (input: CreateReportInput): Promise<ReportResponse> => {
   const report = await ReportRepository.create(reportInputToReportModel(input));
-  return reportModelToReportResponse(report);
+
+  // Creating threads for the report, if existing threads are found, they will be updated
+  const threads = await ThreadService.createOrUpdateMany(report);
+
+  return reportModelToReportResponse(report, threads);
 };
 
 const getAllReports = async (): Promise<ReportResponse[]> => {
   const reports = await ReportRepository.getAll();
-  return reports.map(reportModelToReportResponse);
+  return reports.map((report) => reportModelToReportResponse(report));
 };
 
 const deleteReportById = async (id: string): Promise<ReportResponse> => {

@@ -6,17 +6,13 @@ import ReportService from './report-service';
 
 const getReportById = controller(async (req, res) => {
   const input = req.body as GetReportByIdInput;
-
   const report = await ReportService.getReportById(input.id);
-
   response(res, { status: 200, message: 'Report found', data: report });
 });
 
 const createReport = controller(async (req, res) => {
   const input = req.body as CreateReportInput;
-
   const report = await ReportService.createReport(input);
-
   response(res, { status: 200, message: 'Report created', data: report });
 });
 

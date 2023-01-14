@@ -5,7 +5,8 @@ const getById = async (id: string): Promise<ReportModel | null> => {
 };
 
 const create = async (input: Omit<ReportModel, 'id'>): Promise<ReportModel> => {
-  const report = await ReportModelSchema.create<ReportModel>(input);
+  const report = await ReportModelSchema.create<Omit<ReportModel, 'id'>>(input);
+
   return report;
 };
 
@@ -14,7 +15,7 @@ const getAll = async (): Promise<ReportModel[]> => {
   return reports;
 };
 
-const deleteById = async (id: string): Promise<ReportModel> => {
+const deleteById = async (id: string): Promise<ReportModel | null> => {
   const report = await ReportModelSchema.findByIdAndDelete(id);
   return report;
 };
