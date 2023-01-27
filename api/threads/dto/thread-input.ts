@@ -22,3 +22,14 @@ export const CreateThreadDiscussionCommentInputSchema = Joi.object({
   threadId: Joi.string().required(),
   comment: Joi.string().required(),
 });
+
+export type CreateThreadDiscussionSubCommentInput = {
+  threadId: string;
+  commentId: string;
+  comment: string;
+};
+export const CreateThreadDiscussionSubCommentInputSchema = Joi.object({
+  threadId: Joi.string().required(),
+  commentId: Joi.string().required(),
+  comment: Joi.string().required(),
+});

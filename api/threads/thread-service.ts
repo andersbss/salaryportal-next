@@ -2,7 +2,12 @@ import { NotFoundError } from '@api/utils';
 
 import { ReportModel } from '../reports/report-model';
 
-import { ThreadResponse, threadModelToThreadResponse, CreateThreadDiscussionCommentInput } from './dto';
+import {
+  ThreadResponse,
+  threadModelToThreadResponse,
+  CreateThreadDiscussionCommentInput,
+  CreateThreadDiscussionSubCommentInput,
+} from './dto';
 import { ThreadModel } from './thread-model';
 
 import ThreadRepository from './thread-repository';
@@ -53,11 +58,27 @@ const createDiscussionComment = async (input: CreateThreadDiscussionCommentInput
     throw new NotFoundError(`Thread ${input.threadId} not found`);
   }
 
-  const updatedThread = await ThreadRepository.findOneAndUpdateById(input.threadId, {
-    ...thread,
-    discussion: {
-      comments: [...thread.discussion.comments, { content: input.comment, subComments: [] }],
-    },
+  const updatedThread = await ThreadRepository.findOneAndCreateDiscussionComment(input.threadId, {
+    content: input.comment,
+    subComments: [],
+  });
+
+  if (!updatedThread) {
+    throw new NotFoundError(`Updated thread ${input.threadId} not found`);
+  }
+
+  return threadModelToThreadResponse(updatedThread);
+};
+
+const createDiscussionSubComment = async (input: CreateThreadDiscussionSubCommentInput): Promise<ThreadResponse> => {
+  const thread = await ThreadRepository.findById(input.threadId);
+
+  if (!thread) {
+    throw new NotFoundError(`Thread ${input.threadId} not found`);
+  }
+
+  const updatedThread = await ThreadRepository.findOneAndCreateDiscussionSubComment(input.threadId, input.commentId, {
+    content: input.comment,
   });
 
   if (!updatedThread) {
@@ -72,4 +93,5 @@ export default {
   getByUrlId,
   createOrUpdateMany,
   createDiscussionComment,
+  createDiscussionSubComment,
 };

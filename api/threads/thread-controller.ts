@@ -1,6 +1,11 @@
 import { controller, response } from '@api/utils';
 
-import { CreateThreadDiscussionCommentInput, GetThreadByIdInput, GetThreadByUrlIdInput } from './dto/thread-input';
+import {
+  CreateThreadDiscussionCommentInput,
+  CreateThreadDiscussionSubCommentInput,
+  GetThreadByIdInput,
+  GetThreadByUrlIdInput,
+} from './dto/thread-input';
 
 import ThreadService from './thread-service';
 
@@ -28,8 +33,17 @@ const createDiscussionComment = controller(async (req, res) => {
   response(res, { status: 200, message: 'Thread found', data: thread });
 });
 
+const createDiscussionSubComment = controller(async (req, res) => {
+  const input = req.body as CreateThreadDiscussionSubCommentInput;
+
+  const thread = await ThreadService.createDiscussionSubComment(input);
+
+  response(res, { status: 200, message: 'Thread found', data: thread });
+});
+
 export default {
   getById,
   getByUrlId,
   createDiscussionComment,
+  createDiscussionSubComment,
 };

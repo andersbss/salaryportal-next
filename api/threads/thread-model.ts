@@ -1,14 +1,41 @@
 import { Schema as MongooseSchema, model, models, Model } from 'mongoose';
 
-type Comment = {
+// Sub comment
+export type SubCommentModel = Omit<CommentModel, 'subComments'>;
+
+const SubCommentSchema = new MongooseSchema<SubCommentModel>({
+  content: {
+    type: String,
+    required: true,
+  },
+});
+
+// Comment
+export interface CommentModel {
+  id: string;
   content: string;
-  subComments: Omit<Comment, 'subComments'>[];
-};
+  subComments: SubCommentModel[];
+}
 
-export type ThreadDiscussionModel = {
-  comments: Comment[];
-};
+const CommentSchema = new MongooseSchema<CommentModel>({
+  content: {
+    type: String,
+    required: true,
+  },
+  subComments: [SubCommentSchema],
+});
 
+// Discussion
+export interface DiscussionModel {
+  id: string;
+  comments: CommentModel[];
+}
+
+const DiscussionSchema = new MongooseSchema<DiscussionModel>({
+  comments: [CommentSchema],
+});
+
+// Thread
 export interface ThreadModel {
   id: string;
   /** The identifier used to group reports into static pages */
@@ -16,7 +43,9 @@ export interface ThreadModel {
 
   title: string;
   reports: string[];
-  discussion: ThreadDiscussionModel;
+  discussion: {
+    comments: CommentModel[];
+  };
 }
 
 const Schema = new MongooseSchema<ThreadModel>({
@@ -28,13 +57,7 @@ const Schema = new MongooseSchema<ThreadModel>({
     type: String,
     required: true,
   },
-  discussion: {
-    type: Object,
-    required: false,
-    default: {
-      comments: [],
-    },
-  },
+  discussion: DiscussionSchema,
   reports: [
     {
       type: MongooseSchema.Types.ObjectId,
