@@ -2,6 +2,7 @@ import '../globals/styles/globals.css';
 
 //import { Poppins } from '@next/font/google';
 import { DefaultLayout } from '@globals';
+import GlobalProvider from './providers';
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -19,7 +20,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <link rel="shortcut icon" href="/dollar-sign-icon.svg" />
       </head>
       <body>
-        <DefaultLayout>{children}</DefaultLayout>
+        <GlobalProvider>
+          <DefaultLayout>{children}</DefaultLayout>
+        </GlobalProvider>
       </body>
     </html>
   );
