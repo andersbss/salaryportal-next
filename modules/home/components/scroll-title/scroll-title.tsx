@@ -7,7 +7,7 @@ type ScrollTitleProps = {
 export const ScrollTitle = ({ jobTitles }: ScrollTitleProps): JSX.Element => {
   return (
     <div className="flex">
-      <h1 className="flex flex-col lg:flex-row text-2xl sm:text-5xl font-semibold mx-auto text-left lg:text-center">
+      <h1 className="flex flex-col lg:flex-row text-2xl sm:text-5xl font-semibold mx-auto text-left lg:text-center text-slate-800 dark:text-white">
         <span className="block">Hvor mye tjener en</span>
         <div className={styles['scrolling-words-container']}>
           <div className={styles['scrolling-words-box']}>

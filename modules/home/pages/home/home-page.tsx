@@ -10,15 +10,14 @@ export const HomePage: NextPage = () => {
   const jobTitles = ['1', '2', '3', '4', '1'];
 
   return (
-    <main className="max-w-7xl rounded-xl mx-auto border">
-      <section className="py-5 sm:py-20">
+    <>
+      <section className="py-5 sm:py-20 border-green-400">
         <ScrollTitle jobTitles={jobTitles} />
       </section>
       <section>
-        <NewReportForm />
+        <div>hello</div>
       </section>
-      <TmpAuth />
-    </main>
+    </>
   );
 };
 

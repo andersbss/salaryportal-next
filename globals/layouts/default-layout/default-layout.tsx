@@ -8,9 +8,9 @@ export type DefaultLayoutProps = {
 
 export const DefaultLayout = ({ children }: DefaultLayoutProps): JSX.Element => {
   return (
-    <div>
+    <div className="flex flex-col h-screen justify-between bg-white dark:bg-zinc-800">
       <DefaultHeader />
-      {children}
+      <main className="mb-auto">{children}</main>
       <DefaultFooter />
     </div>
   );
