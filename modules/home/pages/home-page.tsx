@@ -2,6 +2,8 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { routes } from '@globals';
+
 import { ScrollTitle } from '../components';
 
 // Fetch job titles from API
@@ -16,7 +18,8 @@ export const HomePage: NextPage = () => {
             <div>
               <ScrollTitle jobTitles={jobTitles} />
               <p className="text-gray-500 dark:text-gray-400 text-lg max-w-xl mt-2">
-                Åpenhet og diskusjon rundt lønn i Norge! Her kan diskutere lønn, goder og andre forhold i arbeidslivet.
+                Åpenhet og diskusjon rundt lønn i Norge! Her kan du diskutere lønn, goder og andre forhold i
+                arbeidslivet.
               </p>
             </div>
           </div>
@@ -24,7 +27,7 @@ export const HomePage: NextPage = () => {
         </div>
         <div className="flex justify-center mt-16 mb-16 md:mt-4 md:mb-4">
           <Link
-            href="#"
+            href={routes.reports.new()}
             className="text-white hover:text-gray-100 bg-green-500 hover:bg-green-700 rounded-full shadow-md font-semibold text-xl p-4 transition ease-in duration-100"
           >
             Oppgi lønn anonymt her!
