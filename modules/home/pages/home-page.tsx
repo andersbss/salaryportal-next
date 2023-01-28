@@ -28,7 +28,7 @@ export const HomePage: NextPage = () => {
         <div className="flex justify-center mt-16 mb-16 md:mt-4 md:mb-4">
           <Link
             href={routes.reports.new()}
-            className="text-white bg-green-500 hover:bg-transparent border border-transparent hover:border-green-500 rounded-full shadow-md font-semibold text-xl p-4 transition ease-in duration-100"
+            className="text-white hover:text-slate-900 hover:dark:text-white dark:text-white bg-green-500 hover:bg-transparent border border-transparent hover:border-green-500 rounded-full shadow-md font-semibold text-xl p-4 transition ease-in duration-100"
           >
             Oppgi lønn anonymt her!
           </Link>
