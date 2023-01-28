@@ -23,7 +23,7 @@ export const authOptions: AuthOptions = {
         const dbConnected = await connectDB();
 
         if (!dbConnected) {
-          throw new Error('Database connection failed');
+          return false;
         }
 
         const existingUser = await UserService.getByProviderId(id, { internal: true });
