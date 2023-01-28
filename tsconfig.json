@@ -19,6 +19,7 @@
       "@ui/*": ["./ui/*"],
       "@api/reports": ["./api/reports/index.ts"],
       "@api/threads": ["./api/threads/index.ts"],
+      "@api/users": ["./api/users/index.ts"],
       "@api/error-logs": ["./api/error-logs/index.ts"],
       "@api/utils": ["./api/utils/index.ts"],
       "@modules/home": ["./modules/home/index.ts"],
