@@ -35,8 +35,7 @@ export const HomePage: NextPage = () => {
         </div>
         <div className="flex justify-center">
           <p className="text-gray-500 dark:text-gray-400 text-lg max-w-xl">
-            Vi trenger din hjelp for å skape bedre lønnsforhold i Norge! All innsamlet data blir selvfølgelig
-            anonymisert.
+            Vi trenger din hjelp for å skape bedre lønnsforhold i Norge! Du er selvfølgelig helt anonym.
           </p>
         </div>
       </section>
