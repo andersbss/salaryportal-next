@@ -26,7 +26,7 @@ export const SignInButton = (): JSX.Element => {
   return (
     <button
       onClick={handleClick}
-      className="bg-transparent text-slate-800 dark:text-white hover:bg-green-500 font-semibold hover:text-white py-2 px-4 border border-slate-800 dark:border-white hover:border-transparent rounded"
+      className="bg-transparent text-slate-900 dark:text-white hover:bg-green-500 font-semibold hover:text-white py-2 px-4 border border-slate-900 dark:border-white hover:border-transparent rounded"
     >
       {status === 'authenticated' ? 'Logg ut' : 'Logg inn'}
     </button>
