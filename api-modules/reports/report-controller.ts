@@ -1,4 +1,4 @@
-import { controller, response } from '@api/utils';
+import { controller, response } from 'api-modules/utils';
 
 import { CreateReportInput, DeleteReportInput, GetReportByIdInput } from './dto';
 

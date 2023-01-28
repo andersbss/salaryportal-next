@@ -1,4 +1,4 @@
-import { NotFoundError } from '@api/utils';
+import { NotFoundError } from 'api-modules/utils';
 
 import { ReportModel } from '../reports/report-model';
 
