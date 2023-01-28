@@ -2,8 +2,8 @@ import { NextPage } from 'next';
 
 import { NewReportForm } from '@modules/report';
 
-import { ScrollTitle } from '../../components';
-import { TmpAuth } from '../../components/tmp-auth/tmp-auth';
+import { ScrollTitle } from '../components';
+import { TmpAuth } from '../components/tmp-auth/tmp-auth';
 
 export const HomePage: NextPage = () => {
   // Fetch job titles from API
