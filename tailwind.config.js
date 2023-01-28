@@ -3,5 +3,5 @@ module.exports = {
   content: ['./ui/**/*.tsx', './modules/**/**/**/*.tsx', './globals/**/**/*.tsx'],
   theme: {},
   plugins: [],
-  darkMode: 'class',
+  darkMode: 'media',
 };
