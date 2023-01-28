@@ -4,7 +4,7 @@ export const DefaultFooter = (): JSX.Element => {
       <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
         © {new Date().getFullYear()}{' '}
         <a href="https://flowbite.com/" className="hover:underline">
-          Anders Strandseter
+          Company name
         </a>
         . Alle rettigheter reservert.
       </span>
