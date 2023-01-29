@@ -18,11 +18,3 @@ a {
 * {
   box-sizing: border-box;
 }
-
-:root {
-  --primary-color: #2ae180;
-  --primary-text-color: #012f54;
-  --secondary-text-color: #3a4649;
-  --main-background-color: #ffffff;
-  --secondary-background-color: #0565f2;
-}

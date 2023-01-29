@@ -23,7 +23,7 @@ export const HomePage: NextPage = () => {
               </p>
             </div>
           </div>
-          <Image className="hidden md:block" src="/money.png" alt="" width={300} height={300} priority />
+          <Image className="hidden md:block" src="/money.png" alt="" width={280} height={280} priority />
         </div>
         <div className="flex justify-center mt-16 mb-16 md:mt-4 md:mb-4">
           <Link

@@ -1,5 +1,20 @@
-import { NextPage } from 'next';
+'use client';
 
-export const NewReportPage: NextPage = () => {
-  return <div>New Report Page</div>;
+import { NextPage } from 'next';
+import { useCallback } from 'react';
+
+import { NewReportForm, NewReportFormInput } from '../forms';
+
+const NewReportPage: NextPage = () => {
+  const handleSubmit = useCallback((input: NewReportFormInput) => {
+    console.log(input);
+  }, []);
+
+  return (
+    <>
+      <NewReportForm onSubmit={handleSubmit} />
+    </>
+  );
 };
+
+export default NewReportPage;
