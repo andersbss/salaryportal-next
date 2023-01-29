@@ -1,3 +1,4 @@
 export type NewReportFormInput = {
-  title: string;
+  jobTitle: string;
+  age: number;
 };

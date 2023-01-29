@@ -18,7 +18,7 @@ const FormInput = <T extends FieldValues>({
   error,
 }: FormInputProps<T>): JSX.Element => {
   return (
-    <>
+    <div>
       {!!label && (
         <label htmlFor={register.name} className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
           {label} {register?.required && <span className="text-slate-900 dark:text-white">*</span>}
@@ -36,7 +36,7 @@ const FormInput = <T extends FieldValues>({
           <span className="font-medium">{error.message}</span>
         </p>
       )}
-    </>
+    </div>
   );
 };
 

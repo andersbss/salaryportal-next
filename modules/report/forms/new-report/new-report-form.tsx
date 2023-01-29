@@ -10,16 +10,23 @@ export type NewReportFormProps = {
 };
 
 const NewReportForm = ({ onSubmit }: NewReportFormProps): JSX.Element => {
-  const { register, formState, handleSubmit } = useForm<NewReportFormInput>({ mode: 'all' });
+  const { register, formState, handleSubmit } = useForm<NewReportFormInput>({});
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-screen-lg">
       <FormInput
         label="Tittel"
         placeholder="Sykepleier"
         fullWidth
-        error={formState.errors.title}
-        register={register('title', { required: 'Tittel er påkrevd' })}
+        error={formState.errors.jobTitle}
+        register={register('jobTitle', { required: 'Tittel er påkrevd' })}
+      />
+      <FormInput
+        label="Alder"
+        placeholder="28"
+        fullWidth
+        error={formState.errors.age}
+        register={register('age', { required: 'Tittel er påkrevd' })}
       />
       <button type="submit">Send inn</button>
     </form>
