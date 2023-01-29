@@ -22,6 +22,7 @@ const NewReportForm = ({ onSubmit }: NewReportFormProps): JSX.Element => {
           fullWidth
           error={formState.errors.jobTitle}
           register={register('jobTitle', { required: 'Tittel er påkrevd' })}
+          tooltip="Tooltip"
         />
         <FormInput
           label="Alder"

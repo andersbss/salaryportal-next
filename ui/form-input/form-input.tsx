@@ -8,6 +8,7 @@ export type FormInputProps<T extends FieldValues> = {
   placeholder?: string;
   fullWidth?: boolean;
   error?: FieldError;
+  tooltip?: string;
 };
 
 const FormInput = <T extends FieldValues>({
@@ -16,6 +17,7 @@ const FormInput = <T extends FieldValues>({
   placeholder,
   fullWidth,
   error,
+  tooltip,
 }: FormInputProps<T>): JSX.Element => {
   return (
     <div>
@@ -24,13 +26,21 @@ const FormInput = <T extends FieldValues>({
           {label} {register?.required && <span className="text-slate-900 dark:text-white">*</span>}
         </label>
       )}
-      <input
-        id={register.name}
-        className={`${fullWidth ? 'w-full' : 'w-auto'} bg-gray-50 
-            border border-gray-300 focus:border-gray-500 dark:focus:border-gray-200 outline-none text-slate-900 text-sm rounded-lg block p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white`}
-        placeholder={placeholder}
-        {...register}
-      />
+      <div className="flex">
+        <input
+          id={register.name}
+          className={`${fullWidth ? 'w-full' : 'w-auto'} ${tooltip ? 'rounded-l-lg' : 'rounded-lg'} bg-gray-50 
+            border border-gray-300 focus:border-gray-500 dark:focus:border-gray-200 outline-none text-slate-900 text-sm block p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white`}
+          placeholder={placeholder}
+          {...register}
+        />
+        {tooltip && (
+          <button className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border border-l-0 border-gray-300 rounded-r-lg dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+            @
+          </button>
+        )}
+      </div>
+
       {!!error?.message && (
         <p className="mt-1 text-sm text-red-600 dark:text-red-500">
           <span className="font-medium">{error.message}</span>
