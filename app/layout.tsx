@@ -16,7 +16,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Hva tjener en _?</title>
+        <title>Hvor mye tjener en _?</title>
         <link rel="shortcut icon" href="/money.png" />
       </head>
       <body>
