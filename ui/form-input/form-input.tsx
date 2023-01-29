@@ -24,8 +24,6 @@ const FormInput = <T extends FieldValues>({
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
 
   const toggleTooltip = () => {
-    console.log('toggle');
-    console.log(tooltipIsOpen);
     setTooltipIsOpen((prev) => !prev);
   };
 

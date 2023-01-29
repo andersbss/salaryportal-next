@@ -12,25 +12,33 @@ export type NewReportFormProps = {
 };
 
 const NewReportForm = ({ onSubmit }: NewReportFormProps): JSX.Element => {
-  const { register, formState, handleSubmit } = useForm<NewReportFormInput>({ mode: 'onSubmit' });
+  const { register, formState, handleSubmit } = useForm<NewReportFormInput>({ mode: 'onChange' });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-screen-lg">
         <FormInput
-          label="Tittel"
+          label="Jobbtittel"
           placeholder="Sykepleier"
           fullWidth
           error={formState.errors.jobTitle}
           register={register('jobTitle', { required: 'Tittel er påkrevd' })}
-          tooltip="Tooltip"
+          tooltip="Dette er tittelen du har på jobben. Eksempelvis: sykepleier, lege, helsefagarbeider, etc."
+        />
+        <FormInput
+          label="Total årslønn (brutto/før skatt)"
+          placeholder="500 000"
+          fullWidth
+          error={formState.errors.totalYearlySalary}
+          register={register('totalYearlySalary', { required: 'Årslønn er påkrevd' })}
+          tooltip="Her kan du skrive inn din totale årslønn, før skatt. Eksempelvis: 500 000, 1 000 000, 2 000 000, etc. Dette er tallene du finner på lønnsslippet ditt. Vi holder alle tallene anonyme."
         />
         <FormInput
           label="Alder"
           placeholder="28"
           fullWidth
           error={formState.errors.age}
-          register={register('age', { required: 'Tittel er påkrevd' })}
+          register={register('age', { required: 'Alder er påkrevd' })}
         />
       </div>
       <div className="flex justify-center mt-8 md:mt-12">
