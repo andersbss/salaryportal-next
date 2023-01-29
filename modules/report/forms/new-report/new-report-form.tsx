@@ -5,6 +5,7 @@ import { FormInput } from '@ui/form-input';
 
 import { NewReportFormInput } from './new-report-form-input';
 import { CtaButton } from '@ui/cta-button';
+import { Modal } from '@ui/modal';
 
 export type NewReportFormProps = {
   onSubmit: (input: NewReportFormInput) => void;

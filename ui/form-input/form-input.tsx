@@ -1,5 +1,7 @@
 'use client';
 
+import { Modal } from '@ui/modal';
+import { useState } from 'react';
 import { FieldError, FieldValues, Path, UseFormRegisterReturn } from 'react-hook-form';
 
 export type FormInputProps<T extends FieldValues> = {
@@ -19,6 +21,12 @@ const FormInput = <T extends FieldValues>({
   error,
   tooltip,
 }: FormInputProps<T>): JSX.Element => {
+  const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
+
+  const toggleTooltip = () => {
+    setTooltipIsOpen((prev) => !prev);
+  };
+
   return (
     <div>
       {!!label && (
@@ -35,8 +43,11 @@ const FormInput = <T extends FieldValues>({
           {...register}
         />
         {tooltip && (
-          <button className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border border-l-0 border-gray-300 rounded-r-lg dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-            @
+          <button
+            onClick={toggleTooltip}
+            className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border border-l-0 border-gray-300 rounded-r-lg dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600"
+          >
+            ?
           </button>
         )}
       </div>
@@ -46,6 +57,12 @@ const FormInput = <T extends FieldValues>({
           <span className="font-medium">{error.message}</span>
         </p>
       )}
+      <Modal
+        isOpen={tooltipIsOpen}
+        title="yo"
+        message="test"
+        buttons={[{ type: 'normal', children: <>Lukk</>, onClick: toggleTooltip }]}
+      />
     </div>
   );
 };
