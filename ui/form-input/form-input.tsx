@@ -24,6 +24,8 @@ const FormInput = <T extends FieldValues>({
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
 
   const toggleTooltip = () => {
+    console.log('toggle');
+    console.log(tooltipIsOpen);
     setTooltipIsOpen((prev) => !prev);
   };
 
@@ -45,7 +47,7 @@ const FormInput = <T extends FieldValues>({
         {tooltip && (
           <button
             onClick={toggleTooltip}
-            className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border border-l-0 border-gray-300 rounded-r-lg dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600"
+            className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border-l-0 border-gray-300 rounded-r-lg dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border"
           >
             ?
           </button>
@@ -59,8 +61,8 @@ const FormInput = <T extends FieldValues>({
       )}
       <Modal
         isOpen={tooltipIsOpen}
-        title="yo"
-        message="test"
+        title={label || 'Hjelp'}
+        message={tooltip || ''}
         buttons={[{ type: 'normal', children: <>Lukk</>, onClick: toggleTooltip }]}
       />
     </div>

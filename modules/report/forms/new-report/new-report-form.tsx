@@ -12,7 +12,7 @@ export type NewReportFormProps = {
 };
 
 const NewReportForm = ({ onSubmit }: NewReportFormProps): JSX.Element => {
-  const { register, formState, handleSubmit } = useForm<NewReportFormInput>({});
+  const { register, formState, handleSubmit } = useForm<NewReportFormInput>({ mode: 'onSubmit' });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
