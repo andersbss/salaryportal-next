@@ -17,7 +17,7 @@ export const HomePage: NextPage = () => {
           <div className="flex flex-col items-center justify-center column">
             <div>
               <ScrollTitle jobTitles={jobTitles} />
-              <p className="text-gray-500 dark:text-gray-400 text-lg max-w-xl mt-2">
+              <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-lg max-w-xl mt-2">
                 Åpenhet og diskusjon rundt lønn i Norge! Her kan du diskutere lønn, goder og andre forhold i
                 arbeidslivet.
               </p>
@@ -34,7 +34,7 @@ export const HomePage: NextPage = () => {
           </Link>
         </div>
         <div className="flex justify-center">
-          <p className="text-gray-500 dark:text-gray-400 text-lg max-w-xl">
+          <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-lg max-w-xl">
             Vi trenger din hjelp for å skape bedre lønnsforhold i Norge! Du er selvfølgelig helt anonym.
           </p>
         </div>
