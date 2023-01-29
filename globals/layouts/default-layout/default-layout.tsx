@@ -10,7 +10,7 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps): JSX.Element => 
   return (
     <div className="flex flex-col h-screen justify-between bg-white dark:bg-zinc-800">
       <DefaultHeader />
-      <main className="w-full mb-auto mx-auto max-w-screen-2xl">{children}</main>
+      <main className="w-full mb-auto mx-auto max-w-screen-2xl px-4 lg:px-0">{children}</main>
       <div className="mx-auto w-full max-w-screen-2xl relative">
         <div className="absolute bottom-20 right-0">
           {/**

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 import routes from '../../routes';
@@ -10,9 +11,10 @@ export const DefaultHeader = () => {
       <nav className="bg-white px-4 lg:px-6 py-2.5 dark:bg-zinc-800 shadow-md">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-2xl">
           <Link href={routes.home()} className="flex items-center">
-            <span className="self-center text-xl font-semibold whitespace-nowrap text-slate-900 dark:text-white">
+            <span className="hidden sm:block self-center text-xl font-semibold whitespace-nowrap text-slate-900 dark:text-white">
               Hvor mye tjener en_?
             </span>
+            <Image className="block sm:hidden" src="/money.png" alt="" width={45} height={45} priority />
           </Link>
           <div className="flex items-center lg:order-2">
             <SignInButton />
