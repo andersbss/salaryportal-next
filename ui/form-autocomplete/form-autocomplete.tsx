@@ -98,14 +98,14 @@ const FormAutocomplete = <T extends FieldValues>({
         />
         <div
           className={`
-          ${isFocused ? 'focus:border-gray-500 dark:focus:border-gray-200' : 'border-gray-300 dark:border-gray-600'}
+          ${isFocused ? 'border-gray-500 dark:border-gray-200' : 'border-gray-300 dark:border-gray-600'}
           block 
             border border-l-0 bg-gray-50 p-2.5 text-sm text-slate-900 outline-none dark:bg-zinc-700 dark:text-white dark:placeholder-gray-400`}
         >
           <span
             role="img"
             aria-label="arrow drop down"
-            className={`${isOpen ? 'rotate-180' : ''} mt-0.5 block text-xs text-gray-900 dark:text-gray-500`}
+            className={`${isOpen ? 'rotate-180' : ''} mt-0.5 block text-xs text-gray-600 dark:text-gray-500`}
           >
             ▲
           </span>
@@ -127,7 +127,7 @@ const FormAutocomplete = <T extends FieldValues>({
       )}
       {isOpen && (
         <>
-          <ul className="list-reset scrollbar- absolute mt-2 max-h-40 w-full overflow-auto rounded-md p-2 dark:bg-zinc-700 sm:max-h-60">
+          <ul className="list-reset scrollbar- absolute mt-2 max-h-40 w-full overflow-auto rounded-md bg-gray-100 p-2 dark:bg-zinc-700 sm:max-h-60">
             {sortedOptions.map((option, index) => (
               <li
                 key={index}
