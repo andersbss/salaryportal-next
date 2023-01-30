@@ -36,16 +36,16 @@ const FormInput = <T extends FieldValues>({
       )}
       <div className="flex">
         <input
+          {...register}
           id={register.name}
           className={`${fullWidth ? 'w-full' : 'w-auto'} ${tooltip ? 'rounded-l-lg' : 'rounded-lg'} bg-gray-50 
             border border-gray-300 focus:border-gray-500 dark:focus:border-gray-200 outline-none text-slate-900 text-sm block p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white`}
           placeholder={placeholder}
-          {...register}
         />
         {tooltip && (
           <button
             onClick={toggleTooltip}
-            className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border-l-0 border-gray-300 rounded-r-lg dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border"
+            className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border-l-0 border-gray-300 rounded-r-lg dark:bg-gray-600 dark:text-gray-300 dark:border-gray-600 border"
           >
             ?
           </button>

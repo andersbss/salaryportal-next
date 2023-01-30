@@ -53,6 +53,10 @@ const NewReportForm = ({ onSubmit }: NewReportFormProps): JSX.Element => {
           onOptionClick={(value) => {
             setValue('field', value, { shouldValidate: true });
           }}
+          fullWidth
+          label="Fagområde"
+          placeholder="Helse"
+          tooltip='Dette er fagområdet du jobber i. Eksempelvis: "Helse", "IT", "Bygg", etc.'
         />
       </div>
       <div className="flex justify-center mt-8 md:mt-12">

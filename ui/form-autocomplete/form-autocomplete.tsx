@@ -1,10 +1,15 @@
+import { Modal } from '@ui/modal';
 import React, { useState } from 'react';
 import { FieldError, FieldValues, Path, UseFormRegisterReturn } from 'react-hook-form';
 
 export type FormAutocompleteProps<T extends FieldValues> = {
   options: string[];
   register: UseFormRegisterReturn<Path<T>>;
+  fullWidth?: boolean;
+  label?: string;
+  placeholder?: string;
   error?: FieldError;
+  tooltip?: string;
   onBlur?: () => void;
   onOptionClick?: (option: string) => void;
 };
@@ -12,12 +17,16 @@ export type FormAutocompleteProps<T extends FieldValues> = {
 const FormAutocomplete = <T extends FieldValues>({
   options,
   register,
+  fullWidth,
+  label,
+  placeholder,
   error,
+  tooltip,
   onBlur = () => {},
   onOptionClick = () => {},
 }: FormAutocompleteProps<T>): JSX.Element => {
+  const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
   const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
-
   const [isOpen, setIsOpen] = useState(false);
 
   const filterOptions = (input: string) => {
@@ -55,34 +64,71 @@ const FormAutocomplete = <T extends FieldValues>({
     onOptionClick(option);
   };
 
+  const toggleTooltip = () => {
+    setTooltipIsOpen((prev) => !prev);
+  };
+
   return (
-    <div className="border border-green-300 relative">
-      <input
-        {...register}
-        id={register.name}
-        className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
-        type="text"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        onFocus={handleFocus}
-      />
+    <div className="relative">
+      {!!label && (
+        <label htmlFor={register.name} className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+          {label} {register?.required && <span className="text-slate-900 dark:text-white">*</span>}
+        </label>
+      )}
+      <div className="flex">
+        <input
+          {...register}
+          id={register.name}
+          className={`${fullWidth ? 'w-full' : 'w-auto'} ${tooltip ? 'rounded-l-lg' : 'rounded-lg'} bg-gray-50 
+            border border-gray-300 focus:border-gray-500 dark:focus:border-gray-200 outline-none text-slate-900 text-sm block p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white`}
+          placeholder={placeholder}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          autoComplete="off"
+        />
+        {tooltip && (
+          <button
+            onClick={toggleTooltip}
+            className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border-l-0 border-gray-300 rounded-r-lg dark:bg-gray-600 dark:text-gray-300 dark:border-gray-600 border"
+          >
+            ?
+          </button>
+        )}
+      </div>
+
       {!!error?.message && (
         <p className="mt-1 text-sm text-red-600 dark:text-red-500">
           <span className="font-medium">{error.message}</span>
         </p>
       )}
       {isOpen && (
-        <ul className="list-reset absolute">
-          {filteredOptions.map((option, index) => (
-            <li
-              key={index}
-              className="border-b border-gray-200 py-2 hover:bg-gray-100 cursor-pointer"
-              onMouseDown={handleOptionClick(option)}
-            >
-              {option}
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul className="list-reset absolute w-full">
+            {filteredOptions.map((option, index) => (
+              <li
+                key={index}
+                className={`${
+                  index === 0 ? 'mt-2' : 'mt-1'
+                } border text-sm text-gray-900 bg-gray-200 border-gray-300 dark:bg-gray-600 dark:text-gray-300 dark:border-gray-600 cursor-pointer p-1.5 rounded-md`}
+                onMouseDown={handleOptionClick(option)}
+              >
+                {option}
+              </li>
+            ))}
+            {!filteredOptions.length && (
+              <li className="border dark:border-green-500 py-2 hover:bg-gray-200 cursor-default">No results</li>
+            )}
+          </ul>
+        </>
+      )}
+      {!!tooltip && (
+        <Modal
+          isOpen={tooltipIsOpen}
+          title={label || 'Hjelp'}
+          message={tooltip || ''}
+          buttons={[{ type: 'normal', children: <>Lukk</>, onClick: toggleTooltip }]}
+        />
       )}
     </div>
   );
