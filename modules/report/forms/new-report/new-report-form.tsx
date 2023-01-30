@@ -14,18 +14,18 @@ export type NewReportFormProps = {
 const NewReportForm = ({ onSubmit }: NewReportFormProps): JSX.Element => {
   const { register, formState, handleSubmit, setValue, getValues } = useForm<NewReportFormInput>({ mode: 'onChange' });
 
-  const testOptions = ['it', 'bygg', 'test3'];
+  const testOptions = ['it', 'bygg', 'test3', 'it', 'bygg', 'test3', 'it', 'bygg', 'test3', 'it', 'bygg', 'test3'];
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-screen-lg">
         <FormInput
-          label="Jobbtittel"
+          label="Stillingstittel i arbeidskontrakten"
           placeholder="Sykepleier"
           fullWidth
           error={formState.errors.jobTitle}
           register={register('jobTitle', { required: 'Tittel er påkrevd' })}
-          tooltip="Dette er tittelen du har på jobben. Eksempelvis: sykepleier, lege, helsefagarbeider, etc."
+          tooltip="Dette er tittelen du har på jobben. Eksempelvis: sykepleier, lege, helsefagarbeider, etc. Her kan du skrive inn tittelen din slik den står i arbeidskontrakten din."
         />
         <FormInput
           label="Total årslønn (brutto/før skatt)"
