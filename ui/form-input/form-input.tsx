@@ -57,12 +57,14 @@ const FormInput = <T extends FieldValues>({
           <span className="font-medium">{error.message}</span>
         </p>
       )}
-      <Modal
-        isOpen={tooltipIsOpen}
-        title={label || 'Hjelp'}
-        message={tooltip || ''}
-        buttons={[{ type: 'normal', children: <>Lukk</>, onClick: toggleTooltip }]}
-      />
+      {!!tooltip && (
+        <Modal
+          isOpen={tooltipIsOpen}
+          title={label || 'Hjelp'}
+          message={tooltip || ''}
+          buttons={[{ type: 'normal', children: <>Lukk</>, onClick: toggleTooltip }]}
+        />
+      )}
     </div>
   );
 };

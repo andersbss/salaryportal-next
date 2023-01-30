@@ -1,18 +1,20 @@
 'use client';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { FormInput } from '@ui/form-input';
+import { CtaButton } from '@ui/cta-button';
+import { FormAutocomplete } from '@ui/form-autocomplete';
 
 import { NewReportFormInput } from './new-report-form-input';
-import { CtaButton } from '@ui/cta-button';
-import { Modal } from '@ui/modal';
 
 export type NewReportFormProps = {
   onSubmit: (input: NewReportFormInput) => void;
 };
 
 const NewReportForm = ({ onSubmit }: NewReportFormProps): JSX.Element => {
-  const { register, formState, handleSubmit } = useForm<NewReportFormInput>({ mode: 'onChange' });
+  const { register, formState, handleSubmit, setValue, getValues } = useForm<NewReportFormInput>({ mode: 'onChange' });
+
+  const testOptions = ['it', 'bygg', 'test3'];
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
@@ -33,12 +35,24 @@ const NewReportForm = ({ onSubmit }: NewReportFormProps): JSX.Element => {
           register={register('totalYearlySalary', { required: 'Årslønn er påkrevd' })}
           tooltip="Her kan du skrive inn din totale årslønn, før skatt. Eksempelvis: 500 000, 1 000 000, 2 000 000, etc. Dette er tallene du finner på lønnsslippet ditt. Vi holder alle tallene anonyme."
         />
-        <FormInput
-          label="Alder"
-          placeholder="28"
-          fullWidth
-          error={formState.errors.age}
-          register={register('age', { required: 'Alder er påkrevd' })}
+        <FormAutocomplete
+          register={register('field', {
+            required: 'Felt er påkrevd',
+            validate: {
+              isOption: (value) => {
+                if (testOptions.includes(value)) return undefined;
+                return 'Velg en av alternativene';
+              },
+            },
+          })}
+          options={testOptions}
+          error={formState.errors.field}
+          onBlur={() => {
+            if (!testOptions.includes(getValues('field'))) setValue('field', '', { shouldValidate: true });
+          }}
+          onOptionClick={(value) => {
+            setValue('field', value, { shouldValidate: true });
+          }}
         />
       </div>
       <div className="flex justify-center mt-8 md:mt-12">

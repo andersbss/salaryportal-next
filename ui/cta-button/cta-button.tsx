@@ -9,7 +9,6 @@ export type CtaButtonProps = {
   action?: string | (() => void);
 };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 const CtaButton = ({ children, action = () => {} }: CtaButtonProps): JSX.Element => {
   if (typeof action === 'string') {
     return (
