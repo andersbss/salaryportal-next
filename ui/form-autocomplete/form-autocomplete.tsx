@@ -140,9 +140,7 @@ const FormAutocomplete = <T extends FieldValues>({
               </li>
             ))}
             {!sortedOptions.length && (
-              <li className="bg-transparent text-sm text-slate-900 text-opacity-80 dark:text-white">
-                Ingen alternativer
-              </li>
+              <li className="bg-transparent text-sm text-slate-500 dark:text-gray-400">Ingen alternativer</li>
             )}
           </ul>
         </>
