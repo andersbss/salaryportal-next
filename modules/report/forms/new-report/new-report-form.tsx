@@ -18,7 +18,7 @@ const NewReportForm = ({ onSubmit }: NewReportFormProps): JSX.Element => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-screen-lg">
+      <div className="grid max-w-screen-lg grid-cols-1 gap-4 md:grid-cols-2">
         <FormInput
           label="Stillingstittel i arbeidskontrakten"
           placeholder="Sykepleier"
@@ -59,7 +59,7 @@ const NewReportForm = ({ onSubmit }: NewReportFormProps): JSX.Element => {
           tooltip='Dette er fagområdet du jobber i. Eksempelvis: "Helse", "IT", "Bygg", etc.'
         />
       </div>
-      <div className="flex justify-center mt-8 md:mt-12">
+      <div className="mt-8 flex justify-center md:mt-12">
         <CtaButton>Send inn anonyme data</CtaButton>
       </div>
     </form>

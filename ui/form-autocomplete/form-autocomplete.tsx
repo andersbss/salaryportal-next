@@ -28,6 +28,7 @@ const FormAutocomplete = <T extends FieldValues>({
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
   const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const sortedOptions = useMemo(() => {
     const sorted = filteredOptions.sort((a, b) => a.localeCompare(b));
@@ -52,6 +53,8 @@ const FormAutocomplete = <T extends FieldValues>({
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     onBlur();
+
+    setIsFocused(false);
     setIsOpen(false);
 
     register.onBlur(event);
@@ -60,6 +63,7 @@ const FormAutocomplete = <T extends FieldValues>({
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     const input = event.target.value;
 
+    setIsFocused(true);
     setIsOpen(true);
 
     filterOptions(input);
@@ -76,7 +80,7 @@ const FormAutocomplete = <T extends FieldValues>({
   return (
     <div className="relative">
       {!!label && (
-        <label htmlFor={register.name} className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+        <label htmlFor={register.name} className="mb-1 block text-sm font-medium text-gray-900 dark:text-white">
           {label} {register?.required && <span className="text-slate-900 dark:text-white">*</span>}
         </label>
       )}
@@ -84,18 +88,32 @@ const FormAutocomplete = <T extends FieldValues>({
         <input
           {...register}
           id={register.name}
-          className={`${fullWidth ? 'w-full' : 'w-auto'} ${tooltip ? 'rounded-l-lg' : 'rounded-lg'} bg-gray-50 
-            border border-gray-300 focus:border-gray-500 dark:focus:border-gray-200 outline-none text-slate-900 text-sm block p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white`}
+          className={`${fullWidth ? 'w-full' : 'w-auto'} ${tooltip ? 'rounded-l-lg' : 'rounded-lg'} block 
+            border border-r-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-slate-900 outline-none focus:border-gray-500 dark:border-gray-600 dark:bg-zinc-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-gray-200`}
           placeholder={placeholder}
           onChange={handleChange}
           onBlur={handleBlur}
           onFocus={handleFocus}
           autoComplete="off"
         />
+        <div
+          className={`
+          ${isFocused ? 'focus:border-gray-500 dark:focus:border-gray-200' : 'border-gray-300 dark:border-gray-600'}
+          block 
+            border border-l-0 bg-gray-50 p-2.5 text-sm text-slate-900 outline-none dark:bg-zinc-700 dark:text-white dark:placeholder-gray-400`}
+        >
+          <span
+            role="img"
+            aria-label="arrow drop down"
+            className={`${isOpen ? 'rotate-180' : ''} mt-0.5 block text-xs text-gray-900 dark:text-gray-500`}
+          >
+            ▲
+          </span>
+        </div>
         {tooltip && (
           <button
             onClick={toggleTooltip}
-            className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border-l-0 border-gray-300 rounded-r-lg dark:bg-gray-600 dark:text-gray-300 dark:border-gray-600 border"
+            className="inline-flex items-center rounded-r-lg border border-l-0 border-gray-300 bg-gray-200 px-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-300"
           >
             ?
           </button>
@@ -109,20 +127,20 @@ const FormAutocomplete = <T extends FieldValues>({
       )}
       {isOpen && (
         <>
-          <ul className="list-reset absolute w-full dark:bg-zinc-700 p-2 rounded-md mt-2 overflow-auto max-h-40 sm:max-h-60 scrollbar-">
+          <ul className="list-reset scrollbar- absolute mt-2 max-h-40 w-full overflow-auto rounded-md p-2 dark:bg-zinc-700 sm:max-h-60">
             {sortedOptions.map((option, index) => (
               <li
                 key={index}
                 className={`${
                   index === 0 ? 'mt-0' : 'mt-1'
-                } border text-sm text-gray-900 bg-gray-200 border-gray-300 dark:bg-gray-600 dark:text-gray-300 dark:border-gray-600 cursor-pointer p-1.5 rounded-md hover:border-gray-500 dark:hover:border-gray-200`}
+                } cursor-pointer rounded-md border border-gray-300 bg-gray-200 p-1.5 text-sm text-gray-900 hover:border-gray-500 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-300 dark:hover:border-gray-200`}
                 onMouseDown={handleOptionClick(option)}
               >
                 {option}
               </li>
             ))}
             {!sortedOptions.length && (
-              <li className="bg-transparent text-slate-900 dark:text-white text-sm text-opacity-80">
+              <li className="bg-transparent text-sm text-slate-900 text-opacity-80 dark:text-white">
                 Ingen alternativer
               </li>
             )}
