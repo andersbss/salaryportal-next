@@ -1,5 +1,5 @@
 import { Modal } from '@ui/modal';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { FieldError, FieldValues, Path, UseFormRegisterReturn } from 'react-hook-form';
 
 export type FormAutocompleteProps<T extends FieldValues> = {
@@ -28,6 +28,11 @@ const FormAutocomplete = <T extends FieldValues>({
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
   const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+
+  const sortedOptions = useMemo(() => {
+    const sorted = filteredOptions.sort((a, b) => a.localeCompare(b));
+    return sorted;
+  }, [filteredOptions]);
 
   const filterOptions = (input: string) => {
     if (!input) {
@@ -104,20 +109,22 @@ const FormAutocomplete = <T extends FieldValues>({
       )}
       {isOpen && (
         <>
-          <ul className="list-reset absolute w-full">
-            {filteredOptions.map((option, index) => (
+          <ul className="list-reset absolute w-full dark:bg-zinc-700 p-2 rounded-md mt-2 overflow-auto max-h-40 sm:max-h-60 scrollbar-">
+            {sortedOptions.map((option, index) => (
               <li
                 key={index}
                 className={`${
-                  index === 0 ? 'mt-2' : 'mt-1'
-                } border text-sm text-gray-900 bg-gray-200 border-gray-300 dark:bg-gray-600 dark:text-gray-300 dark:border-gray-600 cursor-pointer p-1.5 rounded-md`}
+                  index === 0 ? 'mt-0' : 'mt-1'
+                } border text-sm text-gray-900 bg-gray-200 border-gray-300 dark:bg-gray-600 dark:text-gray-300 dark:border-gray-600 cursor-pointer p-1.5 rounded-md hover:border-gray-500 dark:hover:border-gray-200`}
                 onMouseDown={handleOptionClick(option)}
               >
                 {option}
               </li>
             ))}
-            {!filteredOptions.length && (
-              <li className="border dark:border-green-500 py-2 hover:bg-gray-200 cursor-default">No results</li>
+            {!sortedOptions.length && (
+              <li className="bg-transparent text-slate-900 dark:text-white text-sm text-opacity-80">
+                Ingen alternativer
+              </li>
             )}
           </ul>
         </>
