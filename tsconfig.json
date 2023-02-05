@@ -23,9 +23,9 @@
       "@api/users": ["api-modules/users/index.ts"],
       "@api/error-logs": ["api-modules/error-logs/index.ts"],
       "@api/utils": ["api-modules/utils/index.ts"],
-      "@modules/home": ["./modules/home/index.ts"],
-      "@modules/report": ["./modules/report/index.ts"],
-      "@modules/thread": ["./modules/thread/index.ts"]
+      "@web/home": ["./web-modules/home/index.ts"],
+      "@web/report": ["./web-modules/report/index.ts"],
+      "@web/thread": ["./web-modules/thread/index.ts"]
     },
     "plugins": [
       {

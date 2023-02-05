@@ -1,4 +1,4 @@
-import { HomePage } from '@modules/home';
+import { HomePage } from '@web/home';
 
 const Home = HomePage;
 export default Home;
