@@ -1,11 +1,15 @@
-import '../web-globals/styles/globals.css';
+import '../globals/styles/globals.css';
 
+//import { Poppins } from '@next/font/google';
 import { DefaultLayout } from '@globals';
 import GlobalProvider from './providers';
 
 type RootLayoutProps = {
   children: React.ReactNode;
 };
+
+//const poppins = Poppins({ weight: '600', subsets: ['latin'] });
+//  <html className={poppins.className}>
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (

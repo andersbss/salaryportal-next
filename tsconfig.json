@@ -16,7 +16,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@globals": ["./web-globals/index.ts"],
+      "@globals": ["./globals/index.ts"],
       "@ui/*": ["./ui/*"],
       "@api/reports": ["api-modules/reports/index.ts"],
       "@api/threads": ["api-modules/threads/index.ts"],
