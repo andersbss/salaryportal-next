@@ -21,8 +21,6 @@ export const authOptions: AuthOptions = {
 
         const existingUser = await UserService.getByProviderId(id, { internal: true });
 
-        console.log('existingUser', existingUser);
-
         if (!existingUser) {
           const newUser = await UserService.create({
             providerId: id,
