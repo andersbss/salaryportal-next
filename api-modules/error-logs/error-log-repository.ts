@@ -1,7 +1,10 @@
-import ErrorLogModelSchema, { ErrorLogModel } from './error-log-model';
+import { PrismaClient, Prisma } from '@prisma/client';
 
-const create = async (input: Omit<ErrorLogModel, 'id'>): Promise<ErrorLogModel> => {
-  return ErrorLogModelSchema.create<ErrorLogModel>(input);
+const prisma = new PrismaClient();
+
+const create = async (input: Prisma.ErrorLogCreateInput) => {
+  const errorLog = await prisma.errorLog.create({ data: input });
+  return errorLog;
 };
 
 export default {

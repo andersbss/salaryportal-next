@@ -1,64 +1,65 @@
-import ThreadModelSchema, { ThreadModel, CommentModel, SubCommentModel } from './thread-model';
+import { PrismaClient, Prisma } from '@prisma/client';
 
-const findById = async (id: string): Promise<ThreadModel | null> => {
-  return ThreadModelSchema.findById(id);
-};
+const prisma = new PrismaClient();
 
-const findByUrlId = async (urlId: string): Promise<ThreadModel | null> => {
-  return ThreadModelSchema.findOne({
-    urlId,
+const findById = async (id: string) => {
+  const thread = await prisma.thread.findUnique({
+    where: { id },
   });
+  return thread;
 };
 
-const create = async (thread: Omit<ThreadModel, 'id'>): Promise<ThreadModel> => {
-  return ThreadModelSchema.create(thread);
+const findByUrlId = async (urlId: string) => {
+  const thread = await prisma.thread.findUnique({
+    where: { urlId },
+  });
+  return thread;
 };
 
-const insertMany = async (threads: Omit<ThreadModel, 'id'>[]): Promise<ThreadModel[]> => {
-  return ThreadModelSchema.insertMany(threads);
+const create = async (input: Prisma.ThreadCreateInput) => {
+  const thread = await prisma.thread.create({ data: input });
+  return thread;
 };
 
-const findOneAndUpdateById = async (id: string, updatedModel: ThreadModel): Promise<ThreadModel | null> => {
-  return ThreadModelSchema.findOneAndUpdate({ id }, updatedModel, { new: true });
+const createMany = async (input: Prisma.ThreadCreateInput[]) => {
+  const threads = await prisma.thread.createMany({ data: input });
+  return threads;
 };
 
-const findOneAndCreateDiscussionComment = async (
-  id: string,
-  comment: Omit<CommentModel, 'id'>
-): Promise<ThreadModel | null> => {
-  return ThreadModelSchema.findOneAndUpdate(
-    { id },
-    {
-      $push: {
-        'discussion.comments': comment,
+const findOneAndUpdateById = async (id: string, input: Prisma.ThreadUpdateInput) => {
+  const thread = await prisma.thread.update({
+    where: { id },
+    data: input,
+  });
+  return thread;
+};
+
+const createComment = async (input: Prisma.CommentCreateInput) => {
+  const comment = await prisma.comment.create({
+    data: input,
+  });
+  return comment;
+};
+
+const createSubComment = async (commentId: string, input: Prisma.SubCommentCreateInput) => {
+  const comment = await prisma.comment.update({
+    where: { id: commentId },
+    data: {
+      subComments: {
+        push: input,
       },
     },
-    { new: true }
-  );
-};
+  });
 
-const findOneAndCreateDiscussionSubComment = async (
-  id: string,
-  commentId: string,
-  subComment: Omit<SubCommentModel, 'id'>
-): Promise<ThreadModel | null> => {
-  return ThreadModelSchema.findOneAndUpdate(
-    { id, 'discussion.comments.id': commentId },
-    {
-      $push: {
-        'discussion.comments.$.subComments': subComment,
-      },
-    },
-    { new: true }
-  );
+  return comment.subComments[comment.subComments.length - 1];
 };
 
 export default {
   findById,
   findByUrlId,
   create,
-  insertMany,
+  createMany,
   findOneAndUpdateById,
-  findOneAndCreateDiscussionComment,
-  findOneAndCreateDiscussionSubComment,
+  createComment,
+  createSubComment,
 };

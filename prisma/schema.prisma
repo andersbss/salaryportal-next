@@ -1,0 +1,195 @@
+//
+// SETUP
+//
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+//
+// REPORT_SCHEMA
+//
+
+// Enums
+enum WorkPlace {
+  Remote
+  Office
+  Hybrid
+}
+
+enum WorkFlow {
+  FullTime
+  PartTime
+  Freelance
+  Substitute
+  CallGuard
+  Internship
+  Trainee
+  Other
+}
+
+enum PaymentType {
+  Hourly
+  Monthly
+  Yearly
+}
+
+enum CompanySize {
+  Small
+  Medium
+  Large
+}
+
+// Main model
+model Report {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  // Required
+  jobTitle                    String
+  age                         Int
+  field                       String
+  totalYearlySalary           Int
+  county                      String
+  workPlace                   WorkPlace
+  degrees                     String[]
+  tags                        String[]
+  totalYearsExperienceInField Int
+  yearsInCurrentRole          Int
+  workTimePercentage          Int
+  vacationDays                Int
+  workFlow                    WorkFlow
+  paymentType                 PaymentType
+
+  // Optional
+  leadershipExperienceYears Int?
+  graduateYear              Int?
+  graduateSchool            String?
+  city                      String?
+  flextime                  Boolean?
+  seniority                 String?
+  rotation                  Boolean?
+  hourlyWage                Int?
+  monthlySalary             Int?
+  yearlySalary              Int?
+  overtime                  Boolean?
+  overtimePercentage        Int?
+  bonus                     Boolean?
+  bonusPercentage           Int?
+  stockOptions              Boolean?
+  stockOptionsPercentage    Int?
+  companySize               CompanySize?
+  otherCompenSations        String[]
+  otherBenefits             String[]
+  otherComments             String?
+
+  // Generated
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  userId    String?  @db.ObjectId
+  user      User?    @relation(fields: [userId], references: [id])
+  threadIds String[] @db.ObjectId
+  threads   Thread[] @relation(fields: [threadIds], references: [id])
+}
+
+//
+//  COMMENT_SCHEMA
+//
+
+type SubComment {
+  // Required
+  id        String
+  content   String
+  updatedAt DateTime
+
+  // Generated
+  createdAt DateTime @default(now())
+}
+
+model Comment {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  // Required
+  content String
+
+  // Optional
+
+  // Generated
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  subComments SubComment[]
+  threadId    String       @db.ObjectId
+  thread      Thread       @relation(fields: [threadId], references: [id])
+  userId      String?      @db.ObjectId
+  user        User?        @relation(fields: [userId], references: [id])
+}
+
+//
+//  THREAD_SCHEMA
+//
+model Thread {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  // Required
+  title String
+  urlId String @unique
+
+  // Generated
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  reportIds String[]  @db.ObjectId
+  reports   Report[]  @relation(fields: [reportIds], references: [id])
+  comments  Comment[]
+}
+
+//
+//  USER_SCHEMA
+//
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  // Required fields
+  providerId String @unique
+  email      String
+  username   String
+
+  // Optional fields
+  imageUrl String?
+
+  // Generated
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  ErrorLog ErrorLog[]
+  Comment  Comment[]
+  Report   Report[]
+}
+
+//
+// ERROR_LOG_SCHEMA
+//
+model ErrorLog {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  // Required
+  message String
+  stack   String
+
+  // Generated 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  userId String? @db.ObjectId
+  user   User?   @relation(fields: [userId], references: [id])
+}

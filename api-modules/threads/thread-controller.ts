@@ -25,6 +25,7 @@ const getByUrlId = controller(async (req, res) => {
   response(res, { status: 200, message: 'Thread found', data: thread });
 });
 
+/*
 const createDiscussionComment = controller(async (req, res) => {
   const input = req.body as CreateThreadDiscussionCommentInput;
 
@@ -40,10 +41,9 @@ const createDiscussionSubComment = controller(async (req, res) => {
 
   response(res, { status: 200, message: 'Thread found', data: thread });
 });
+*/
 
 export default {
   getById,
   getByUrlId,
-  createDiscussionComment,
-  createDiscussionSubComment,
 };

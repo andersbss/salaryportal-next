@@ -1,3 +1,3 @@
+export { default as reportMapper } from './report-mappers';
 export * from './report-input';
-export * from './report-reponse';
-export * from './report-mappers';
+export * from './report-response';

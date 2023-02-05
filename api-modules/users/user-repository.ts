@@ -1,20 +1,32 @@
-import UserModelSchema, { UserModel } from './user-model';
+import { PrismaClient, Prisma } from '@prisma/client';
 
-const getById = async (id: string): Promise<UserModel | null> => {
-  return UserModelSchema.findById(id);
-};
+const prisma = new PrismaClient();
 
-const getByProviderId = async (providerId: string): Promise<UserModel | null> => {
-  return UserModelSchema.findOne({ providerId });
-};
-
-const create = async (input: Omit<UserModel, 'id'>): Promise<UserModel> => {
-  const user = await UserModelSchema.create<Omit<UserModel, 'id'>>(input);
+const getById = async (id: string) => {
+  const user = await prisma.user.findUnique({
+    where: { id },
+  });
   return user;
 };
 
-const findOneAndUpdateById = async (id: string, updatedModel: Omit<UserModel, 'id'>): Promise<UserModel | null> => {
-  return UserModelSchema.findOneAndUpdate({ id }, updatedModel, { new: true });
+const getByProviderId = async (providerId: string) => {
+  const user = await prisma.user.findUnique({
+    where: { providerId },
+  });
+  return user;
+};
+
+const findOneAndUpdateById = async (id: string, input: Prisma.UserUpdateInput) => {
+  const user = await prisma.user.update({
+    where: { id },
+    data: input,
+  });
+  return user;
+};
+
+const create = async (input: Prisma.UserCreateInput) => {
+  const user = await prisma.user.create({ data: input });
+  return user;
 };
 
 export default {

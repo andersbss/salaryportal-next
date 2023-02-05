@@ -4,26 +4,11 @@ import { ErrorLogService } from 'api-modules/error-logs';
 
 import { response } from './response';
 
-import { connectDB } from '../mongo';
 import { BadRequestError, InternalServerError, NotFoundError, UnauthorizedError } from '../error';
 
-export const controller = (
-  func: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
-  options?: {
-    skipDbConnection?: boolean;
-  }
-) => {
+export const controller = (func: (req: NextApiRequest, res: NextApiResponse) => Promise<void>) => {
   return async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      // Connect to MongoDB
-      if (!options?.skipDbConnection) {
-        const connected = await connectDB();
-        if (!connected) {
-          response(res, { status: 500, message: 'Database connection failed', error: 'Failed to connect to MongoDB' });
-          return;
-        }
-      }
-
       // The actual controller function
       await func(req, res);
     } catch (error) {

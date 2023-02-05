@@ -1,10 +1,6 @@
 import { Route, validate } from 'api-modules/utils';
 
-import {
-  GetThreadByIdInputSchema,
-  CreateThreadDiscussionCommentInputSchema,
-  CreateThreadDiscussionSubCommentInputSchema,
-} from './dto';
+import { GetThreadByIdInputSchema } from './dto';
 
 import ThreadController from './thread-controller';
 
@@ -21,6 +17,7 @@ export const threadRoutes: Route[] = [
     controller: ThreadController.getByUrlId,
     middlewares: [validate(GetThreadByIdInputSchema)],
   },
+  /*
   {
     route: '/api/threads/discussion-comment',
     method: 'POST',
@@ -33,4 +30,5 @@ export const threadRoutes: Route[] = [
     controller: ThreadController.createDiscussionSubComment,
     middlewares: [validate(CreateThreadDiscussionSubCommentInputSchema)],
   },
+  */
 ];

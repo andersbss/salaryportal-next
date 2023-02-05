@@ -1,29 +1,27 @@
-import { ThreadModel } from '../../threads/thread-model';
-
-import { ReportModel } from '../report-model';
+import { Prisma, Report } from '@prisma/client';
 
 import { CreateReportInput } from './report-input';
-import { ReportResponse } from './report-reponse';
-
-export const reportModelToReportResponse = (model: ReportModel, threadModels: ThreadModel[] = []): ReportResponse => {
+import { ReportResponse } from './report-response';
+const toResponse = (model: Report): ReportResponse => {
+  //TODO: Map more fields?
   return {
     id: model.id,
-    title: model.jobTitle,
-    addedToTheseThreads: threadModels.map((thread) => ({
-      id: thread.id,
-      urlId: thread.urlId,
-      title: thread.title,
-    })),
   };
 };
 
-export const reportInputToReportModel = (input: CreateReportInput): Omit<ReportModel, 'id'> => {
-  const { workFlow, ...rest } = input;
-
+const toCreateInput = (input: CreateReportInput): Prisma.ReportCreateInput => {
   // TODO: Fix workflow mapping
 
+  throw new Error('Not implemented');
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return {
-    ...rest,
-    workFlow: 'fulltime',
+    ...input,
   };
+};
+
+export default {
+  toResponse,
+  toCreateInput,
 };

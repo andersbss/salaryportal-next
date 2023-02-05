@@ -1,14 +1,6 @@
 import { NotFoundError } from 'api-modules/utils';
 
-import { ReportModel } from '../reports/report-model';
-
-import {
-  ThreadResponse,
-  threadModelToThreadResponse,
-  CreateThreadDiscussionCommentInput,
-  CreateThreadDiscussionSubCommentInput,
-} from './dto';
-import { ThreadModel } from './thread-model';
+import { threadMapper, ThreadResponse } from './dto';
 
 import ThreadRepository from './thread-repository';
 
@@ -21,7 +13,7 @@ const getThreadById = async (id: string): Promise<ThreadResponse> => {
     throw new NotFoundError(`Thread ${id} not found`);
   }
 
-  return threadModelToThreadResponse(thread);
+  return threadMapper.toResponse(thread);
 };
 
 const getByUrlId = async (urlId: string): Promise<ThreadResponse> => {
@@ -31,14 +23,15 @@ const getByUrlId = async (urlId: string): Promise<ThreadResponse> => {
     throw new NotFoundError(`Thread ${urlId} not found`);
   }
 
-  return threadModelToThreadResponse(thread);
+  return threadMapper.toResponse(thread);
 };
 
 // Internal functions
 
-/**
- * Creates or updates threads for a report based on the reports data
- */
+/*
+
+Creates or updates threads for a report based on the reports data
+
 const createOrUpdateMany = async (report: ReportModel): Promise<ThreadModel[]> => {
   // TODO: Check if thread already exists for the report
   // If it does, add it to the thread
@@ -50,48 +43,9 @@ const createOrUpdateMany = async (report: ReportModel): Promise<ThreadModel[]> =
 
   return [];
 };
-
-const createDiscussionComment = async (input: CreateThreadDiscussionCommentInput): Promise<ThreadResponse> => {
-  const thread = await ThreadRepository.findById(input.threadId);
-
-  if (!thread) {
-    throw new NotFoundError(`Thread ${input.threadId} not found`);
-  }
-
-  const updatedThread = await ThreadRepository.findOneAndCreateDiscussionComment(input.threadId, {
-    content: input.comment,
-    subComments: [],
-  });
-
-  if (!updatedThread) {
-    throw new NotFoundError(`Updated thread ${input.threadId} not found`);
-  }
-
-  return threadModelToThreadResponse(updatedThread);
-};
-
-const createDiscussionSubComment = async (input: CreateThreadDiscussionSubCommentInput): Promise<ThreadResponse> => {
-  const thread = await ThreadRepository.findById(input.threadId);
-
-  if (!thread) {
-    throw new NotFoundError(`Thread ${input.threadId} not found`);
-  }
-
-  const updatedThread = await ThreadRepository.findOneAndCreateDiscussionSubComment(input.threadId, input.commentId, {
-    content: input.comment,
-  });
-
-  if (!updatedThread) {
-    throw new NotFoundError(`Updated thread ${input.threadId} not found`);
-  }
-
-  return threadModelToThreadResponse(updatedThread);
-};
+*/
 
 export default {
   getThreadById,
   getByUrlId,
-  createOrUpdateMany,
-  createDiscussionComment,
-  createDiscussionSubComment,
 };

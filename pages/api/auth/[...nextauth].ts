@@ -1,17 +1,11 @@
 import NextAuth, { AuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
-import FacebookProvider from 'next-auth/providers/facebook';
 
-import { connectDB } from '@api/utils';
 import UserService from '@api/users';
 
 export const authOptions: AuthOptions = {
   // Configure one or more authentication providers
   providers: [
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_ID || '',
-      clientSecret: process.env.FACEBOOK_SECRET || '',
-    }),
     GithubProvider({
       clientId: process.env.GITHUB_ID || '',
       clientSecret: process.env.GITHUB_SECRET || '',
@@ -25,13 +19,9 @@ export const authOptions: AuthOptions = {
           throw new Error('Email or name is missing from the provider response');
         }
 
-        const dbConnected = await connectDB();
-
-        if (!dbConnected) {
-          return false;
-        }
-
         const existingUser = await UserService.getByProviderId(id, { internal: true });
+
+        console.log('existingUser', existingUser);
 
         if (!existingUser) {
           const newUser = await UserService.create({

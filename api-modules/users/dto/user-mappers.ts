@@ -1,23 +1,30 @@
-import { UserModel } from '../user-model';
+import { Prisma, User } from '@prisma/client';
+
 import { CreateUserInput, UpdateUserInput } from './user-input';
 import { UserResponse } from './user-response';
 
-export const userModelToUserResponse = (model: UserModel): UserResponse => {
+const toResponse = (model: User): UserResponse => {
   return {
     ...model,
   };
 };
 
-export const userCreateInputToUserModel = (input: CreateUserInput): Omit<UserModel, 'id'> => {
+const toModelCreateInput = (input: CreateUserInput): Prisma.UserCreateInput => {
   return {
     ...input,
   };
 };
 
-export const userUpdateInputToUserModel = (input: UpdateUserInput, providerId: string): Omit<UserModel, 'id'> => {
+const toModelUpdateInput = (input: UpdateUserInput, providerId: string): Prisma.UserUpdateInput => {
   const { ...rest } = input;
   return {
     ...rest,
     providerId,
   };
+};
+
+export default {
+  toResponse,
+  toModelCreateInput,
+  toModelUpdateInput,
 };

@@ -1,13 +1,6 @@
 import { NotFoundError } from 'api-modules/utils';
 
-import {
-  userModelToUserResponse,
-  userCreateInputToUserModel,
-  UserResponse,
-  CreateUserInput,
-  UpdateUserInput,
-  userUpdateInputToUserModel,
-} from './dto';
+import { userMapper, UserResponse, CreateUserInput, UpdateUserInput } from './dto';
 
 import UserRepository from './user-repository';
 
@@ -21,12 +14,12 @@ const getByProviderId = async (providerId: string, options?: { internal?: boolea
     throw new NotFoundError(`User with providerId ${providerId} not found`);
   }
 
-  return userModelToUserResponse(user);
+  return userMapper.toResponse(user);
 };
 
 const create = async (input: CreateUserInput): Promise<UserResponse> => {
-  const user = await UserRepository.create(userCreateInputToUserModel(input));
-  return userModelToUserResponse(user);
+  const user = await UserRepository.create(userMapper.toModelCreateInput(input));
+  return userMapper.toResponse(user);
 };
 
 const update = async (input: UpdateUserInput, options?: { internal?: boolean }): Promise<UserResponse | null> => {
@@ -41,14 +34,14 @@ const update = async (input: UpdateUserInput, options?: { internal?: boolean }):
 
   const updatedUser = await UserRepository.findOneAndUpdateById(
     input.id,
-    userUpdateInputToUserModel(input, user.providerId)
+    userMapper.toModelUpdateInput(input, user.providerId)
   );
 
   if (!updatedUser) {
     throw new NotFoundError(`User with id ${input.id} not found`);
   }
 
-  return userModelToUserResponse(updatedUser);
+  return userMapper.toResponse(updatedUser);
 };
 
 export default {

@@ -1,8 +1,6 @@
 import { NotFoundError } from 'api-modules/utils';
 
-import ThreadService from '../threads/thread-service';
-
-import { CreateReportInput, ReportResponse, reportInputToReportModel, reportModelToReportResponse } from './dto';
+import { reportMapper, CreateReportInput, ReportResponse } from './dto';
 
 import ReportRepository from './report-repository';
 
@@ -15,21 +13,18 @@ const getReportById = async (id: string): Promise<ReportResponse> => {
     throw new NotFoundError(`Report ${id} not found`);
   }
 
-  return reportModelToReportResponse(report);
+  return reportMapper.toResponse(report);
 };
 
 const createReport = async (input: CreateReportInput): Promise<ReportResponse> => {
-  const report = await ReportRepository.create(reportInputToReportModel(input));
+  const report = await ReportRepository.create(reportMapper.toCreateInput(input));
 
-  // Creating threads for the report, if existing threads are found, they will be updated
-  const threads = await ThreadService.createOrUpdateMany(report);
-
-  return reportModelToReportResponse(report, threads);
+  return reportMapper.toResponse(report);
 };
 
 const getAllReports = async (): Promise<ReportResponse[]> => {
   const reports = await ReportRepository.getAll();
-  return reports.map((report) => reportModelToReportResponse(report));
+  return reports.map((report) => reportMapper.toResponse(report));
 };
 
 const deleteReportById = async (id: string): Promise<ReportResponse> => {
@@ -39,7 +34,7 @@ const deleteReportById = async (id: string): Promise<ReportResponse> => {
     throw new NotFoundError(`Report ${id} not found`);
   }
 
-  return reportModelToReportResponse(report);
+  return reportMapper.toResponse(report);
 };
 
 // Internal functions

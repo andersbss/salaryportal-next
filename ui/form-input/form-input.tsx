@@ -30,7 +30,7 @@ const FormInput = <T extends FieldValues>({
   return (
     <div>
       {!!label && (
-        <label htmlFor={register.name} className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+        <label htmlFor={register.name} className="mb-1 block text-sm font-medium text-gray-900 dark:text-white">
           {label} {register?.required && <span className="text-slate-900 dark:text-white">*</span>}
         </label>
       )}
@@ -38,14 +38,14 @@ const FormInput = <T extends FieldValues>({
         <input
           {...register}
           id={register.name}
-          className={`${fullWidth ? 'w-full' : 'w-auto'} ${tooltip ? 'rounded-l-lg' : 'rounded-lg'} bg-gray-50 
-            border border-gray-300 focus:border-gray-500 dark:focus:border-gray-200 outline-none text-slate-900 text-sm block p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white`}
+          className={`${fullWidth ? 'w-full' : 'w-auto'} ${tooltip ? 'rounded-l-lg' : 'rounded-lg'} block 
+            border border-gray-300 bg-gray-50 p-2.5 text-sm text-slate-900 outline-none focus:border-gray-500 dark:border-gray-600 dark:bg-zinc-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-gray-200`}
           placeholder={placeholder}
         />
         {tooltip && (
           <button
             onClick={toggleTooltip}
-            className="inline-flex items-center px-2 text-sm text-gray-900 bg-gray-200 border-l-0 border-gray-300 rounded-r-lg dark:bg-gray-600 dark:text-gray-300 dark:border-gray-600 border"
+            className="inline-flex items-center rounded-r-lg border border-l-0 border-gray-300 bg-gray-200 px-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-300"
           >
             ?
           </button>

@@ -1,27 +1,34 @@
-import ReportModelSchema, { ReportModel } from './report-model';
+import { PrismaClient, Prisma } from '@prisma/client';
 
-const getById = async (id: string): Promise<ReportModel | null> => {
-  return ReportModelSchema.findById(id);
-};
+const prisma = new PrismaClient();
 
-const create = async (input: Omit<ReportModel, 'id'>): Promise<ReportModel> => {
-  const report = await ReportModelSchema.create<Omit<ReportModel, 'id'>>(input);
-
+const getById = async (id: string) => {
+  const report = await prisma.report.findUnique({
+    where: { id },
+  });
   return report;
 };
 
-const getAll = async (): Promise<ReportModel[]> => {
-  const reports = await ReportModelSchema.find();
+const create = async (input: Prisma.ReportCreateInput) => {
+  const report = await prisma.report.create({ data: input });
+  return report;
+};
+
+const getAll = async () => {
+  const reports = await prisma.report.findMany();
   return reports;
 };
 
-const deleteById = async (id: string): Promise<ReportModel | null> => {
-  const report = await ReportModelSchema.findByIdAndDelete(id);
-  return report;
+const deleteById = async (id: string) => {
+  const deleted = await prisma.report.delete({
+    where: { id },
+  });
+  return deleted;
 };
 
-const deleteAll = async (): Promise<void> => {
-  await ReportModelSchema.deleteMany();
+const deleteAll = async () => {
+  const deleted = await prisma.report.deleteMany();
+  return deleted;
 };
 
 export default {

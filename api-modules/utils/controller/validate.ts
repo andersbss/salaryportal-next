@@ -9,17 +9,14 @@ const formatErrorMessage = (error: Joi.ValidationError) => {
 };
 
 export const validate = (schema: Joi.Schema) =>
-  controller(
-    async (req: NextApiRequest) => {
-      try {
-        await schema.validateAsync(req.body, { abortEarly: false });
-      } catch (error) {
-        if (error instanceof Joi.ValidationError) {
-          // Stops the controller from running in router.ts
-          req.body = 'stop';
-          throw new BadRequestError(formatErrorMessage(error));
-        }
+  controller(async (req: NextApiRequest) => {
+    try {
+      await schema.validateAsync(req.body, { abortEarly: false });
+    } catch (error) {
+      if (error instanceof Joi.ValidationError) {
+        // Stops the controller from running in router.ts
+        req.body = 'stop';
+        throw new BadRequestError(formatErrorMessage(error));
       }
-    },
-    { skipDbConnection: true }
-  );
+    }
+  });
