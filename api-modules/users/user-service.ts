@@ -1,4 +1,4 @@
-import { NotFoundError } from 'api-modules/utils';
+import { NotFoundError } from '@api/utils';
 
 import { userMapper, UserResponse, CreateUserInput, UpdateUserInput } from './dto';
 

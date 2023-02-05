@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { ErrorLogService } from 'api-modules/error-logs';
+import { ErrorLogService } from '@api/error-logs';
 
 import { response } from './response';
 

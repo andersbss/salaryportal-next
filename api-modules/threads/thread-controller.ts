@@ -1,11 +1,6 @@
-import { controller, response } from 'api-modules/utils';
+import { controller, response } from '@api/utils';
 
-import {
-  CreateThreadDiscussionCommentInput,
-  CreateThreadDiscussionSubCommentInput,
-  GetThreadByIdInput,
-  GetThreadByUrlIdInput,
-} from './dto/thread-input';
+import { GetThreadByIdInput, GetThreadByUrlIdInput } from './dto/thread-input';
 
 import ThreadService from './thread-service';
 

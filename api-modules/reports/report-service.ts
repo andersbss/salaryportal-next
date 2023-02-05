@@ -1,4 +1,4 @@
-import { NotFoundError } from 'api-modules/utils';
+import { NotFoundError } from '@api/utils';
 
 import { reportMapper, CreateReportInput, ReportResponse } from './dto';
 
