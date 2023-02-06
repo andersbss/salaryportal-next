@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 
 import { FormInput } from '@ui/form-input';
 import { CtaButton } from '@ui/cta-button';
-import { FormAutocomplete } from '@ui/form-autocomplete';
+import { AutoCompleteOption, FormAutocomplete } from '@ui/form-autocomplete';
 
 import { NewReportFormInput } from './new-report-form-input';
 
@@ -12,9 +12,18 @@ export type NewReportFormProps = {
 };
 
 const NewReportForm = ({ onSubmit }: NewReportFormProps): JSX.Element => {
-  const { register, formState, handleSubmit, setValue, getValues } = useForm<NewReportFormInput>({ mode: 'onChange' });
+  const { register, formState, handleSubmit, setValue, getValues } = useForm<NewReportFormInput>({ mode: 'onTouched' });
 
-  const testOptions = ['it', 'bygg', 'test3', 'it', 'bygg', 'test3', 'it', 'bygg', 'test3', 'it', 'bygg', 'test3'];
+  const testOptions: AutoCompleteOption[] = [
+    { id: '1', label: 'Helse' },
+    { id: '2', label: 'IT' },
+    { id: '3', label: 'Bygg' },
+  ];
+
+  const handleFieldValues = (id: string, label: string) => {
+    setValue('fieldId', id, { shouldValidate: true });
+    setValue('field', label, { shouldValidate: true });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
@@ -36,27 +45,30 @@ const NewReportForm = ({ onSubmit }: NewReportFormProps): JSX.Element => {
           tooltip="Her kan du skrive inn din totale årslønn, før skatt. Eksempelvis: 500 000, 1 000 000, 2 000 000, etc. Dette er tallene du finner på lønnsslippet ditt. Vi holder alle tallene anonyme."
         />
         <FormAutocomplete
-          register={register('field', {
-            required: 'Felt er påkrevd',
-            validate: {
-              isOption: (value) => {
-                if (testOptions.includes(value)) return undefined;
-                return 'Velg en av alternativene';
-              },
-            },
-          })}
           options={testOptions}
           error={formState.errors.field}
-          onBlur={() => {
-            if (!testOptions.includes(getValues('field'))) setValue('field', '', { shouldValidate: true });
-          }}
-          onOptionClick={(value) => {
-            setValue('field', value, { shouldValidate: true });
-          }}
           fullWidth
           label="Fagområde"
           placeholder="Helse"
           tooltip='Dette er fagområdet du jobber i. Eksempelvis: "Helse", "IT", "Bygg", etc.'
+          register={register('field', {
+            required: 'Felt er påkrevd',
+            validate: {
+              isOption: (input) => {
+                const isOption = testOptions.some((o) => o.label === input);
+                if (isOption) return;
+                return 'Velg et av alternativene';
+              },
+            },
+          })}
+          onBlur={() => {
+            const isOption = testOptions.some((o) => o.label === getValues('field'));
+            if (isOption) return;
+            handleFieldValues('', '');
+          }}
+          onOptionClick={(value) => {
+            handleFieldValues(value.id, value.label);
+          }}
         />
       </div>
       <div className="mt-8 flex justify-center md:mt-12">

@@ -2,19 +2,27 @@ import { Modal } from '@ui/modal';
 import React, { useMemo, useState } from 'react';
 import { FieldError, FieldValues, Path, UseFormRegisterReturn } from 'react-hook-form';
 
-export type FormAutocompleteProps<T extends FieldValues> = {
-  options: string[];
+export type AutoCompleteOption<TObj = unknown> = {
+  id: string;
+  label: string;
+  value?: TObj;
+};
+
+export type FormAutocompleteProps<T extends FieldValues, TOptionObj> = {
+  options: AutoCompleteOption<TOptionObj>[];
   register: UseFormRegisterReturn<Path<T>>;
   fullWidth?: boolean;
   label?: string;
   placeholder?: string;
   error?: FieldError;
   tooltip?: string;
+  mode?: 'autocomplete' | 'select';
+
   onBlur?: () => void;
-  onOptionClick?: (option: string) => void;
+  onOptionClick?: (option: AutoCompleteOption<TOptionObj>) => void;
 };
 
-const FormAutocomplete = <T extends FieldValues>({
+const FormAutocomplete = <T extends FieldValues, TOptionObj>({
   options,
   register,
   fullWidth,
@@ -22,24 +30,29 @@ const FormAutocomplete = <T extends FieldValues>({
   placeholder,
   error,
   tooltip,
+  mode = 'autocomplete',
   onBlur = () => {},
   onOptionClick = () => {},
-}: FormAutocompleteProps<T>): JSX.Element => {
+}: FormAutocompleteProps<T, TOptionObj>): JSX.Element => {
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
-  const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
+  const [filteredOptions, setFilteredOptions] = useState<AutoCompleteOption<TOptionObj>[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
   const sortedOptions = useMemo(() => {
-    const sorted = filteredOptions.sort((a, b) => a.localeCompare(b));
-    return sorted;
+    return filteredOptions.sort((a, b) => a?.label?.localeCompare?.(b.label));
   }, [filteredOptions]);
 
   const filterOptions = (input: string) => {
-    if (!input) {
+    const shouldFilter = input && mode === 'autocomplete';
+
+    if (!shouldFilter) {
       setFilteredOptions(options);
-    } else {
-      setFilteredOptions(options.filter((option) => option.includes(input.toLocaleLowerCase())));
+      return;
+    }
+
+    if (shouldFilter) {
+      setFilteredOptions(options.filter((option) => option.label.toLowerCase().includes(input.toLocaleLowerCase())));
     }
   };
 
@@ -69,7 +82,7 @@ const FormAutocomplete = <T extends FieldValues>({
     filterOptions(input);
   };
 
-  const handleOptionClick = (option: string) => () => {
+  const handleOptionClick = (option: AutoCompleteOption<TOptionObj>) => () => {
     onOptionClick(option);
   };
 
@@ -95,6 +108,7 @@ const FormAutocomplete = <T extends FieldValues>({
           onBlur={handleBlur}
           onFocus={handleFocus}
           autoComplete="off"
+          readOnly={mode === 'select'}
         />
         <div
           className={`
@@ -112,7 +126,10 @@ const FormAutocomplete = <T extends FieldValues>({
         </div>
         {tooltip && (
           <button
-            onClick={toggleTooltip}
+            onClick={(e) => {
+              e.preventDefault();
+              toggleTooltip();
+            }}
             className="inline-flex items-center rounded-r-lg border border-l-0 border-gray-300 bg-gray-200 px-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-300"
           >
             ?
@@ -130,13 +147,13 @@ const FormAutocomplete = <T extends FieldValues>({
           <ul className="list-reset scrollbar- absolute mt-2 max-h-40 w-full overflow-auto rounded-md bg-gray-100 p-2 dark:bg-zinc-700 sm:max-h-60">
             {sortedOptions.map((option, index) => (
               <li
-                key={index}
+                key={option.id}
                 className={`${
                   index === 0 ? 'mt-0' : 'mt-1'
                 } cursor-pointer rounded-md border border-gray-300 bg-gray-200 p-1.5 text-sm text-gray-900 hover:border-gray-500 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-300 dark:hover:border-gray-200`}
                 onMouseDown={handleOptionClick(option)}
               >
-                {option}
+                {option.label}
               </li>
             ))}
             {!sortedOptions.length && (

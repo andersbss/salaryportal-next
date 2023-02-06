@@ -3,4 +3,5 @@ export type NewReportFormInput = {
   age: number;
   totalYearlySalary: number;
   field: string;
+  fieldId: string;
 };
