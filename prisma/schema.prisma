@@ -15,7 +15,7 @@ datasource db {
 //
 
 // Enums
-enum WorkPlace {
+enum WorkLocation {
   Remote
   Office
   Hybrid
@@ -28,14 +28,15 @@ enum WorkFlow {
   Substitute
   CallGuard
   Internship
-  Trainee
   Other
 }
 
-enum PaymentType {
+enum PaymentInterval {
   Hourly
   Monthly
   Yearly
+  Weekly
+  Daily
 }
 
 enum CompanySize {
@@ -44,47 +45,101 @@ enum CompanySize {
   Large
 }
 
+enum Sector {
+  Public
+  Private
+}
+
+enum EducationGrade {
+  PrimarySchool
+  HighSchool
+  CertificateOfApprenticeship
+  VocationalSchool
+  Bachelor
+  Master
+  PhD
+}
+
+enum Gender {
+  Male
+  Female
+  Other
+}
+
+enum AverageGrade {
+  A
+  B
+  C
+  D
+  E
+  F
+}
+
+type Degree {
+  name          String
+  graduateYear  Int
+  yearsInSchool Int
+  grade         EducationGrade
+
+  graduateSchool String?
+  averageGrade   AverageGrade?
+}
+
+type Education {
+  degrees Degree[]
+}
+
+type PersonalInformation {
+  age    Int
+  gender Gender
+  county String
+}
+
+type Job {
+  // Required
+  jobTitle                   String
+  field                      String
+  estimatedTotalYearlySalary Int
+  county                     String
+  tags                       String[]
+  years                      Int
+  workTimePercentage         Int
+  vacationDays               Int
+  workLocation               WorkLocation
+  workFlow                   WorkFlow
+  paymentInterval            PaymentInterval
+  sector                     Sector
+
+  // Optional
+  leadership           Boolean?
+  flextime             Boolean?
+  seniority            String?
+  hourlyWage           Int?
+  overtime             Boolean?
+  overTimePercentage   Int?
+  bonusPercentage      Int?
+  stockOptions         Boolean?
+  companySize          CompanySize?
+  otherCompenSations   String[]
+  otherBenefits        String[]
+  otherComments        String?
+  // Turnus
+  rotation             Boolean?
+  shiftWork            Boolean?
+  estimatedWeeklyHours Int?
+}
+
 // Main model
 model Report {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  // Required
-  jobTitle                    String
-  age                         Int
-  field                       String
-  totalYearlySalary           Int
-  county                      String
-  workPlace                   WorkPlace
-  degrees                     String[]
-  tags                        String[]
-  totalYearsExperienceInField Int
-  yearsInCurrentRole          Int
-  workTimePercentage          Int
-  vacationDays                Int
-  workFlow                    WorkFlow
-  paymentType                 PaymentType
+  personalInformation PersonalInformation
 
-  // Optional
-  leadershipExperienceYears Int?
-  graduateYear              Int?
-  graduateSchool            String?
-  city                      String?
-  flextime                  Boolean?
-  seniority                 String?
-  rotation                  Boolean?
-  hourlyWage                Int?
-  monthlySalary             Int?
-  yearlySalary              Int?
-  overtime                  Boolean?
-  overtimePercentage        Int?
-  bonus                     Boolean?
-  bonusPercentage           Int?
-  stockOptions              Boolean?
-  stockOptionsPercentage    Int?
-  companySize               CompanySize?
-  otherCompenSations        String[]
-  otherBenefits             String[]
-  otherComments             String?
+  education Education
+
+  currentJob Job
+
+  otherFieldExperiences String[]
 
   // Generated
   createdAt DateTime @default(now())

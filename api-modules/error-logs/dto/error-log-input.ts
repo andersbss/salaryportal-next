@@ -1,10 +1,7 @@
-import Joi from 'joi';
+import z from 'zod';
 
-export type ErrorLogInput = {
-  message: string;
-  stack: string;
-};
-export const ErrorLogInputSchema = Joi.object<ErrorLogInput>({
-  message: Joi.string().required(),
-  stack: Joi.string().required(),
+export const ErrorLogInputSchema = z.object({
+  message: z.string(),
+  stack: z.string(),
 });
+export type ErrorLogInput = z.infer<typeof ErrorLogInputSchema>;

@@ -1,35 +1,24 @@
-import Joi from 'joi';
+import z from 'zod';
 
-export type GetThreadByIdInput = {
-  id: string;
-};
-export const GetThreadByIdInputSchema = Joi.object({
-  id: Joi.string().required(),
+export const GetThreadByIdInputSchema = z.object({
+  id: z.string(),
 });
+export type GetThreadByIdInput = z.infer<typeof GetThreadByIdInputSchema>;
 
-export type GetThreadByUrlIdInput = {
-  urlId: string;
-};
-export const GetThreadByUrlIdInputSchema = Joi.object({
-  urlId: Joi.string().required(),
+export const GetThreadByUrlIdInputSchema = z.object({
+  urlId: z.string(),
 });
+export type GetThreadByUrlIdInput = z.infer<typeof GetThreadByUrlIdInputSchema>;
 
-export type CreateThreadDiscussionCommentInput = {
-  threadId: string;
-  comment: string;
-};
-export const CreateThreadDiscussionCommentInputSchema = Joi.object({
-  threadId: Joi.string().required(),
-  comment: Joi.string().required(),
+export const CreateThreadDiscussionCommentInputSchema = z.object({
+  threadId: z.string(),
+  content: z.string(),
 });
+export type CreateThreadDiscussionCommentInput = z.infer<typeof CreateThreadDiscussionCommentInputSchema>;
 
-export type CreateThreadDiscussionSubCommentInput = {
-  threadId: string;
-  commentId: string;
-  comment: string;
-};
-export const CreateThreadDiscussionSubCommentInputSchema = Joi.object({
-  threadId: Joi.string().required(),
-  commentId: Joi.string().required(),
-  comment: Joi.string().required(),
+export const CreateThreadDiscussionSubCommentInputSchema = z.object({
+  threadId: z.string(),
+  commentId: z.string(),
+  content: z.string(),
 });
+export type CreateThreadDiscussionSubCommentInput = z.infer<typeof CreateThreadDiscussionSubCommentInputSchema>;

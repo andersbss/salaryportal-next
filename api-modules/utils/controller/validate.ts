@@ -1,22 +1,42 @@
-import Joi from 'joi';
+import { AnyZodObject, ZodError } from 'zod';
 import { NextApiRequest } from 'next';
-import { BadRequestError } from '../error';
+import { BadRequestError, InternalServerError } from '../error';
 import { controller } from './controller';
 
-const formatErrorMessage = (error: Joi.ValidationError) => {
-  const message = error.details.map((detail) => detail.message).join(', ');
-  return message;
+const formatErrorMessages = (error: ZodError): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    try {
+      const errors = error.flatten()?.fieldErrors;
+      const keys = Object.keys(errors);
+
+      const formatted = keys
+        .map((key) => {
+          return `${key}: ${errors[key]?.map((error) => error).join(', ')}`;
+        })
+        .join(', ');
+
+      resolve(formatted);
+    } catch (error) {
+      reject(error);
+    }
+  });
 };
 
-export const validate = (schema: Joi.Schema) =>
+export const validate = (schema: AnyZodObject) =>
   controller(async (req: NextApiRequest) => {
     try {
-      await schema.validateAsync(req.body, { abortEarly: false });
+      const data = await schema.parseAsync(req.body);
+      req.body = data;
     } catch (error) {
-      if (error instanceof Joi.ValidationError) {
-        // Stops the controller from running in router.ts
-        req.body = 'stop';
-        throw new BadRequestError(formatErrorMessage(error));
+      // Stops the controller from running in router.ts
+      req.body = 'stop';
+
+      // Handle zod errors
+      if (error instanceof ZodError) {
+        throw new BadRequestError(await formatErrorMessages(error));
       }
+
+      // Something else went wrong
+      throw new InternalServerError('Something went wrong');
     }
   });

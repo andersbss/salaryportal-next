@@ -1,80 +1,105 @@
-import Joi from 'joi';
-import { Sector, WorkPlace } from '../constants';
+import z from 'zod';
+import {
+  Sector,
+  WorkLocation,
+  WorkFlow,
+  Gender,
+  AverageGrade,
+  EducationGrade,
+  PaymentInterval,
+  CompanySize,
+} from '@prisma/client';
+
+export const CreateReportInputSchema = z.object({
+  personalInformation: z.object({
+    // Required
+    age: z.number(),
+    gender: z.enum([Gender.Male, Gender.Female, Gender.Other]),
+    county: z.string(),
+  }),
+
+  education: z.object({
+    // Required
+    degrees: z.array(
+      z.object({
+        // Required
+        name: z.string(),
+        graduateYear: z.number(),
+        yearsInSchool: z.number(),
+        grade: z.enum([
+          EducationGrade.PrimarySchool,
+          EducationGrade.HighSchool,
+          EducationGrade.CertificateOfApprenticeship,
+          EducationGrade.VocationalSchool,
+          EducationGrade.Bachelor,
+          EducationGrade.Master,
+          EducationGrade.PhD,
+        ]),
+
+        // Optional
+        graduateSchool: z.string().nullable(),
+        averageGrade: z
+          .enum([AverageGrade.A, AverageGrade.B, AverageGrade.C, AverageGrade.D, AverageGrade.E, AverageGrade.F])
+          .nullable(),
+      })
+    ),
+  }),
+
+  currentJob: z.object({
+    // Required
+    jobTitle: z.string(),
+    field: z.string(),
+    estimatedTotalYearlySalary: z.number(),
+    county: z.string(),
+    tags: z.array(z.string()),
+    years: z.number(),
+    workTimePercentage: z.number(),
+    vacationDays: z.number(),
+    workLocation: z.enum([WorkLocation.Remote, WorkLocation.Office, WorkLocation.Hybrid]),
+    workFlow: z.enum([
+      WorkFlow.CallGuard,
+      WorkFlow.FullTime,
+      WorkFlow.PartTime,
+      WorkFlow.Freelance,
+      WorkFlow.Substitute,
+      WorkFlow.Internship,
+    ]),
+    paymentInterval: z.enum([
+      PaymentInterval.Monthly,
+      PaymentInterval.Yearly,
+      PaymentInterval.Hourly,
+      PaymentInterval.Weekly,
+      PaymentInterval.Daily,
+    ]),
+    sector: z.enum([Sector.Private, Sector.Public]),
+
+    // Optional
+    leadership: z.boolean().nullable(),
+    flexTime: z.boolean().nullable(),
+    seniority: z.string().nullable(),
+    hourlyWage: z.string().nullable(),
+    overtime: z.boolean().nullable(),
+    overTimePercentage: z.number().nullable(),
+    bonusPercentage: z.number().nullable(),
+    stockOptions: z.boolean().nullable(),
+    companySize: z.enum([CompanySize.Small, CompanySize.Medium, CompanySize.Large]).nullable(),
+    rotation: z.boolean().nullable(),
+    shiftWork: z.boolean().nullable(),
+    estimatedWeeklyHours: z.number().nullable(),
+    otherCompensation: z.array(z.string()).nullable(),
+    otherBenefits: z.array(z.string()).nullable(),
+    otherComments: z.string().nullable(),
+  }),
+});
+export type CreateReportInput = z.infer<typeof CreateReportInputSchema>;
 
 // Get by id
-export type GetReportByIdInput = {
-  id: string;
-};
-export const GetReportByIdInputSchema = Joi.object({
-  id: Joi.string().required(),
+export const GetReportByIdInputSchema = z.object({
+  id: z.string(),
 });
+export type GetReportByIdInput = z.infer<typeof GetReportByIdInputSchema>;
 
-// Create
-export type CreateReportInput = {
-  // Required
-  jobTitle: string;
-  age: number;
-  field: string;
-  sector: Sector;
-  totalYearlySalary: number;
-  county: string;
-  workPlace: WorkPlace;
-  degrees: string[];
-  tags: string[];
-  totalYearsExperienceInField: number;
-  yearsInCurrentRole: number;
-  workTimePercent: number;
-  vacationDays: number;
-  workFlow: string;
-
-  // Optional
-  leaderShipPosition: boolean | null;
-  graduateYear: number | null;
-  graduateSchool: string | null;
-  city: string | null;
-  flextime: boolean | null;
-  seniority: string | null;
-  hourlyWage: string | null;
-  overtimePercentage: number | null;
-  benefits: string[] | null;
-  otherCompensation: string[] | null;
-  otherComments: string | null;
-};
-export const CreateReportInputSchema = Joi.object<CreateReportInput>({
-  // Required
-  jobTitle: Joi.string().required(),
-  age: Joi.number().required(),
-  field: Joi.string().required(),
-  sector: Joi.string().required(),
-  totalYearlySalary: Joi.number().required(),
-  county: Joi.string().required(),
-  workPlace: Joi.string().required(),
-  degrees: Joi.array().items(Joi.string()).required(),
-  tags: Joi.array().items(Joi.string()).required(),
-  totalYearsExperienceInField: Joi.number().required(),
-  yearsInCurrentRole: Joi.number().required(),
-  workTimePercent: Joi.number().required(),
-  vacationDays: Joi.number().required(),
-  workFlow: Joi.string().required(),
-
-  // Optional
-  leaderShipPosition: Joi.boolean().allow(null).required(),
-  graduateYear: Joi.number().allow(null).required(),
-  graduateSchool: Joi.string().allow(null).required(),
-  city: Joi.string().allow(null).required(),
-  flextime: Joi.boolean().allow(null).required(),
-  seniority: Joi.string().allow(null).required(),
-  hourlyWage: Joi.string().allow(null).required(),
-  overtimePercentage: Joi.number().allow(null).required(),
-  benefits: Joi.array().items(Joi.string()).allow(null).required(),
-  otherCompensation: Joi.array().items(Joi.string()).allow(null).required(),
-  otherComments: Joi.string().allow(null).required(),
+export const DeleteReportInputSchema = z.object({
+  id: z.string(),
 });
-
-// Delete
-export type DeleteReportInput = {
-  id: string;
-};
-export const DeleteReportInputSchema = Joi.object<DeleteReportInput>({
-  id: Joi.string().required(),
-});
+export type DeleteReportInput = z.infer<typeof DeleteReportInputSchema>;
