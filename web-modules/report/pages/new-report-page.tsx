@@ -20,8 +20,6 @@ const NewReportPage: NextPage = () => {
     console.log(input);
   }, []);
 
-  //TODO: Investigate data fetching with Next 13 and react-query
-
   return (
     <>
       {step === 0 && <PersonalInfoForm onSubmit={handlePersonalInfoSubmit} />}

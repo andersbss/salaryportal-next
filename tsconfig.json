@@ -22,6 +22,7 @@
       "@api/threads": ["api-modules/threads/index.ts"],
       "@api/users": ["api-modules/users/index.ts"],
       "@api/error-logs": ["api-modules/error-logs/index.ts"],
+      "@api/third-party/kartverket": ["api-modules/third-party/kartverket/index.ts"],
       "@api/utils": ["api-modules/utils/index.ts"],
       "@api/reports/dto": ["api-modules/reports/dto/index.ts"],
       "@web/home": ["./web-modules/home/index.ts"],

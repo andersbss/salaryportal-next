@@ -74,6 +74,33 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
               handleGenderValues(value.value || null, value.label);
             }}
           />
+          <FormAutocomplete
+            options={genderOptions}
+            error={formState.errors.gender}
+            label="I hvilket fylke bor du?"
+            tooltip="Her må du velge fylke. Eksempelvis: Oslo, Akershus, etc."
+            mode="select"
+            fullWidth
+            placeholder="Oslo"
+            register={register('county', {
+              required: 'Felt er påkrevd',
+              validate: {
+                isOption: (input) => {
+                  const isOption = genderOptions.some((o) => o.label === input);
+                  if (isOption) return;
+                  return 'Velg et av alternativene';
+                },
+              },
+            })}
+            onBlur={() => {
+              const isOption = genderOptions.some((o) => o.label === getValues('gender'));
+              if (isOption) return;
+              handleGenderValues(null, '');
+            }}
+            onOptionClick={(value) => {
+              handleGenderValues(value.value || null, value.label);
+            }}
+          />
         </div>
       </form>
     </div>
