@@ -64,7 +64,7 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
       <form onSubmit={handleSubmit(onSubmit)} className="mt-4 flex flex-col">
         <div className="grid max-w-screen-lg grid-cols-1 gap-4 md:grid-cols-2">
           <FormInput
-            label="Alderen din"
+            label="Hvor gammel er du?"
             placeholder="31"
             fullWidth
             error={formState.errors.age}
@@ -75,7 +75,7 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
           <FormAutocomplete
             options={genderOptions}
             error={formState.errors.gender}
-            label="Kjønn"
+            label="Hvilket kjønn har du?"
             tooltip="Her kan du velge kjønn. Eksempelvis: Mann, Kvinne, etc."
             mode="select"
             fullWidth
