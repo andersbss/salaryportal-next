@@ -144,7 +144,7 @@ const FormAutocomplete = <T extends FieldValues, TOptionObj>({
       )}
       {isOpen && (
         <>
-          <ul className="list-reset scrollbar- absolute mt-2 max-h-40 w-full overflow-auto rounded-md bg-gray-100 p-2 dark:bg-zinc-700 sm:max-h-60">
+          <ul className="list-reset scrollbar- absolute z-10 mt-2 max-h-40 w-full overflow-auto rounded-md bg-gray-100 p-2 dark:bg-zinc-700 sm:max-h-60">
             {sortedOptions.map((option, index) => (
               <li
                 key={option.id}
