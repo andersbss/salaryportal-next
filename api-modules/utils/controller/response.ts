@@ -7,13 +7,13 @@ export interface Response<TResponse> {
   error?: string | null;
 }
 
-export const response = <TResponse>(res: NextApiResponse, reponse: Response<TResponse>) => {
+export const response = <TResponse>(res: NextApiResponse, response: Response<TResponse>) => {
   const json: Response<TResponse | null> = {
-    status: reponse.status,
-    data: reponse.data || null,
-    message: reponse.message || null,
-    error: reponse.error || null,
+    status: response.status,
+    data: response.data || null,
+    message: response.message || null,
+    error: response.error || null,
   };
 
-  res.status(reponse.status).json(json);
+  res.status(response.status).json(json);
 };

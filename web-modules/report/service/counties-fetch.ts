@@ -1,11 +1,8 @@
-const ROOT = 'http://localhost:3000/api/third-party/kartverket';
+import { apiFetch } from '@web/utils';
 
-import { KartverketCountiesResponse } from '@api/third-party/kartverket/dto';
+import { KartverketCountiesResponse } from '@api/third-party/kartverket/client';
 
-export const getAllCounties = async (): Promise<KartverketCountiesResponse> => {
-  const url = `${ROOT}/counties`;
+const BASE_URL = '/third-party/kartverket';
 
-  const response = await fetch(url);
-  //TODO: Handle error
-  return response.json();
-};
+export const getAllCounties = async (): Promise<KartverketCountiesResponse> => apiFetch(`${BASE_URL}/counties`);
+export type GetAllCountiesReturn = Awaited<ReturnType<typeof getAllCounties>>;

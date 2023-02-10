@@ -6,9 +6,9 @@ import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { PersonalInfoFormInput } from './personal-info-form-input';
 
-import { Gender } from '@api/reports/dto';
+import { Gender } from '@api/reports/client';
 import { useQuery } from '@tanstack/react-query';
-import { getAllCounties } from '../../service';
+import { getAllCounties, GetAllCountiesReturn } from '../../service';
 
 export type PersonalInfoFormProps = {
   onSubmit: (input: PersonalInfoFormInput) => void;
@@ -19,9 +19,23 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
     mode: 'onTouched',
   });
 
-  const { data } = useQuery(['counties'], getAllCounties);
+  const {
+    data: countiesData,
+    isLoading: countiesIsLoading,
+    error,
+  } = useQuery<GetAllCountiesReturn, Error>(['counties'], getAllCounties);
 
-  console.log(data);
+  const countyOptions = useMemo<AutoCompleteOption[]>(() => {
+    if (!countiesData) return [];
+
+    return countiesData.map((county) => {
+      return {
+        id: county.id,
+        label: county.name,
+        value: county.name,
+      };
+    });
+  }, [countiesData]);
 
   const genderOptions = useMemo<AutoCompleteOption<Gender>[]>(() => {
     return Object.values(Gender).map((gender) => {
@@ -36,6 +50,11 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
   const handleGenderValues = (id: Gender | null, label: string) => {
     setValue('genderId', id, { shouldValidate: true });
     setValue('gender', label, { shouldValidate: true });
+  };
+
+  const handleCountyValues = (id: string, label: string) => {
+    setValue('countyId', id, { shouldValidate: true });
+    setValue('county', label, { shouldValidate: true });
   };
 
   return (
@@ -81,30 +100,29 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
             }}
           />
           <FormAutocomplete
-            options={genderOptions}
-            error={formState.errors.gender}
+            options={countyOptions}
+            error={formState.errors.county}
             label="I hvilket fylke bor du?"
             tooltip="Her må du velge fylke. Eksempelvis: Oslo, Akershus, etc."
-            mode="select"
             fullWidth
             placeholder="Oslo"
             register={register('county', {
               required: 'Felt er påkrevd',
               validate: {
                 isOption: (input) => {
-                  const isOption = genderOptions.some((o) => o.label === input);
+                  const isOption = countyOptions.some((o) => o.label === input);
                   if (isOption) return;
                   return 'Velg et av alternativene';
                 },
               },
             })}
             onBlur={() => {
-              const isOption = genderOptions.some((o) => o.label === getValues('gender'));
+              const isOption = countyOptions.some((o) => o.label === getValues('county'));
               if (isOption) return;
-              handleGenderValues(null, '');
+              handleCountyValues('', '');
             }}
-            onOptionClick={(value) => {
-              handleGenderValues(value.value || null, value.label);
+            onOptionClick={({ id, label }) => {
+              handleCountyValues(id, label);
             }}
           />
         </div>
