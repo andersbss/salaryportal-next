@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import { PersonalInfoFormInput } from './personal-info-form-input';
 
 import { Gender } from '@api/reports/dto';
+import { useQuery } from '@tanstack/react-query';
+import { getAllCounties } from '../../service';
 
 export type PersonalInfoFormProps = {
   onSubmit: (input: PersonalInfoFormInput) => void;
@@ -16,6 +18,10 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
   const { register, formState, handleSubmit, setValue, getValues } = useForm<PersonalInfoFormInput>({
     mode: 'onTouched',
   });
+
+  const { data } = useQuery(['counties'], getAllCounties);
+
+  console.log(data);
 
   const genderOptions = useMemo<AutoCompleteOption<Gender>[]>(() => {
     return Object.values(Gender).map((gender) => {
