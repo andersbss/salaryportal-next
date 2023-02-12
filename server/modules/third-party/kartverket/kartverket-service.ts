@@ -1,4 +1,4 @@
-import { InternalServerError } from '@api/utils';
+import { InternalServerError } from '@server/utils';
 
 import { KartverketCountiesResponse, GetKartverketCountiesInputSchema, kartverketMapper } from './dto';
 

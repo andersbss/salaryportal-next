@@ -1,6 +1,6 @@
 import '../client/globals/styles/globals.css';
 
-import { DefaultLayout } from '@globals';
+import { DefaultLayout } from '@client/globals';
 import GlobalProvider from './providers';
 
 type RootLayoutProps = {

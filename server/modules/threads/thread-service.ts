@@ -1,4 +1,4 @@
-import { NotFoundError } from '@api/utils';
+import { NotFoundError } from '@server/utils';
 
 import { threadMapper, ThreadResponse } from './dto';
 

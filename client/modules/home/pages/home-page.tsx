@@ -1,10 +1,10 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 
-import { routes } from '@globals/routes';
+import { routes } from '@client/globals/routes';
 
 import { ScrollTitle } from '../components';
-import { CtaButton } from '@ui/cta-button';
+import { CtaButton } from '@client/ui/cta-button';
 
 // Fetch job titles from API
 const jobTitles = ['sosionom', 'lærer', 'snekker', 'sekretærer', 'sosionom'];

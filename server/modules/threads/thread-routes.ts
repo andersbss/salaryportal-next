@@ -1,4 +1,4 @@
-import { Route, validate } from '@api/utils';
+import { Route, validate } from '@server/utils';
 
 import { GetThreadByIdInputSchema } from './dto';
 

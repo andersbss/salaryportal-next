@@ -1,4 +1,4 @@
-import { controller, response } from '@api/utils';
+import { controller, response } from '@server/utils';
 
 import { GetThreadByIdInput, GetThreadByUrlIdInput } from './dto/thread-input';
 

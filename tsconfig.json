@@ -16,30 +16,28 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@globals/*": ["./client/globals/*"],
+      "@client/globals/*": ["./client/globals/*"],
+      "@client/ui/*": ["./client/ui/*"],
 
-      "@ui/*": ["./client/ui/*"],
+      "@client/utils": ["./client/utils/index.ts"],
+      "@client/utils/*": ["./client/utils/*"],
+      "@client/trpc": ["./client/trpc/index.ts"],
 
-      "@api/utils": ["./server/utils/index.ts"],
-      "@api/utils/*": ["./server/utils/*"],
+      "@client/modules/home": ["./client/modules/home/index.ts"],
+      "@client/modules/report": ["./client/modules/report/index.ts"],
+      "@client/modules/thread": ["./client/modules/thread/index.ts"],
 
-      "@api/reports": ["./server/modules/reports/index.ts"],
-      "@api/threads": ["./server/modules/threads/index.ts"],
-      "@api/users": ["./server/modules/users/index.ts"],
-      "@api/error-logs": ["./server/modules/error-logs/index.ts"],
+      "@server/utils": ["./server/utils/index.ts"],
+      "@server/utils/*": ["./server/utils/*"],
 
-      "@api/third-party/kartverket": ["./server/modules/third-party/kartverket/index.ts"],
+      "@server/modules/reports": ["./server/modules/reports/index.ts"],
+      "@server/modules/threads": ["./server/modules/threads/index.ts"],
+      "@server/modules/users": ["./server/modules/users/index.ts"],
+      "@server/modules/error-logs": ["./server/modules/error-logs/index.ts"],
+
+      "@server/modules/third-party/kartverket": ["./server/modules/third-party/kartverket/index.ts"],
 
       "@server/trpc/*": ["./server/trpc/*"],
-
-      "@web/utils": ["./client/utils/index.ts"],
-      "@web/utils/*": ["./client/utils/*"],
-
-      "@web/home": ["./client/modules/home/index.ts"],
-      "@web/report": ["./client/modules/report/index.ts"],
-      "@web/thread": ["./client/modules/thread/index.ts"],
-
-      "@client/trpc": ["./client/trpc/index.ts"],
 
       "@shared/utils/*": ["./shared/utils/*"]
     },

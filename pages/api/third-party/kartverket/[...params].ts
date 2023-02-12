@@ -1,5 +1,5 @@
-import { router } from '@api/utils';
+import { router } from '@server/utils';
 
-import { kartverketRoutes } from '@api/third-party/kartverket';
+import { kartverketRoutes } from '@server/modules/third-party/kartverket';
 
 export default router(kartverketRoutes);

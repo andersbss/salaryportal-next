@@ -1,6 +1,6 @@
 'use client';
 
-import { Modal } from '@ui/modal';
+import { Modal } from '@client/ui/modal';
 import { useState } from 'react';
 import { FieldError, FieldValues, Path, UseFormRegisterReturn } from 'react-hook-form';
 

@@ -1,4 +1,4 @@
-import { ThreadPage, generateStaticThreadParams } from '@web/thread';
+import { ThreadPage, generateStaticThreadParams } from '@client/modules/thread';
 
 export const generateStaticParams = generateStaticThreadParams;
 

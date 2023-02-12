@@ -1,5 +1,5 @@
-import { AutoCompleteOption, FormAutocomplete } from '@ui/form-autocomplete';
-import { FormInput } from '@ui/form-input';
+import { AutoCompleteOption, FormAutocomplete } from '@client/ui/form-autocomplete';
+import { FormInput } from '@client/ui/form-input';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { PersonalInfoFormInput } from './personal-info-form-input';

@@ -1,9 +1,9 @@
 'use client';
 import { useForm } from 'react-hook-form';
 
-import { FormInput } from '@ui/form-input';
-import { CtaButton } from '@ui/cta-button';
-import { AutoCompleteOption, FormAutocomplete } from '@ui/form-autocomplete';
+import { FormInput } from '@client/ui/form-input';
+import { CtaButton } from '@client/ui/cta-button';
+import { AutoCompleteOption, FormAutocomplete } from '@client/ui/form-autocomplete';
 
 import { NewReportFormInput } from './new-report-form-input';
 

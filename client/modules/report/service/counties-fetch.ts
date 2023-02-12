@@ -1,6 +1,6 @@
-import { apiFetch } from '@web/utils';
+import { apiFetch } from '@client/utils';
 
-import { KartverketCountiesResponse } from '@api/third-party/kartverket/client';
+import { KartverketCountiesResponse } from '@server/modules/third-party/kartverket/client';
 
 const BASE_URL = '/third-party/kartverket';
 

@@ -3,7 +3,7 @@
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { SessionProvider } from 'next-auth/react';
 
-import { trpc } from '@web/utils/trpc';
+import { trpc } from '@client/utils/trpc';
 
 type GlobalProviderProps = {
   children: React.ReactNode;

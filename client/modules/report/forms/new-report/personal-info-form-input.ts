@@ -1,4 +1,4 @@
-import { Gender } from '@api/reports/client';
+import { Gender } from '@server/modules/reports/client';
 
 export type PersonalInfoFormInput = {
   age: number | null;

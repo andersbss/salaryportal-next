@@ -1,4 +1,4 @@
-import { router } from '@api/utils';
-import { reportRoutes } from '@api/reports';
+import { router } from '@server/utils';
+import { reportRoutes } from '@server/modules/reports';
 
 export default router(reportRoutes);

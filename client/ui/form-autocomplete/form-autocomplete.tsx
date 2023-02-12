@@ -1,4 +1,4 @@
-import { Modal } from '@ui/modal';
+import { Modal } from '@client/ui/modal';
 import React, { useMemo, useState } from 'react';
 import { FieldError, FieldValues, Path, UseFormRegisterReturn } from 'react-hook-form';
 

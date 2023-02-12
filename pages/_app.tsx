@@ -2,7 +2,7 @@ import '../client/globals/styles/globals.css';
 
 import { AppProps } from 'next/app';
 
-import { DefaultLayout } from '@globals/layouts';
+import { DefaultLayout } from '@client/globals/layouts';
 import { trpc } from '@client/trpc';
 
 import GlobalProvider from './providers';

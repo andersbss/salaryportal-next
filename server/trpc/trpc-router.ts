@@ -1,9 +1,9 @@
 import { Gender } from '@prisma/client';
 import { z } from 'zod';
 
-import { kartverketService } from '@api/third-party/kartverket';
+import { kartverketService } from '@server/modules/third-party/kartverket';
 
-import { CreateReportInputSchema, reportService } from '@api/reports';
+import { CreateReportInputSchema, reportService } from '@server/modules/reports';
 
 import { procedure as p, router as r } from './trpc';
 
