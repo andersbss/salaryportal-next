@@ -2,15 +2,19 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { routes } from '@globals';
+import { routes } from '@globals/routes';
 
 import { ScrollTitle } from '../components';
 import { CtaButton } from '@ui/cta-button';
+
+import { trpc } from '@client/trpc';
 
 // Fetch job titles from API
 const jobTitles = ['sosionom', 'lærer', 'snekker', 'sekretærer', 'sosionom'];
 
 export const HomePage: NextPage = () => {
+  const { data } = trpc.hello.useQuery({ text: 'client' });
+
   return (
     <>
       <section className="flex flex-col py-5 sm:py-20">

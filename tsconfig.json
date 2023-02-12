@@ -16,11 +16,12 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@globals": ["./client/globals/index.ts"],
+      "@globals/*": ["./client/globals/*"],
 
       "@ui/*": ["./client/ui/*"],
 
       "@api/utils": ["./server/utils/index.ts"],
+      "@api/utils/*": ["./server/utils/*"],
 
       "@api/reports": ["./server/modules/reports/index.ts"],
       "@api/threads": ["./server/modules/threads/index.ts"],
@@ -29,11 +30,18 @@
 
       "@api/third-party/kartverket": ["./server/modules/third-party/kartverket/index.ts"],
 
+      "@server/trpc/*": ["./server/trpc/*"],
+
       "@web/utils": ["./client/utils/index.ts"],
+      "@web/utils/*": ["./client/utils/*"],
 
       "@web/home": ["./client/modules/home/index.ts"],
       "@web/report": ["./client/modules/report/index.ts"],
-      "@web/thread": ["./client/modules/thread/index.ts"]
+      "@web/thread": ["./client/modules/thread/index.ts"],
+
+      "@client/trpc": ["./client/trpc/index.ts"],
+
+      "@shared/utils/*": ["./shared/utils/*"]
     },
     "plugins": [
       {

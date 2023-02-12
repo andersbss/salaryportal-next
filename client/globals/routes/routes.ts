@@ -1,4 +1,4 @@
-export const routes = {
+const routes = {
   home: () => '/',
   reports: {
     new: () => '/reports/new',
