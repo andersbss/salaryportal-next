@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./ui/**/*.tsx', './web-modules/**/**/**/*.tsx', './web-globals/**/**/*.tsx'],
+  content: ['./client/ui/**/*.tsx', './client/modules/**/**/**/*.tsx', './client/globals/**/**/*.tsx'],
   theme: {},
   plugins: [],
   darkMode: 'media',

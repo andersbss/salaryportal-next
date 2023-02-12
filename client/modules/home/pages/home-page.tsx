@@ -13,12 +13,12 @@ const jobTitles = ['sosionom', 'lærer', 'snekker', 'sekretærer', 'sosionom'];
 export const HomePage: NextPage = () => {
   return (
     <>
-      <section className="py-5 sm:py-20 flex flex-col">
+      <section className="flex flex-col py-5 sm:py-20">
         <div className="flex items-center justify-center">
-          <div className="flex flex-col items-center justify-center column">
+          <div className="column flex flex-col items-center justify-center">
             <div>
               <ScrollTitle jobTitles={jobTitles} />
-              <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-lg max-w-xl mt-2">
+              <p className="mt-2 max-w-xl text-sm text-gray-500 dark:text-gray-400 sm:text-lg">
                 Åpenhet og diskusjon rundt lønn i Norge! Her kan du diskutere lønn, goder og andre forhold i
                 arbeidslivet.
               </p>
@@ -26,11 +26,11 @@ export const HomePage: NextPage = () => {
           </div>
           <Image className="hidden md:block" src="/money.png" alt="" width={280} height={280} priority />
         </div>
-        <div className="flex justify-center mt-16 mb-16 md:mt-4 md:mb-4">
+        <div className="mt-16 mb-16 flex justify-center md:mt-4 md:mb-4">
           <CtaButton action={routes.reports.new()}>Oppgi lønn anonymt her!</CtaButton>
         </div>
         <div className="flex justify-center">
-          <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-lg max-w-xl">
+          <p className="max-w-xl text-sm text-gray-500 dark:text-gray-400 sm:text-lg">
             Vi trenger din hjelp for å skape bedre lønnsforhold i Norge! Du er selvfølgelig helt anonym.
           </p>
         </div>

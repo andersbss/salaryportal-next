@@ -9,8 +9,8 @@
     "lint": "next lint",
     "cy:open": "cypress open",
     "cy:run": "cypress run --component",
-    "prisma:generate": "prisma generate",
-    "prisma:push": "prisma db push"
+    "prisma:generate": "prisma generate --schema ./server/prisma/schema.prisma",
+    "prisma:push": "prisma db push --schema ./server/prisma/schema.prisma"
   },
   "dependencies": {
     "@next/font": "^13.1.5",

@@ -6,7 +6,6 @@ import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { PersonalInfoFormInput } from './personal-info-form-input';
 
-import { Gender } from '@api/reports/client';
 import { useQuery } from '@tanstack/react-query';
 import { getAllCounties, GetAllCountiesReturn } from '../../service';
 
@@ -26,8 +25,9 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
   } = useQuery<GetAllCountiesReturn, Error>(['counties'], getAllCounties);
 
   const countyOptions = useMemo<AutoCompleteOption[]>(() => {
-    if (!countiesData) return [];
+    return [];
 
+    /*
     return countiesData.map((county) => {
       return {
         id: county.id,
@@ -35,9 +35,12 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
         value: county.name,
       };
     });
+    */
   }, [countiesData]);
 
-  const genderOptions = useMemo<AutoCompleteOption<Gender>[]>(() => {
+  const genderOptions = useMemo<AutoCompleteOption<unknown>[]>(() => {
+    return [];
+    /*
     return Object.values(Gender).map((gender) => {
       return {
         id: gender,
@@ -45,9 +48,10 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
         value: gender,
       };
     });
+    */
   }, []);
 
-  const handleGenderValues = (id: Gender | null, label: string) => {
+  const handleGenderValues = (id: unknown | null, label: string) => {
     setValue('genderId', id, { shouldValidate: true });
     setValue('gender', label, { shouldValidate: true });
   };

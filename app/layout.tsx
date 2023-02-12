@@ -1,4 +1,4 @@
-import '../web-globals/styles/globals.css';
+import '../client/globals/styles/globals.css';
 
 import { DefaultLayout } from '@globals';
 import GlobalProvider from './providers';
