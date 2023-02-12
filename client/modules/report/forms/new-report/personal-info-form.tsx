@@ -1,13 +1,10 @@
-'use client';
-
 import { AutoCompleteOption, FormAutocomplete } from '@ui/form-autocomplete';
 import { FormInput } from '@ui/form-input';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { PersonalInfoFormInput } from './personal-info-form-input';
 
-import { useQuery } from '@tanstack/react-query';
-import { getAllCounties, GetAllCountiesReturn } from '../../service';
+import { trpc, AppRouter } from '@client/trpc';
 
 export type PersonalInfoFormProps = {
   onSubmit: (input: PersonalInfoFormInput) => void;
@@ -18,16 +15,13 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
     mode: 'onTouched',
   });
 
-  const {
-    data: countiesData,
-    isLoading: countiesIsLoading,
-    error,
-  } = useQuery<GetAllCountiesReturn, Error>(['counties'], getAllCounties);
+  const { data: countiesData } = trpc.thirdParty.kartverket.counties.useQuery();
+
+  const { data: gendersData } = trpc.enums.genders.useQuery();
 
   const countyOptions = useMemo<AutoCompleteOption[]>(() => {
-    return [];
+    if (!countiesData) return [];
 
-    /*
     return countiesData.map((county) => {
       return {
         id: county.id,
@@ -35,21 +29,19 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
         value: county.name,
       };
     });
-    */
   }, [countiesData]);
 
-  const genderOptions = useMemo<AutoCompleteOption<unknown>[]>(() => {
-    return [];
-    /*
-    return Object.values(Gender).map((gender) => {
+  const genderOptions = useMemo<AutoCompleteOption[]>(() => {
+    if (!gendersData) return [];
+
+    return Object.values(gendersData).map((gender) => {
       return {
         id: gender,
         label: gender.toString(),
         value: gender,
       };
     });
-    */
-  }, []);
+  }, [gendersData]);
 
   const handleGenderValues = (id: unknown | null, label: string) => {
     setValue('genderId', id, { shouldValidate: true });

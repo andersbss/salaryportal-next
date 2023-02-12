@@ -10,16 +10,6 @@ import {
   CompanySize,
 } from '@prisma/client';
 
-// Re export prisma enums
-export { Sector } from '@prisma/client';
-export { WorkLocation } from '@prisma/client';
-export { WorkFlow } from '@prisma/client';
-export { Gender } from '@prisma/client';
-export { AverageGrade } from '@prisma/client';
-export { EducationGrade } from '@prisma/client';
-export { PaymentInterval } from '@prisma/client';
-export { CompanySize } from '@prisma/client';
-
 export const CreateReportInputSchema = z.object({
   personalInformation: z.object({
     // Required

@@ -1,2 +1,1 @@
-export * from './dto';
-export * from './kartverket-routes';
+export { default as kartverketService } from './kartverket-service';

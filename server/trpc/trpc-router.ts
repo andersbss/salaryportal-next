@@ -1,8 +1,14 @@
+import { Gender } from '@prisma/client';
 import { z } from 'zod';
-import { procedure, router } from 'server/trpc';
 
-export const appRouter = router({
-  hello: procedure
+import { kartverketService } from '@api/third-party/kartverket';
+
+import { CreateReportInputSchema, reportService } from '@api/reports';
+
+import { procedure as p, router as r } from './trpc';
+
+export const appRouter = r({
+  hello: p
     .input(
       z.object({
         text: z.string(),
@@ -13,6 +19,22 @@ export const appRouter = router({
         greeting: `hello ${input.text}`,
       };
     }),
+
+  reports: r({
+    create: p.input(CreateReportInputSchema).mutation(({ input }) => reportService.createReport(input)),
+  }),
+
+  enums: r({
+    genders: p.query(() => Gender),
+  }),
+
+  thirdParty: r({
+    kartverket: r({
+      counties: p.query(() => kartverketService.getCounties()),
+    }),
+  }),
+
+  // kartverket
 });
 
 // export type definition of API

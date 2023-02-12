@@ -3,6 +3,8 @@ import { createTRPCNext } from '@trpc/next';
 
 import type { AppRouter } from '@server/trpc/trpc-router';
 
+export type { AppRouter };
+
 const getBaseUrl = () => {
   if (typeof window !== 'undefined')
     // browser should use relative path
