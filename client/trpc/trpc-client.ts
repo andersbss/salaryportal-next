@@ -1,9 +1,11 @@
 import { httpBatchLink } from '@trpc/client';
 import { createTRPCNext } from '@trpc/next';
 
-import type { AppRouter } from '@server/trpc/trpc-router';
+import type { AppRouter, RouterInput, RouterOutput } from '@server/trpc/trpc-router';
 
 export type { AppRouter };
+export type { RouterInput };
+export type { RouterOutput };
 
 const getBaseUrl = () => {
   if (typeof window !== 'undefined')

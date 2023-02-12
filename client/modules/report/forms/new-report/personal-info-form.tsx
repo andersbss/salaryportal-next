@@ -2,9 +2,9 @@ import { AutoCompleteOption, FormAutocomplete } from '@client/ui/form-autocomple
 import { FormInput } from '@client/ui/form-input';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { PersonalInfoFormInput } from './personal-info-form-input';
+import { Gender, PersonalInfoFormInput } from './personal-info-form-input';
 
-import { trpc, AppRouter } from '@client/trpc';
+import { trpc } from '@client/trpc';
 
 export type PersonalInfoFormProps = {
   onSubmit: (input: PersonalInfoFormInput) => void;
@@ -19,6 +19,8 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
 
   const { data: genderData } = trpc.enums.gender.useQuery();
 
+  const { mutate } = trpc.reports.create.useMutation();
+
   const countyOptions = useMemo<AutoCompleteOption[]>(() => {
     if (!countiesData) return [];
 
@@ -31,7 +33,7 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
     });
   }, [countiesData]);
 
-  const genderOptions = useMemo<AutoCompleteOption[]>(() => {
+  const genderOptions = useMemo<AutoCompleteOption<Gender>[]>(() => {
     if (!genderData) return [];
 
     return Object.values(genderData).map((gender) => {
@@ -43,7 +45,7 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
     });
   }, [genderData]);
 
-  const handleGenderValues = (id: unknown | null, label: string) => {
+  const handleGenderValues = (id: Gender | null, label: string) => {
     setValue('genderId', id, { shouldValidate: true });
     setValue('gender', label, { shouldValidate: true });
   };
@@ -91,8 +93,8 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
               if (isOption) return;
               handleGenderValues(null, '');
             }}
-            onOptionClick={(value) => {
-              handleGenderValues(value.value || null, value.label);
+            onOptionClick={({ value, label }) => {
+              handleGenderValues(value || null, label);
             }}
           />
           <FormAutocomplete
