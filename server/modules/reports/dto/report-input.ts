@@ -14,7 +14,7 @@ export const CreateReportInputSchema = z.object({
   personalInformation: z.object({
     // Required
     age: z.number(),
-    gender: z.enum([Gender.Male, Gender.Female, Gender.Other]),
+    gender: z.nativeEnum(Gender),
     county: z.string(),
   }),
 
@@ -26,21 +26,11 @@ export const CreateReportInputSchema = z.object({
         name: z.string(),
         graduateYear: z.number(),
         yearsInSchool: z.number(),
-        grade: z.enum([
-          EducationGrade.PrimarySchool,
-          EducationGrade.HighSchool,
-          EducationGrade.CertificateOfApprenticeship,
-          EducationGrade.VocationalSchool,
-          EducationGrade.Bachelor,
-          EducationGrade.Master,
-          EducationGrade.PhD,
-        ]),
+        grade: z.nativeEnum(EducationGrade),
 
         // Optional
         graduateSchool: z.string().nullable(),
-        averageGrade: z
-          .enum([AverageGrade.A, AverageGrade.B, AverageGrade.C, AverageGrade.D, AverageGrade.E, AverageGrade.F])
-          .nullable(),
+        averageGrade: z.nativeEnum(AverageGrade).nullable(),
       })
     ),
   }),
@@ -56,22 +46,9 @@ export const CreateReportInputSchema = z.object({
     workTimePercentage: z.number(),
     vacationDays: z.number(),
     workLocation: z.enum([WorkLocation.Remote, WorkLocation.Office, WorkLocation.Hybrid]),
-    workFlow: z.enum([
-      WorkFlow.CallGuard,
-      WorkFlow.FullTime,
-      WorkFlow.PartTime,
-      WorkFlow.Freelance,
-      WorkFlow.Substitute,
-      WorkFlow.Internship,
-    ]),
-    paymentInterval: z.enum([
-      PaymentInterval.Monthly,
-      PaymentInterval.Yearly,
-      PaymentInterval.Hourly,
-      PaymentInterval.Weekly,
-      PaymentInterval.Daily,
-    ]),
-    sector: z.enum([Sector.Private, Sector.Public]),
+    workFlow: z.nativeEnum(WorkFlow),
+    paymentInterval: z.nativeEnum(PaymentInterval),
+    sector: z.nativeEnum(Sector),
 
     // Optional
     leadership: z.boolean().nullable(),
@@ -82,7 +59,7 @@ export const CreateReportInputSchema = z.object({
     overTimePercentage: z.number().nullable(),
     bonusPercentage: z.number().nullable(),
     stockOptions: z.boolean().nullable(),
-    companySize: z.enum([CompanySize.Small, CompanySize.Medium, CompanySize.Large]).nullable(),
+    companySize: z.nativeEnum(CompanySize).nullable(),
     rotation: z.boolean().nullable(),
     shiftWork: z.boolean().nullable(),
     estimatedWeeklyHours: z.number().nullable(),

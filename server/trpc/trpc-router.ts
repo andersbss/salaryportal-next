@@ -25,7 +25,7 @@ export const appRouter = r({
   }),
 
   enums: r({
-    genders: p.query(() => Gender),
+    gender: p.query(() => Gender),
   }),
 
   thirdParty: r({

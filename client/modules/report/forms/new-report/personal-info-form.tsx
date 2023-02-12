@@ -17,7 +17,7 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
 
   const { data: countiesData } = trpc.thirdParty.kartverket.counties.useQuery();
 
-  const { data: gendersData } = trpc.enums.genders.useQuery();
+  const { data: genderData } = trpc.enums.gender.useQuery();
 
   const countyOptions = useMemo<AutoCompleteOption[]>(() => {
     if (!countiesData) return [];
@@ -32,16 +32,16 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
   }, [countiesData]);
 
   const genderOptions = useMemo<AutoCompleteOption[]>(() => {
-    if (!gendersData) return [];
+    if (!genderData) return [];
 
-    return Object.values(gendersData).map((gender) => {
+    return Object.values(genderData).map((gender) => {
       return {
         id: gender,
         label: gender.toString(),
         value: gender,
       };
     });
-  }, [gendersData]);
+  }, [genderData]);
 
   const handleGenderValues = (id: unknown | null, label: string) => {
     setValue('genderId', id, { shouldValidate: true });
