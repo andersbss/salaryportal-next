@@ -1,2 +1,1 @@
-export * from './wizard-buttons';
-export { default as WizardButtons } from './wizard-buttons';
+export * from './wizard-navigation';

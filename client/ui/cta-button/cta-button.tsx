@@ -14,7 +14,7 @@ const CtaButton = ({ children, action = () => {} }: CtaButtonProps): JSX.Element
     return (
       <Link
         href={action}
-        className="text-white hover:text-slate-900 hover:dark:text-white dark:text-white bg-green-500 hover:bg-transparent border border-transparent hover:border-green-500 rounded-full shadow-md font-semibold text-xl p-4 transition ease-in duration-100"
+        className="rounded-full border border-transparent bg-green-500 p-4 text-xl font-semibold text-white shadow-md transition duration-100 ease-in hover:border-green-500 hover:bg-transparent hover:text-slate-900 dark:text-white hover:dark:text-white"
       >
         {children}
       </Link>
@@ -24,7 +24,7 @@ const CtaButton = ({ children, action = () => {} }: CtaButtonProps): JSX.Element
   return (
     <button
       onClick={action}
-      className="text-white hover:text-slate-900 hover:dark:text-white dark:text-white bg-green-500 hover:bg-transparent border border-transparent hover:border-green-500 rounded-full shadow-md font-semibold text-xl p-4 transition ease-in duration-100"
+      className="rounded-full border border-transparent bg-green-500 p-4 text-xl font-semibold text-white shadow-md transition duration-100 ease-in hover:border-green-500 hover:bg-transparent hover:text-slate-900 dark:text-white hover:dark:text-white"
     >
       {children}
     </button>
