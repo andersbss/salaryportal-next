@@ -1,6 +1,6 @@
 import { WizardNavigationButton } from '../wizard-navigation-button';
 
-export type WizardButtonsProps = {
+export type WizardNavigationProps = {
   /** The current active step (0 indexed) */
   step: number;
   /** The total number of steps in the wizard */
@@ -13,7 +13,7 @@ export type WizardButtonsProps = {
   onDone?: () => void;
 };
 
-const WizardNavigation = ({ step, totalSteps, onBack, onDone, onNext }: WizardButtonsProps) => {
+const WizardNavigation = ({ step, totalSteps, onBack, onDone, onNext }: WizardNavigationProps) => {
   const maxSteps = totalSteps - 1;
 
   const showBackButton = step > 0;
