@@ -20,8 +20,13 @@ const WizardNavigation = ({ step, totalSteps, onBack, onDone, onNext }: WizardNa
   const showNextButton = step < maxSteps;
   const showDoneButton = step === maxSteps;
 
+  const multipleButtonsAreVisible = (showBackButton && showNextButton) || (showBackButton && showDoneButton);
+
   return (
-    <nav className="flex justify-between">
+    <nav
+      data-test="wizard-navigation"
+      className={`flex ${multipleButtonsAreVisible ? 'justify-between' : 'justify-end'}`}
+    >
       {showBackButton && (
         <WizardNavigationButton variant="back" onClick={onBack}>
           Previous

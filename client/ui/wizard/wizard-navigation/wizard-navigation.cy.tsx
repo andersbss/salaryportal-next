@@ -6,47 +6,70 @@ describe('<WizardNavigation />', () => {
     cy.mount(<WizardNavigation step={0} totalSteps={1} />);
   });
 
-  it('should only show the next button when on first step', () => {
-    cy.mount(<WizardNavigation step={0} totalSteps={3} />);
-    cy.get('button').should('have.length', 1);
-    cy.get('button').contains('Next');
+  describe('rendering', () => {
+    it('should only show the next button when on first step', () => {
+      cy.mount(<WizardNavigation step={0} totalSteps={3} />);
+      cy.get('button').should('have.length', 1);
+      cy.get('button').contains('Next');
+    });
+
+    it('should show the previous button and done button when on last step', () => {
+      cy.mount(<WizardNavigation step={2} totalSteps={3} />);
+      cy.get('button').should('have.length', 2);
+      cy.get('button').contains('Previous');
+      cy.get('button').contains('Done');
+    });
+
+    it('should show both previous and next button when in the middle step', () => {
+      cy.mount(<WizardNavigation step={1} totalSteps={3} />);
+      cy.get('button').should('have.length', 2);
+      cy.get('button').contains('Previous');
+      cy.get('button').contains('Next');
+    });
   });
 
-  it('should show the previous button and done button when on last step', () => {
-    cy.mount(<WizardNavigation step={2} totalSteps={3} />);
-    cy.get('button').should('have.length', 2);
-    cy.get('button').contains('Previous');
-    cy.get('button').contains('Done');
+  describe('interaction', () => {
+    it('should call onNext when the next button is clicked', () => {
+      const onNext = cy.stub();
+
+      cy.mount(<WizardNavigation step={0} totalSteps={3} onNext={onNext} />);
+      cy.get('button').contains('Next').click();
+      cy.wrap(onNext).should('have.been.called');
+    });
+
+    it('should call onBack when the previous button is clicked', () => {
+      const onBack = cy.stub();
+
+      cy.mount(<WizardNavigation step={1} totalSteps={3} onBack={onBack} />);
+      cy.get('button').contains('Previous').click();
+      cy.wrap(onBack).should('have.been.called');
+    });
+
+    it('should call onDone when the done button is clicked', () => {
+      const onDone = cy.stub();
+
+      cy.mount(<WizardNavigation step={2} totalSteps={3} onDone={onDone} />);
+      cy.get('button').contains('Done').click();
+      cy.wrap(onDone).should('have.been.called');
+    });
   });
 
-  it('should show both previous and next button when in the middle step', () => {
-    cy.mount(<WizardNavigation step={1} totalSteps={3} />);
-    cy.get('button').should('have.length', 2);
-    cy.get('button').contains('Previous');
-    cy.get('button').contains('Next');
-  });
+  describe('styling', () => {
+    describe('layout', () => {
+      it('should render with space between buttons when there are multiple buttons', () => {
+        cy.mount(<WizardNavigation step={1} totalSteps={3} />);
+        cy.get('nav').should('have.class', 'justify-between');
+      });
 
-  it('should call onNext when the next button is clicked', () => {
-    const onNext = cy.stub();
+      it('should render to the right when there is only one button', () => {
+        cy.mount(<WizardNavigation step={0} totalSteps={3} />);
+        cy.get('nav').should('have.class', 'justify-end');
+      });
+    });
 
-    cy.mount(<WizardNavigation step={0} totalSteps={3} onNext={onNext} />);
-    cy.get('button').contains('Next').click();
-    cy.wrap(onNext).should('have.been.called');
-  });
-
-  it('should call onBack when the previous button is clicked', () => {
-    const onBack = cy.stub();
-
-    cy.mount(<WizardNavigation step={1} totalSteps={3} onBack={onBack} />);
-    cy.get('button').contains('Previous').click();
-    cy.wrap(onBack).should('have.been.called');
-  });
-
-  it('should call onDone when the done button is clicked', () => {
-    const onDone = cy.stub();
-
-    cy.mount(<WizardNavigation step={2} totalSteps={3} onDone={onDone} />);
-    cy.get('button').contains('Done').click();
-    cy.wrap(onDone).should('have.been.called');
+    describe('colors', () => {
+      describe('light', () => {});
+      describe('dark', () => {});
+    });
   });
 });
