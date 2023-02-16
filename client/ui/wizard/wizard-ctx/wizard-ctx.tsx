@@ -1,5 +1,9 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 
+export type WizardEventReturn = {
+  continue: boolean;
+};
+
 export type WizardStep = {
   index: number;
   number: number;
@@ -12,9 +16,9 @@ export type InitialStep = Omit<WizardStep, 'variant' | 'number' | 'index'>;
 export type UseWizardProps = {
   initialSteps: InitialStep[];
 
-  onBack?: () => void;
-  onNext?: () => void;
-  onDone?: () => void;
+  onBack?: (currentStep: WizardStep) => Promise<WizardEventReturn> | WizardEventReturn;
+  onNext?: (currentStep: WizardStep) => Promise<WizardEventReturn> | WizardEventReturn;
+  onDone?: () => Promise<WizardEventReturn> | WizardEventReturn;
 };
 
 export type UseWizardReturn = {
@@ -44,11 +48,17 @@ const getInitialSteps = (initialSteps: InitialStep[]): WizardStep[] => {
   return steps;
 };
 
-export const useWizard = ({ initialSteps }: UseWizardProps): UseWizardReturn => {
+export const useWizard = ({ initialSteps, onNext, onBack, onDone }: UseWizardProps): UseWizardReturn => {
   const [steps, setSteps] = useState<WizardStep[]>(getInitialSteps(initialSteps));
   const [activeStep, setActiveStep] = useState<WizardStep>(getInitialSteps(initialSteps)[0]);
 
-  const next = () => {
+  const next = async () => {
+    const options = await onNext?.(activeStep);
+
+    if (!options?.continue) {
+      return;
+    }
+
     setSteps((prev) => {
       const newSteps = [...prev];
 
@@ -61,7 +71,13 @@ export const useWizard = ({ initialSteps }: UseWizardProps): UseWizardReturn => 
     setActiveStep(steps[activeStep.index + 1]);
   };
 
-  const back = () => {
+  const back = async () => {
+    const options = await onBack?.(activeStep);
+
+    if (!options?.continue) {
+      return;
+    }
+
     setSteps((prev) => {
       const newSteps = [...prev];
 
@@ -74,7 +90,9 @@ export const useWizard = ({ initialSteps }: UseWizardProps): UseWizardReturn => 
     setActiveStep(steps[activeStep.index - 1]);
   };
 
-  const done = () => {
+  const done = async () => {
+    await onDone?.();
+
     setSteps((prev) => {
       const newSteps = [...prev];
 
@@ -102,7 +120,7 @@ export const WizardProvider = ({ children, ...props }: WizardProviderProps) => (
 export const useWizardContext = () => {
   const context = useContext(WizardContext);
 
-  if (!context) {
+  if (!Object.keys(context).length) {
     throw new Error('useWizardContext must be used within a WizardProvider');
   }
 

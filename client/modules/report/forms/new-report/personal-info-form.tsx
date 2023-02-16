@@ -1,25 +1,24 @@
 import { AutoCompleteOption, FormAutocomplete } from '@client/ui/form-autocomplete';
 import { FormInput } from '@client/ui/form-input';
-import { useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect, useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { Gender, PersonalInfoFormInput } from './personal-info-form-input';
 
 import { trpc } from '@client/trpc';
 
-export type PersonalInfoFormProps = {
-  onSubmit: (input: PersonalInfoFormInput) => void;
-};
+export const PersonalInfoForm = (): JSX.Element => {
+  const { register, formState, setValue, getValues } = useFormContext<PersonalInfoFormInput>();
 
-export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Element => {
-  const { register, formState, handleSubmit, setValue, getValues } = useForm<PersonalInfoFormInput>({
-    mode: 'onTouched',
+  // Queries
+  const { data: countiesData, refetch: refetchCountiesData } = trpc.thirdParty.kartverket.counties.useQuery(undefined, {
+    enabled: false,
   });
-
-  const { data: countiesData } = trpc.thirdParty.kartverket.counties.useQuery();
-
   const { data: genderData } = trpc.enums.gender.useQuery();
 
-  const { mutate } = trpc.reports.create.useMutation();
+  useEffect(() => {
+    // Fetch counties data on client side to avoid slow ssr request from third party api
+    refetchCountiesData();
+  }, []);
 
   const countyOptions = useMemo<AutoCompleteOption[]>(() => {
     if (!countiesData) return [];
@@ -59,7 +58,7 @@ export const PersonalInfoForm = ({ onSubmit }: PersonalInfoFormProps): JSX.Eleme
     <div className="w-full max-w-screen-lg">
       <h2 className="font-semibold text-slate-900 dark:text-white">Vi trenger litt informasjon om deg</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-4 flex flex-col">
+      <form className="mt-4 flex flex-col">
         <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
           <FormInput
             label="Hvor gammel er du?"
