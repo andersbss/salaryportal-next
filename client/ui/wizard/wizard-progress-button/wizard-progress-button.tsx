@@ -11,7 +11,7 @@ export type WizardProgressButtonProps = {
 const WizardProgressButton = ({ title, variant }: WizardProgressButtonProps) => {
   if (variant === 'active') {
     return (
-      <button className="h-6 w-6 rounded-full bg-green-500 text-slate-900 shadow-md">
+      <button className="h-8 w-8 rounded-full bg-green-500 text-slate-900 shadow-md">
         <>{title}</>
       </button>
     );
@@ -19,7 +19,7 @@ const WizardProgressButton = ({ title, variant }: WizardProgressButtonProps) => 
 
   if (variant === 'inactive') {
     return (
-      <button>
+      <button className="h-6 w-6 rounded-full bg-gray-300 shadow-md">
         <>{title}</>
       </button>
     );
@@ -27,7 +27,7 @@ const WizardProgressButton = ({ title, variant }: WizardProgressButtonProps) => 
 
   if (variant === 'completed') {
     return (
-      <button>
+      <button className="h-6 w-6 rounded-full bg-green-500 text-slate-900 shadow-md">
         <>{title}</>
       </button>
     );

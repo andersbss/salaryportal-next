@@ -28,5 +28,15 @@ describe('<Wizard />', () => {
 
       cy.get('[data-test=wizard-navigation]').should('exist');
     });
+
+    it('renders with progress', () => {
+      cy.mount(
+        <Wizard progress={{ steps: [{ title: '1', variant: 'active' }] }}>
+          <form>Children</form>
+        </Wizard>
+      );
+
+      cy.get('[data-test=wizard-progress]').should('exist');
+    });
   });
 });
