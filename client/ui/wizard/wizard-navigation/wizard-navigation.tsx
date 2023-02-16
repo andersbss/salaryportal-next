@@ -1,24 +1,14 @@
+import { useWizardContext } from '../wizard-ctx';
 import { WizardNavigationButton } from '../wizard-navigation-button';
 
-export type WizardNavigationProps = {
-  /** The current active step (0 indexed) */
-  step: number;
-  /** The total number of steps in the wizard */
-  totalSteps: number;
-  /** Function triggered when the previous button is clicked */
-  onBack?: () => void;
-  /** Function triggered when the next button is clicked */
-  onNext?: () => void;
-  /** Function triggered when the done button is clicked */
-  onDone?: () => void;
-};
+const WizardNavigation = () => {
+  const { activeStep, steps, back, next, done } = useWizardContext();
 
-const WizardNavigation = ({ step, totalSteps, onBack, onDone, onNext }: WizardNavigationProps) => {
-  const maxSteps = totalSteps - 1;
+  const maxSteps = steps.length - 1;
 
-  const showBackButton = step > 0;
-  const showNextButton = step < maxSteps;
-  const showDoneButton = step === maxSteps;
+  const showBackButton = activeStep.index > 0;
+  const showNextButton = activeStep.index < maxSteps;
+  const showDoneButton = activeStep.index === maxSteps;
 
   const multipleButtonsAreVisible = (showBackButton && showNextButton) || (showBackButton && showDoneButton);
 
@@ -28,17 +18,17 @@ const WizardNavigation = ({ step, totalSteps, onBack, onDone, onNext }: WizardNa
       className={`flex ${multipleButtonsAreVisible ? 'justify-between' : 'justify-end'}`}
     >
       {showBackButton && (
-        <WizardNavigationButton variant="back" onClick={onBack}>
+        <WizardNavigationButton variant="back" onClick={back}>
           Previous
         </WizardNavigationButton>
       )}
       {showNextButton && (
-        <WizardNavigationButton variant="next" onClick={onNext}>
+        <WizardNavigationButton variant="next" onClick={next}>
           Next
         </WizardNavigationButton>
       )}
       {showDoneButton && (
-        <WizardNavigationButton variant="done" onClick={onDone}>
+        <WizardNavigationButton variant="done" onClick={done}>
           Done
         </WizardNavigationButton>
       )}

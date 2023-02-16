@@ -1,22 +1,19 @@
 import { ReactNode } from 'react';
-import { WizardProgress, WizardProgressProps } from '../wizard-progress';
-import { WizardNavigation, WizardNavigationProps } from '../wizard-navigation';
+import { WizardProgress } from '../wizard-progress';
+import { WizardNavigation } from '../wizard-navigation';
+import { useWizardContext } from '../wizard-ctx';
 
 export type WizardProps = {
   /** The form component to render */
   children: ReactNode;
-  /** Props passed to the progress component. If undefined, no progress component is rendered */
-  progress?: WizardProgressProps;
-  /** Props passed to the navigation component. If undefined, no navigation is rendered */
-  navigation?: WizardNavigationProps;
 };
 
-const Wizard = ({ children, progress, navigation }: WizardProps) => {
+const Wizard = ({ children }: WizardProps) => {
   return (
     <div className="w-full border">
-      {!!progress && <WizardProgress {...progress} />}
+      <WizardProgress />
       <div>{children}</div>
-      {!!navigation && <WizardNavigation {...navigation} />}
+      <WizardNavigation />
     </div>
   );
 };

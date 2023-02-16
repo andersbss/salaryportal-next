@@ -1,27 +1,52 @@
 import React from 'react';
+import { defaultProviderProps, getProviderPropsWithActiveStep, OmitWizardProviderProps } from '../utils/test';
+import { WizardProvider, WizardProviderProps } from '../wizard-ctx';
 import WizardNavigation from './wizard-navigation';
 
 describe('<WizardNavigation />', () => {
   it('renders with required props', () => {
-    cy.mount(<WizardNavigation step={0} totalSteps={1} />);
+    cy.mount(
+      <WizardProvider {...defaultProviderProps}>
+        <WizardNavigation />
+      </WizardProvider>
+    );
   });
 
   describe('rendering', () => {
     it('should only show the next button when on first step', () => {
-      cy.mount(<WizardNavigation step={0} totalSteps={3} />);
+      cy.mount(
+        <WizardProvider {...defaultProviderProps}>
+          <WizardNavigation />
+        </WizardProvider>
+      );
+
       cy.get('button').should('have.length', 1);
       cy.get('button').contains('Next');
     });
 
     it('should show the previous button and done button when on last step', () => {
-      cy.mount(<WizardNavigation step={2} totalSteps={3} />);
+      const providerProps: OmitWizardProviderProps = getProviderPropsWithActiveStep(2);
+
+      cy.mount(
+        <WizardProvider {...providerProps}>
+          <WizardNavigation />
+        </WizardProvider>
+      );
+
       cy.get('button').should('have.length', 2);
       cy.get('button').contains('Previous');
       cy.get('button').contains('Done');
     });
 
     it('should show both previous and next button when in the middle step', () => {
-      cy.mount(<WizardNavigation step={1} totalSteps={3} />);
+      const providerProps: OmitWizardProviderProps = getProviderPropsWithActiveStep(1);
+
+      cy.mount(
+        <WizardProvider {...providerProps}>
+          <WizardNavigation />
+        </WizardProvider>
+      );
+
       cy.get('button').should('have.length', 2);
       cy.get('button').contains('Previous');
       cy.get('button').contains('Next');
@@ -29,40 +54,84 @@ describe('<WizardNavigation />', () => {
   });
 
   describe('interaction', () => {
-    it('should call onNext when the next button is clicked', () => {
-      const onNext = cy.stub();
+    it('should call next when the next button is clicked', () => {
+      const next = cy.stub();
 
-      cy.mount(<WizardNavigation step={0} totalSteps={3} onNext={onNext} />);
+      const providerProps: Omit<WizardProviderProps, 'children'> = {
+        ...defaultProviderProps,
+        next,
+      };
+
+      cy.mount(
+        <WizardProvider {...providerProps}>
+          <WizardNavigation />
+        </WizardProvider>
+      );
+
       cy.get('button').contains('Next').click();
-      cy.wrap(onNext).should('have.been.called');
+      cy.wrap(next).should('have.been.called');
     });
 
-    it('should call onBack when the previous button is clicked', () => {
-      const onBack = cy.stub();
+    it('should call back when the previous button is clicked', () => {
+      const back = cy.stub();
 
-      cy.mount(<WizardNavigation step={1} totalSteps={3} onBack={onBack} />);
+      const providerProps: OmitWizardProviderProps = {
+        ...getProviderPropsWithActiveStep(1),
+        back,
+      };
+
+      cy.mount(
+        <WizardProvider {...providerProps}>
+          <WizardNavigation />
+        </WizardProvider>
+      );
+
       cy.get('button').contains('Previous').click();
-      cy.wrap(onBack).should('have.been.called');
+      cy.wrap(back).should('have.been.called');
     });
 
-    it('should call onDone when the done button is clicked', () => {
-      const onDone = cy.stub();
+    it('should call done when the done button is clicked', () => {
+      const done = cy.stub();
 
-      cy.mount(<WizardNavigation step={2} totalSteps={3} onDone={onDone} />);
+      const providerProps: OmitWizardProviderProps = {
+        ...getProviderPropsWithActiveStep(2),
+        done,
+      };
+
+      cy.mount(
+        <WizardProvider {...providerProps}>
+          <WizardNavigation />
+        </WizardProvider>
+      );
+
       cy.get('button').contains('Done').click();
-      cy.wrap(onDone).should('have.been.called');
+      cy.wrap(done).should('have.been.called');
     });
   });
 
   describe('styling', () => {
     describe('layout', () => {
       it('should render with space between buttons when there are multiple buttons', () => {
-        cy.mount(<WizardNavigation step={1} totalSteps={3} />);
+        const providerProps: OmitWizardProviderProps = getProviderPropsWithActiveStep(1);
+
+        cy.mount(
+          <WizardProvider {...providerProps}>
+            <WizardNavigation />
+          </WizardProvider>
+        );
+
         cy.get('nav').should('have.class', 'justify-between');
       });
 
       it('should render to the right when there is only one button', () => {
-        cy.mount(<WizardNavigation step={0} totalSteps={3} />);
+        const providerProps: OmitWizardProviderProps = getProviderPropsWithActiveStep(0);
+
+        cy.mount(
+          <WizardProvider {...providerProps}>
+            <WizardNavigation />
+          </WizardProvider>
+        );
+
         cy.get('nav').should('have.class', 'justify-end');
       });
     });
