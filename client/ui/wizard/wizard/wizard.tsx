@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { WizardProgress } from '../wizard-progress';
 import { WizardNavigation } from '../wizard-navigation';
-import { useWizardContext } from '../wizard-ctx';
 
 export type WizardProps = {
   /** The form component to render */
@@ -10,9 +9,9 @@ export type WizardProps = {
 
 const Wizard = ({ children }: WizardProps) => {
   return (
-    <div className="w-full border">
+    <div className="grid w-full gap-4 pt-4">
       <WizardProgress />
-      <div>{children}</div>
+      <div className="flex flex-col items-center">{children}</div>
       <WizardNavigation />
     </div>
   );

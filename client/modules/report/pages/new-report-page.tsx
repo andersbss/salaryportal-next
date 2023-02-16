@@ -4,6 +4,7 @@ import { NextPage } from 'next';
 import { useCallback, useState } from 'react';
 
 import { NewReportForm, NewReportFormInput } from '../forms';
+import NewReportWizard from '../forms/new-report/new-report-wizard';
 import PersonalInfoForm from '../forms/new-report/personal-info-form';
 import { PersonalInfoFormInput } from '../forms/new-report/personal-info-form-input';
 
@@ -22,8 +23,7 @@ const NewReportPage: NextPage = () => {
 
   return (
     <>
-      {step === 0 && <PersonalInfoForm onSubmit={handlePersonalInfoSubmit} />}
-      {step === 1 && <div></div>}
+      <NewReportWizard />
     </>
   );
 };
