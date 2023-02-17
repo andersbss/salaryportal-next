@@ -5,7 +5,7 @@ import { kartverketService } from '@server/modules/third-party/kartverket';
 
 import { CreateReportInputSchema, reportService } from '@server/modules/reports';
 
-import { procedure as p, router as r, inferRouterInputs, inferRouterOutputs } from './trpc';
+import { procedure as p, router as r, inferRouterInputs, inferRouterOutputs } from './utils/trpc';
 
 export const appRouter = r({
   hello: p

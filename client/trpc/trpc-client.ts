@@ -1,7 +1,7 @@
 import { httpBatchLink } from '@trpc/client';
 import { createTRPCNext } from '@trpc/next';
 
-import type { AppRouter, RouterInput, RouterOutput } from '@server/trpc/trpc-router';
+import type { AppRouter, RouterInput, RouterOutput } from '@server/trpc-router';
 
 export type { AppRouter };
 export type { RouterInput };

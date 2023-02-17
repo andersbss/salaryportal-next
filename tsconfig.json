@@ -37,7 +37,7 @@
 
       "@server/modules/third-party/kartverket": ["./server/modules/third-party/kartverket/index.ts"],
 
-      "@server/trpc/*": ["./server/trpc/*"],
+      "@server/trpc-router": ["./server/trpc-router.ts"],
 
       "@shared/utils/*": ["./shared/utils/*"]
     },
