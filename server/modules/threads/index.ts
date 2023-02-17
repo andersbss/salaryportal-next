@@ -1,1 +1,1 @@
-export * from './thread-routes';
+export { default as threadService } from './thread-service';
