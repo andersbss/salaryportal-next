@@ -22,6 +22,7 @@
     "@trpc/server": "^10.11.0",
     "next": "13.1.5",
     "next-auth": "^4.18.10",
+    "next-translate": "^1.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.42.1",

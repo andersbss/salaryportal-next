@@ -1,12 +1,17 @@
-import { AutoCompleteOption, FormAutocomplete } from '@client/ui/form-autocomplete';
-import { FormInput } from '@client/ui/form-input';
 import { useEffect, useMemo } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 import { useFormContext } from 'react-hook-form';
-import { Gender, PersonalInfoFormInput } from './types';
 
 import { trpc } from '@client/trpc';
 
+import { AutoCompleteOption, FormAutocomplete } from '@client/ui/form-autocomplete';
+import { FormInput } from '@client/ui/form-input';
+
+import { Gender, PersonalInfoFormInput } from './types';
+
 export const PersonalInfoForm = (): JSX.Element => {
+  const { t } = useTranslation('report');
+
   const { register, formState, setValue, getValues } = useFormContext<PersonalInfoFormInput>();
 
   // Queries
@@ -56,34 +61,34 @@ export const PersonalInfoForm = (): JSX.Element => {
 
   return (
     <div className="w-full max-w-screen-lg">
-      <h2 className="font-semibold text-slate-900 dark:text-white">Vi trenger litt informasjon om deg</h2>
+      <h2 className="font-semibold text-slate-900 dark:text-white">{t('forms.personalInfo.heading')}</h2>
 
       <form className="mt-4 flex flex-col">
         <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
           <FormInput
-            label="Hvor gammel er du?"
-            placeholder="31"
+            label={t('forms.personalInfo.fields.age.label')}
+            tooltip={t('forms.personalInfo.fields.age.tooltip')}
+            placeholder={t('forms.personalInfo.fields.age.placeholder')}
             fullWidth
             error={formState.errors.age}
-            register={register('age', { required: 'Alder er påkrevd' })}
-            tooltip="Her kan du skrive inn alderen din. Eksempelvis: 31, 32, 33, etc."
+            register={register('age', { required: t('forms.personalInfo.fields.age.validation.required') })}
             type="number"
           />
           <FormAutocomplete
+            label={t('forms.personalInfo.fields.gender.label')}
+            tooltip={t('forms.personalInfo.fields.gender.tooltip')}
+            placeholder={t('forms.personalInfo.fields.gender.placeholder')}
             options={genderOptions}
             error={formState.errors.gender}
-            label="Hvilket kjønn har du?"
-            tooltip="Her kan du velge kjønn. Eksempelvis: Mann, Kvinne, etc."
             mode="select"
             fullWidth
-            placeholder="Kvinne"
             register={register('gender', {
-              required: 'Felt er påkrevd',
+              required: t('forms.personalInfo.fields.gender.validation.required'),
               validate: {
                 isOption: (input) => {
                   const isOption = genderOptions.some((o) => o.label === input);
                   if (isOption) return;
-                  return 'Velg et av alternativene';
+                  return t('forms.personalInfo.fields.gender.validation.selectAlternative');
                 },
               },
             })}
@@ -97,14 +102,14 @@ export const PersonalInfoForm = (): JSX.Element => {
             }}
           />
           <FormAutocomplete
+            label={t('forms.personalInfo.fields.county.label')}
+            tooltip={t('forms.personalInfo.fields.county.tooltip')}
+            placeholder={t('forms.personalInfo.fields.county.placeholder')}
             options={countyOptions}
             error={formState.errors.county}
-            label="I hvilket fylke bor du?"
-            tooltip="Her må du velge fylke. Eksempelvis: Oslo, Akershus, etc."
             fullWidth
-            placeholder="Oslo"
             register={register('county', {
-              required: 'Felt er påkrevd',
+              required: t('forms.personalInfo.fields.county.validation.required'),
               validate: {
                 isOption: (input) => {
                   const isOption = countyOptions.some((o) => o.label === input);

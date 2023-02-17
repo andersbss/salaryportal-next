@@ -1,0 +1,17 @@
+{
+  "locales": [
+    "nb"
+  ],
+  "defaultLocale": "nb",
+  "pages": {
+    "*": [
+      "common"
+    ],
+    "/": [
+      "home"
+    ],
+    "/reports/new": [
+      "report"
+    ]
+  }
+}

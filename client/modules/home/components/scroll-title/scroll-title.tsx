@@ -1,20 +1,23 @@
 import styles from './scroll-title-animation.module.scss';
+import useTranslation from 'next-translate/useTranslation';
 
 type ScrollTitleProps = {
   jobTitles: string[];
 };
 
 export const ScrollTitle = ({ jobTitles }: ScrollTitleProps): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <div>
-      <h1 className="flex flex-col lg:flex-row text-3xl sm:text-5xl font-semibold mx-auto text-left lg:text-center text-slate-900 dark:text-white">
-        <span className="block pr-3">Hvor mye tjener en</span>
+      <h1 className="mx-auto flex flex-col text-left text-3xl font-semibold text-slate-900 dark:text-white sm:text-5xl lg:flex-row lg:text-center">
+        <span className="block pr-3">{t('home:mainTitle')}</span>
         <div className={styles['scrolling-words-container']}>
           <div className={styles['scrolling-words-box']}>
             <ul>
               {jobTitles.map((job, index) => {
                 return (
-                  <li className="flex text-3xl sm:text-5xl font-semibold" key={index}>
+                  <li className="flex text-3xl font-semibold sm:text-5xl" key={index}>
                     {job}?
                   </li>
                 );

@@ -36,7 +36,7 @@ const WizardNavigationButton = ({ children, variant, onClick }: WizardNavigation
     return (
       <button
         onClick={onClick}
-        className="min-w-100 rounded-full border border-transparent bg-green-500 p-2 text-lg font-semibold text-white shadow-md transition duration-100 ease-in hover:border-green-500 hover:bg-transparent hover:text-slate-900"
+        className="min-w-100 rounded-full border border-transparent bg-green-500 p-2 text-lg font-semibold text-white shadow-md transition duration-100 ease-in hover:border-green-500 hover:bg-transparent hover:text-slate-900 dark:hover:text-white"
       >
         {children}
       </button>

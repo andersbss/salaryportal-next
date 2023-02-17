@@ -1,7 +1,10 @@
+import useTranslation from 'next-translate/useTranslation';
 import { useWizardContext } from '../wizard-ctx';
 import { WizardNavigationButton } from '../wizard-navigation-button';
 
 const WizardNavigation = () => {
+  const { t } = useTranslation('common');
+
   const { activeStep, steps, back, next, done } = useWizardContext();
 
   const maxSteps = steps.length - 1;
@@ -19,17 +22,17 @@ const WizardNavigation = () => {
     >
       {showBackButton && (
         <WizardNavigationButton variant="back" onClick={back}>
-          Previous
+          {t('wizard.navigation.back')}
         </WizardNavigationButton>
       )}
       {showNextButton && (
         <WizardNavigationButton variant="next" onClick={next}>
-          Next
+          {t('wizard.navigation.next')}
         </WizardNavigationButton>
       )}
       {showDoneButton && (
         <WizardNavigationButton variant="done" onClick={done}>
-          Done
+          {t('wizard.navigation.done')}
         </WizardNavigationButton>
       )}
     </nav>

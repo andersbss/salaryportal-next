@@ -1,3 +1,4 @@
+import useTranslation from 'next-translate/useTranslation';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -6,13 +7,15 @@ import { routes } from '../../routes';
 import { SignInButton } from './sign-in-button';
 
 export const DefaultHeader = () => {
+  const { t } = useTranslation();
+
   return (
     <header>
       <nav className="bg-white px-4 py-2.5 shadow-md dark:bg-zinc-800 lg:px-6">
         <div className="mx-auto flex max-w-screen-2xl flex-wrap items-center justify-between">
           <Link href={routes.home()} className="flex items-center">
             <span className="hidden self-center whitespace-nowrap text-xl font-semibold text-slate-900 dark:text-white sm:block">
-              Hvor mye tjener en_?
+              {t('common:slogan')}
             </span>
             <Image className="block sm:hidden" src="/money.png" alt="" width={45} height={45} priority />
           </Link>

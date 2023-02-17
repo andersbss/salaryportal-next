@@ -1,0 +1,34 @@
+{
+    "forms": {
+        "personalInfo": {
+            "heading": "Vi trenger litt informasjon om deg",
+            "fields": {
+                "age": {
+                    "label": "Hvor gammel er du?",
+                    "placeholder": "31",
+                    "tooltip": "Her kan du skrive inn alderen din. Eksempelvis: 31, 32, 33, etc.",
+                    "validation": {
+                        "required": "Alder er påkrevd"
+                    }
+                },
+                "gender": {
+                    "label": "Hvilket kjønn har du?",
+                    "placeholder": "Other",
+                    "tooltip": "Her kan du velge kjønn. Eksempelvis: Mann, Kvinne, etc.",
+                    "validation": {
+                        "required": "Kjønn er påkrevd"
+                    }
+                },
+                "county": {
+                    "label": "I hvilket fylke bor du?",
+                    "placeholder": "Oslo",
+                    "tooltip": "Her kan du velge fylke. Eksempelvis: Oslo, Akershus, etc.",
+                    "validation": {
+                        "required": "Fylke er påkrevd",
+                        "selectAlternative": "Velg et av alternativene"
+                    }
+                }
+            }
+        }
+    }
+}
