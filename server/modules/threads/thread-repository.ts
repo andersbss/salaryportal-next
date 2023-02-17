@@ -1,6 +1,4 @@
-import { PrismaClient, Prisma } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma, Prisma } from '@server/utils/prisma';
 
 const findById = async (id: string) => {
   const thread = await prisma.thread.findUnique({

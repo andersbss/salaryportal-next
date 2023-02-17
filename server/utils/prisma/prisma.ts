@@ -3,7 +3,8 @@ declare global {
   var prisma: PrismaClient;
 }
 
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
+
 let prisma: PrismaClient;
 
 if (process.env.NODE_ENV === 'production') {
@@ -15,4 +16,4 @@ if (process.env.NODE_ENV === 'production') {
   prisma = global.prisma;
 }
 
-export default prisma;
+export { prisma, Prisma };

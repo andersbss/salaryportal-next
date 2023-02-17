@@ -1,6 +1,4 @@
-import { PrismaClient, Prisma } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma, Prisma } from '@server/utils/prisma';
 
 const create = async (input: Prisma.ErrorLogCreateInput) => {
   const errorLog = await prisma.errorLog.create({ data: input });
