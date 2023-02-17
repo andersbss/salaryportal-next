@@ -2,7 +2,7 @@ import { AutoCompleteOption, FormAutocomplete } from '@client/ui/form-autocomple
 import { FormInput } from '@client/ui/form-input';
 import { useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Gender, PersonalInfoFormInput } from './personal-info-form-input';
+import { Gender, PersonalInfoFormInput } from './types';
 
 import { trpc } from '@client/trpc';
 

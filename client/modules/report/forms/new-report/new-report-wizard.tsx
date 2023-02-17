@@ -2,7 +2,7 @@ import { Wizard } from '@client/ui/wizard/wizard';
 import { useWizard, WizardProvider, WizardStep } from '@client/ui/wizard/wizard-ctx';
 import { FormProvider, useForm } from 'react-hook-form';
 import PersonalInfoForm from './personal-info-form';
-import { PersonalInfoFormInput } from './personal-info-form-input';
+import { PersonalInfoFormInput } from './types';
 
 const NewReportWizard = () => {
   const personalInfoForm = useForm<PersonalInfoFormInput>();

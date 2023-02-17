@@ -6,7 +6,7 @@ import { useCallback, useState } from 'react';
 import { NewReportForm, NewReportFormInput } from '../forms';
 import NewReportWizard from '../forms/new-report/new-report-wizard';
 import PersonalInfoForm from '../forms/new-report/personal-info-form';
-import { PersonalInfoFormInput } from '../forms/new-report/personal-info-form-input';
+import { PersonalInfoFormInput } from '../forms/new-report/types/personal-info-form-input';
 
 const NewReportPage: NextPage = () => {
   const [step, setStep] = useState(0);
