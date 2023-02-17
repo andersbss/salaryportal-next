@@ -1,1 +1,1 @@
-export { default as kartverketService } from './kartverket-service';
+export { default as kartverketRoutes } from './kartverket-routes';

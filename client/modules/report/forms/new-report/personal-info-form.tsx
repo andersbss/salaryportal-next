@@ -13,7 +13,7 @@ export const PersonalInfoForm = (): JSX.Element => {
   const { data: countiesData, refetch: refetchCountiesData } = trpc.thirdParty.kartverket.counties.useQuery(undefined, {
     enabled: false,
   });
-  const { data: genderData } = trpc.enums.gender.useQuery();
+  const { data: genderData } = trpc.reports.enums.gender.useQuery();
 
   useEffect(() => {
     // Fetch counties data on client side to avoid slow ssr request from third party api

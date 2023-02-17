@@ -1,2 +1,1 @@
-export { default as reportService } from './report-service';
-export * from './dto';
+export { default as reportRoutes } from './report-routes';
