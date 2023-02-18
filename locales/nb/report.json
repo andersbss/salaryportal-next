@@ -74,7 +74,7 @@
                 "yearsInSchool": {
                     "label": "Hvor lang tid brukte du på å fullføre?",
                     "placeholder": "3",
-                    "tooltip": "Her kan du skrive inn hvor mange år du brukte på å fullføre utdanningen. Standard fyller vi inn antall basert på graden du har valgt. Det fullt mulig å endre dette.",
+                    "tooltip": "Her kan du skrive inn hvor mange år du brukte på å fullføre utdanningen.",
                     "validation": {
                         "required": "Antall år er påkrevd",
                         "integer": "Du kan ikke oppgi desimaler",
