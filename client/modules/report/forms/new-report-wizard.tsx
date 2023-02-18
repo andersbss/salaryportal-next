@@ -2,13 +2,17 @@ import { Wizard } from '@client/ui/wizard/wizard';
 import { useWizard, WizardProvider, WizardStep } from '@client/ui/wizard/wizard-ctx';
 import useTranslation from 'next-translate/useTranslation';
 import { FormProvider, useForm } from 'react-hook-form';
-import { PersonalInfoFormInput } from '../types';
+
+import { PersonalInfoFormInput, EducationFormInput } from '../types';
+
 import PersonalInfoForm from './personal-info-form';
+import EducationForm from './education-form';
 
 const NewReportWizard = () => {
   const { t } = useTranslation();
 
   const personalInfoForm = useForm<PersonalInfoFormInput>();
+  const educationForm = useForm<EducationFormInput>();
 
   const wizard = useWizard({
     initialSteps: [
@@ -24,12 +28,18 @@ const NewReportWizard = () => {
           isValid = await personalInfoForm.trigger();
 
           personalInfoForm.handleSubmit((data) => {
-            console.log('TODO: Save personal info', data);
+            console.log(data);
+            //TODO: Do something
           })();
           break;
 
         case 1:
-          console.log('TODO: Education form validation');
+          isValid = await educationForm.trigger();
+
+          educationForm.handleSubmit((data) => {
+            console.log(data);
+            //TODO: Do something
+          })();
           break;
 
         case 2:
@@ -62,7 +72,11 @@ const NewReportWizard = () => {
           </FormProvider>
         );
       case 1:
-        return <div>TODO: Education form</div>;
+        return (
+          <FormProvider {...educationForm}>
+            <EducationForm />
+          </FormProvider>
+        );
       case 2:
         return <div>TODO: Current job</div>;
       default:

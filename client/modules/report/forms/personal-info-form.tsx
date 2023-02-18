@@ -9,7 +9,7 @@ import { FormInput } from '@client/ui/form-input';
 
 import { Gender, PersonalInfoFormInput } from '../types';
 
-const PersonalInfoForm = (): JSX.Element => {
+const PersonalInfoForm = () => {
   const { t } = useTranslation('report');
 
   const { register, formState, setValue, getValues } = useFormContext<PersonalInfoFormInput>();

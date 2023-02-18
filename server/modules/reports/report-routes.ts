@@ -7,6 +7,8 @@ const reports = r({
 
   enums: r({
     gender: reportProcedures.gender,
+    averageGrade: reportProcedures.averageGrade,
+    educationGrade: reportProcedures.educationGrade,
   }),
 });
 

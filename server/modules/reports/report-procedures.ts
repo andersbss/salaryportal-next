@@ -1,4 +1,8 @@
-import { Gender as PrismaGender } from '@prisma/client';
+import {
+  Gender as PrismaGender,
+  AverageGrade as PrismaAverageGrade,
+  EducationGrade as PrismaEducationGrade,
+} from '@prisma/client';
 
 import { procedure as p } from '@server/utils/trpc';
 
@@ -9,7 +13,13 @@ const create = p.input(CreateReportInputSchema).mutation(({ input }) => reportSe
 
 const gender = p.query(() => PrismaGender);
 
+const averageGrade = p.query(() => PrismaAverageGrade);
+
+const educationGrade = p.query(() => PrismaEducationGrade);
+
 export default {
   create,
   gender,
+  averageGrade,
+  educationGrade,
 };
