@@ -33,7 +33,33 @@
         },
         "education": {
             "heading": "Vi trenger litt informasjon om utdanningen din",
-            "label": "Utdanning"
+            "label": "Utdanning",
+            "paragraphX": {
+                "title": "Høyeste relevant utdanning",
+                "text": "Her fyller du inn informasjon om den høyeste oppnådde graden din som er relevant for din nåværende jobb."
+            },
+            "paragraphY": {
+                "title": "Andre utdanninger",
+                "text": "Dersom du har tid kan du gjerne oppgi flere av gradene dine. Dette vil gjøre dataene enda bedre!"
+            },
+            "fields": {
+                "title": {
+                    "label": "Hva er tittelen på graden?",
+                    "placeholder": "Bachelor i sosialt arbeid",
+                    "tooltip": "Her kan du skrive inn tittelen på graden din. Eksempelvis: Bachelor i sosialt arbeid, Generell studiekompetanse, Fagbrev i tømrerfaget etc.",
+                    "validation": {
+                        "required": "Tittel er påkrevd"
+                    }
+                },
+                "graduateYear": {
+                    "label": "I hvilket år ble du ferdig med utdanningen?",
+                    "placeholder": "2012",
+                    "tooltip": "Her kan du skrive inn året du ble ferdig med utdanningen. Eksempelvis: 2012, 2013, 2014, etc.",
+                    "validation": {
+                        "required": "År er påkrevd"
+                    }
+                }
+            }
         },
         "currentJob": {
             "heading": "Vi trenger litt informasjon om jobben din",

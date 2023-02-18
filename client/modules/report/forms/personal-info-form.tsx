@@ -25,17 +25,15 @@ const PersonalInfoForm = () => {
     refetchCountiesData();
   }, []);
 
-  const countyOptions = useMemo<AutoCompleteOption[]>(() => {
-    if (!countiesData) return [];
-
-    return countiesData.map((county) => {
-      return {
+  const countyOptions = useMemo<AutoCompleteOption[]>(
+    () =>
+      countiesData?.map((county) => ({
         id: county.id,
         label: county.name,
         value: county.name,
-      };
-    });
-  }, [countiesData]);
+      })) || [],
+    [countiesData]
+  );
 
   const genderOptions = useMemo<AutoCompleteOption<Gender>[]>(() => {
     if (!genderData) return [];
@@ -61,7 +59,7 @@ const PersonalInfoForm = () => {
 
   return (
     <div className="w-full max-w-screen-lg">
-      <h2 className="font-semibold text-slate-900 dark:text-white">{t('forms.personalInfo.heading')}</h2>
+      <h2 className="text-lg font-bold text-slate-900 dark:text-white">{t('forms.personalInfo.heading')}</h2>
 
       <form className="mt-4 flex flex-col">
         <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">

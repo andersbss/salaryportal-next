@@ -7,12 +7,28 @@ import { PersonalInfoFormInput, EducationFormInput } from '../types';
 
 import PersonalInfoForm from './personal-info-form';
 import EducationForm from './education-form';
+import { EMPTY_DEGREE } from '../utils';
 
 const NewReportWizard = () => {
   const { t } = useTranslation();
 
-  const personalInfoForm = useForm<PersonalInfoFormInput>();
-  const educationForm = useForm<EducationFormInput>();
+  const personalInfoForm = useForm<PersonalInfoFormInput>({
+    mode: 'onTouched',
+    defaultValues: {
+      //TOOD: Remove
+      age: 20,
+      county: 'Oslo',
+      countyId: '0301',
+      gender: 'Male',
+      genderId: 'Male',
+    },
+  });
+  const educationForm = useForm<EducationFormInput>({
+    mode: 'onTouched',
+    defaultValues: {
+      degrees: [{ ...EMPTY_DEGREE }],
+    },
+  });
 
   const wizard = useWizard({
     initialSteps: [
