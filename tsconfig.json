@@ -16,12 +16,15 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
+      "@locales/*": ["./locales/*"],
+
       "@client/globals/*": ["./client/globals/*"],
       "@client/ui/*": ["./client/ui/*"],
 
       "@client/utils": ["./client/utils/index.ts"],
       "@client/utils/*": ["./client/utils/*"],
       "@client/trpc": ["./client/trpc/index.ts"],
+      "@client/test-utils": ["./client/test/index.ts"],
 
       "@client/modules/home": ["./client/modules/home/index.ts"],
       "@client/modules/report": ["./client/modules/report/index.ts"],

@@ -3,6 +3,9 @@ import { defaultProviderProps, getProviderPropsWithActiveStep, OmitWizardProvide
 import { WizardProvider, WizardProviderProps } from '../wizard-ctx';
 import WizardNavigation from './wizard-navigation';
 
+import { LocaleProvider } from '@client/test-utils';
+import commonEN from '@locales/en/common.json';
+
 describe('<WizardNavigation />', () => {
   it('renders with required props', () => {
     cy.mount(
@@ -15,9 +18,11 @@ describe('<WizardNavigation />', () => {
   describe('rendering', () => {
     it('should only show the next button when on first step', () => {
       cy.mount(
-        <WizardProvider {...defaultProviderProps}>
-          <WizardNavigation />
-        </WizardProvider>
+        <LocaleProvider lang="en" namespaces={{ common: commonEN }}>
+          <WizardProvider {...defaultProviderProps}>
+            <WizardNavigation />
+          </WizardProvider>
+        </LocaleProvider>
       );
 
       cy.get('button').should('have.length', 1);
@@ -28,9 +33,11 @@ describe('<WizardNavigation />', () => {
       const providerProps: OmitWizardProviderProps = getProviderPropsWithActiveStep(2);
 
       cy.mount(
-        <WizardProvider {...providerProps}>
-          <WizardNavigation />
-        </WizardProvider>
+        <LocaleProvider lang="en" namespaces={{ common: commonEN }}>
+          <WizardProvider {...providerProps}>
+            <WizardNavigation />
+          </WizardProvider>
+        </LocaleProvider>
       );
 
       cy.get('button').should('have.length', 2);
@@ -42,9 +49,11 @@ describe('<WizardNavigation />', () => {
       const providerProps: OmitWizardProviderProps = getProviderPropsWithActiveStep(1);
 
       cy.mount(
-        <WizardProvider {...providerProps}>
-          <WizardNavigation />
-        </WizardProvider>
+        <LocaleProvider lang="en" namespaces={{ common: commonEN }}>
+          <WizardProvider {...providerProps}>
+            <WizardNavigation />
+          </WizardProvider>
+        </LocaleProvider>
       );
 
       cy.get('button').should('have.length', 2);
@@ -63,9 +72,11 @@ describe('<WizardNavigation />', () => {
       };
 
       cy.mount(
-        <WizardProvider {...providerProps}>
-          <WizardNavigation />
-        </WizardProvider>
+        <LocaleProvider lang="en" namespaces={{ common: commonEN }}>
+          <WizardProvider {...providerProps}>
+            <WizardNavigation />
+          </WizardProvider>
+        </LocaleProvider>
       );
 
       cy.get('button').contains('Next').click();
@@ -81,9 +92,11 @@ describe('<WizardNavigation />', () => {
       };
 
       cy.mount(
-        <WizardProvider {...providerProps}>
-          <WizardNavigation />
-        </WizardProvider>
+        <LocaleProvider lang="en" namespaces={{ common: commonEN }}>
+          <WizardProvider {...providerProps}>
+            <WizardNavigation />
+          </WizardProvider>
+        </LocaleProvider>
       );
 
       cy.get('button').contains('Previous').click();
@@ -99,9 +112,11 @@ describe('<WizardNavigation />', () => {
       };
 
       cy.mount(
-        <WizardProvider {...providerProps}>
-          <WizardNavigation />
-        </WizardProvider>
+        <LocaleProvider lang="en" namespaces={{ common: commonEN }}>
+          <WizardProvider {...providerProps}>
+            <WizardNavigation />
+          </WizardProvider>
+        </LocaleProvider>
       );
 
       cy.get('button').contains('Done').click();
@@ -115,9 +130,11 @@ describe('<WizardNavigation />', () => {
         const providerProps: OmitWizardProviderProps = getProviderPropsWithActiveStep(1);
 
         cy.mount(
-          <WizardProvider {...providerProps}>
-            <WizardNavigation />
-          </WizardProvider>
+          <LocaleProvider lang="en" namespaces={{ common: commonEN }}>
+            <WizardProvider {...providerProps}>
+              <WizardNavigation />
+            </WizardProvider>
+          </LocaleProvider>
         );
 
         cy.get('nav').should('have.class', 'justify-between');
@@ -127,9 +144,11 @@ describe('<WizardNavigation />', () => {
         const providerProps: OmitWizardProviderProps = getProviderPropsWithActiveStep(0);
 
         cy.mount(
-          <WizardProvider {...providerProps}>
-            <WizardNavigation />
-          </WizardProvider>
+          <LocaleProvider lang="en" namespaces={{ common: commonEN }}>
+            <WizardProvider {...providerProps}>
+              <WizardNavigation />
+            </WizardProvider>
+          </LocaleProvider>
         );
 
         cy.get('nav').should('have.class', 'justify-end');

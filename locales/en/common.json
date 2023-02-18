@@ -1,0 +1,14 @@
+{
+    "slogan": "Hvor mye tjener en_?",
+    "auth": {
+        "signIn": "Sign in",
+        "signOut": "Sign out"
+    },
+    "wizard": {
+        "navigation": {
+            "next": "Next",
+            "back": "Previous",
+            "done": "Done"
+        }
+    }
+}
