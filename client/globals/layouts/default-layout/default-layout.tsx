@@ -10,14 +10,9 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps): JSX.Element => 
   return (
     <div className="flex h-screen flex-col justify-between bg-white dark:bg-zinc-800">
       <DefaultHeader />
-      <main className="mx-auto mb-auto w-full max-w-screen-2xl px-4 lg:px-0">{children}</main>
-      <div className="relative mx-auto w-full max-w-screen-2xl">
-        <div className="absolute bottom-20 right-0">
-          {/**
-           * <Fab />
-           */}
-        </div>
-      </div>
+      <main className="mb-20mx-auto mb-auto w-full max-w-screen-2xl bg-white px-4 dark:bg-zinc-800 lg:px-0">
+        {children}
+      </main>
       <DefaultFooter />
     </div>
   );
