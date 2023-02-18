@@ -1,10 +1,10 @@
-import { trpc } from '@client/trpc';
-import { AutoCompleteOption, FormAutocomplete } from '@client/ui/form-autocomplete';
+import { FormAutocomplete } from '@client/ui/form-autocomplete';
 import { FormInput } from '@client/ui/form-input';
 import useTranslation from 'next-translate/useTranslation';
-import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
+
 import { AverageGrade, EducationFormInput, EducationGrade } from '../types';
+import { useAverageGradeAutocompleteOptions, useGradeAutocompleteOptions } from '../hooks';
 
 const now = new Date();
 
@@ -18,30 +18,8 @@ export const EducationRow = ({ index, onRemove }: EducationRowProps) => {
 
   const { register, formState, setValue } = useFormContext<EducationFormInput>();
 
-  const { data: educationGradeData } = trpc.reports.enums.educationGrade.useQuery();
-  const { data: averageGradeData } = trpc.reports.enums.averageGrade.useQuery();
-
-  const gradeOptions = useMemo<AutoCompleteOption<EducationGrade>[]>(() => {
-    if (!educationGradeData) return [];
-
-    return Object.values(educationGradeData).map((grade) => ({
-      id: grade,
-      label: grade.toString(),
-      value: grade,
-    }));
-  }, [educationGradeData]);
-
-  const averageGradeOptions = useMemo<AutoCompleteOption<AverageGrade>[]>(() => {
-    if (!averageGradeData) return [];
-
-    const grades = Object.values(averageGradeData);
-
-    return grades.map((grade, index) => ({
-      id: grade,
-      label: `${grade} (${grades.length - index})`,
-      value: grade,
-    }));
-  }, [averageGradeData]);
+  const { options: averageGradeOptions } = useAverageGradeAutocompleteOptions();
+  const { options: gradeOptions } = useGradeAutocompleteOptions();
 
   const handleGradeValues = (id: EducationGrade | null, label: string) => {
     setValue(`degrees.${index}.gradeId`, id, { shouldValidate: true });
