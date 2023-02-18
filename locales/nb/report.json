@@ -46,9 +46,17 @@
                 "title": {
                     "label": "Hva er tittelen på graden?",
                     "placeholder": "Bachelor i sosialt arbeid",
-                    "tooltip": "Her kan du skrive inn tittelen på graden din. Eksempelvis: Bachelor i sosialt arbeid, Generell studiekompetanse, Fagbrev i tømrerfaget etc.",
+                    "tooltip": "Her kan du skrive inn tittelen på graden din. Eksempelvis: Bachelor i sosialt arbeid, Generell studiekompetanse, Fagbrev i tømrerfaget, Grunnskole, etc.",
                     "validation": {
                         "required": "Tittel er påkrevd"
+                    }
+                },
+                "grade": {
+                    "label": "Hvilken grad var utdanningen?",
+                    "placeholder": "Bachelor",
+                    "tooltip": "Her kan du velge grad. Eksempelvis: Videregående, Bachelor, Master, etc.",
+                    "validation": {
+                        "required": "Grad er påkrevd"
                     }
                 },
                 "graduateYear": {
@@ -56,7 +64,19 @@
                     "placeholder": "2012",
                     "tooltip": "Her kan du skrive inn året du ble ferdig med utdanningen. Eksempelvis: 2012, 2013, 2014, etc.",
                     "validation": {
-                        "required": "År er påkrevd"
+                        "required": "År er påkrevd",
+                        "max": "Du kan ikke skrive inn et år som er i fremtiden",
+                        "min": "Du kan ikke skrive inn et år som er før 1900"
+                    }
+                },
+                "yearsInSchool": {
+                    "label": "Hvor lang tid brukte du på å fullføre?",
+                    "placeholder": "3",
+                    "tooltip": "Her kan du skrive inn hvor mange år du brukte på å fullføre utdanningen. Standard fyller vi inn antall basert på graden du har valgt. Det fullt mulig å endre dette.",
+                    "validation": {
+                        "required": "Antall år er påkrevd",
+                        "max": "Kan ikke være mer enn 30",
+                        "min": "Kan ikke være mindre enn 1"
                     }
                 }
             }

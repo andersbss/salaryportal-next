@@ -1,8 +1,10 @@
+import { trpc } from '@client/trpc';
+import { AutoCompleteOption, FormAutocomplete } from '@client/ui/form-autocomplete';
 import { FormInput } from '@client/ui/form-input';
 import useTranslation from 'next-translate/useTranslation';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { EducationFormInput } from '../types';
+import { EducationFormInput, EducationGrade } from '../types';
 import { EMPTY_DEGREE } from '../utils';
 
 const now = new Date();
@@ -70,10 +72,27 @@ type EducationRowProps = {
 const EducationRow = ({ index }: EducationRowProps) => {
   const { t } = useTranslation('report');
 
-  const { register, formState } = useFormContext<EducationFormInput>();
+  const { register, formState, setValue } = useFormContext<EducationFormInput>();
+
+  const { data: educationGradeData } = trpc.reports.enums.educationGrade.useQuery();
+
+  const gradeOptions = useMemo<AutoCompleteOption<EducationGrade>[]>(() => {
+    if (!educationGradeData) return [];
+
+    return Object.values(educationGradeData).map((grade) => ({
+      id: grade,
+      label: grade.toString(),
+      value: grade,
+    }));
+  }, [educationGradeData]);
+
+  const handleGradeValues = (id: EducationGrade | null, label: string) => {
+    setValue(`degrees.${index}.gradeId`, id, { shouldValidate: true });
+    setValue(`degrees.${index}.grade`, label, { shouldValidate: true });
+  };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
       <FormInput
         label={t('forms.education.fields.title.label')}
         placeholder={t('forms.education.fields.title.placeholder')}
@@ -83,6 +102,21 @@ const EducationRow = ({ index }: EducationRowProps) => {
           required: 'required',
         })}
       />
+      <FormAutocomplete
+        label={t('forms.education.fields.grade.label')}
+        placeholder={t('forms.education.fields.grade.placeholder')}
+        tooltip={t('forms.education.fields.grade.tooltip')}
+        mode="select"
+        error={formState.errors?.degrees?.[index]?.grade}
+        fullWidth
+        options={gradeOptions}
+        register={register(`degrees.${index}.grade`, {
+          required: t('forms.education.fields.grade.validation.required'),
+        })}
+        onOptionClick={({ value, label }) => {
+          handleGradeValues(value || null, label);
+        }}
+      />
       <FormInput
         label={t('forms.education.fields.graduateYear.label')}
         placeholder={t('forms.education.fields.graduateYear.placeholder')}
@@ -91,20 +125,43 @@ const EducationRow = ({ index }: EducationRowProps) => {
         error={formState.errors?.degrees?.[index]?.graduateYear}
         fullWidth
         register={register(`degrees.${index}.graduateYear`, {
-          required: 'hello',
+          required: t('forms.education.fields.graduateYear.validation.required'),
           validate: {
             isMax: (value) => {
               if (!value) return;
-
               if (value > now.getFullYear()) {
-                return 'Year cannot be in the future';
+                return t('forms.education.fields.graduateYear.validation.max');
               }
             },
             isMin: (value) => {
               if (!value) return;
-
               if (value < 1900) {
-                return 'Year cannot be before 1900';
+                return t('forms.education.fields.graduateYear.validation.min');
+              }
+            },
+          },
+        })}
+      />
+      <FormInput
+        label={t('forms.education.fields.yearsInSchool.label')}
+        placeholder={t('forms.education.fields.yearsInSchool.placeholder')}
+        tooltip={t('forms.education.fields.yearsInSchool.tooltip')}
+        type="number"
+        error={formState.errors?.degrees?.[index]?.yearsInSchool}
+        fullWidth
+        register={register(`degrees.${index}.yearsInSchool`, {
+          required: t('forms.education.fields.yearsInSchool.validation.required'),
+          validate: {
+            isMax: (value) => {
+              if (!value) return;
+              if (value > 30) {
+                return t('forms.education.fields.yearsInSchool.validation.max');
+              }
+            },
+            isMin: (value) => {
+              if (!value) return;
+              if (value < 1) {
+                return t('forms.education.fields.yearsInSchool.validation.min');
               }
             },
           },
