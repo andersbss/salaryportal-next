@@ -10,7 +10,7 @@ const WizardProgress = () => {
   return (
     <nav data-test="wizard-progress" className="flex justify-evenly">
       {steps.map((step, index) => (
-        <div key={step.number} className="flex w-full items-center justify-center">
+        <div key={step.number} className="relative flex w-full items-center justify-center">
           <div
             data-test="left-line"
             className={`mr-2 w-full border-t ${isFirstStep(index) ? 'border-transparent' : 'border-gray-400'}`}
@@ -22,6 +22,11 @@ const WizardProgress = () => {
             data-test="right-line"
             className={`ml-2 w-full border-t ${isLastStep(index) ? 'border-transparent' : 'border-gray-400'}`}
           />
+          <div className="absolute flex text-xs text-white">
+            <span data-test="label" className="mt-14 block">
+              {step.label}
+            </span>
+          </div>
         </div>
       ))}
     </nav>

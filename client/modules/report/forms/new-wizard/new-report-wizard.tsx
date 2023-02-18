@@ -12,9 +12,9 @@ const NewReportWizard = () => {
 
   const wizard = useWizard({
     initialSteps: [
-      { label: t('report:personalInfo.label') },
-      { label: t('report:education.label') },
-      { label: t('report:currentJob.label') },
+      { label: t('report:forms.personalInfo.label') },
+      { label: t('report:forms.education.label') },
+      { label: t('report:forms.currentJob.label') },
     ],
     onNext: async (step) => {
       let isValid = true;

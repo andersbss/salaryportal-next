@@ -2,7 +2,7 @@
     "forms": {
         "personalInfo": {
             "heading": "Vi trenger litt informasjon om deg",
-            "label": "Personlig informasjon",
+            "label": "Informasjon",
             "fields": {
                 "age": {
                     "label": "Hvor gammel er du?",
@@ -37,7 +37,7 @@
         },
         "currentJob": {
             "heading": "Vi trenger litt informasjon om jobben din",
-            "label": "Nåværende jobb"
+            "label": "Jobb"
         }
     }
 }
