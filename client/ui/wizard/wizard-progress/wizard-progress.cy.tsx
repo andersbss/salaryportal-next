@@ -1,4 +1,4 @@
-import { defaultProviderProps } from '../utils/test';
+import { defaultProviderProps, OmitWizardProviderProps } from '../utils/test';
 import { WizardProvider } from '../wizard-ctx';
 import WizardProgress from './wizard-progress';
 
@@ -24,6 +24,36 @@ describe('<WizardProgress/>', () => {
       cy.get('[data-test=left-line]').should('have.length', 3);
       cy.get('[data-test=right-line]').should('have.length', 3);
       cy.get('[data-test=label]').should('have.length', 3);
+    });
+  });
+
+  describe('interaction', () => {
+    it('calls the go to step handler when a completed step is clicked', () => {
+      const goTo = cy.stub();
+
+      const props: OmitWizardProviderProps = {
+        ...defaultProviderProps,
+        steps: [
+          { index: 0, label: 'Step 1', number: 1, variant: 'completed' },
+          { index: 1, label: 'Step 2', number: 2, variant: 'active' },
+        ],
+        activeStep: {
+          index: 1,
+          label: 'Step 2',
+          number: 2,
+          variant: 'active',
+        },
+        goTo,
+      };
+
+      cy.mount(
+        <WizardProvider {...props}>
+          <WizardProgress />
+        </WizardProvider>
+      );
+
+      cy.get('button').eq(0).click();
+      cy.wrap(goTo).should('have.been.calledWith', 0);
     });
   });
 });

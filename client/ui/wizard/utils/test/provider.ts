@@ -31,6 +31,7 @@ export const defaultProviderProps: OmitWizardProviderProps = {
   ],
   back: () => {},
   next: () => {},
+  goTo: () => {},
   done: () => {},
 };
 

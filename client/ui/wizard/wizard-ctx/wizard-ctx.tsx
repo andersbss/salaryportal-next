@@ -26,6 +26,7 @@ export type UseWizardReturn = {
   activeStep: WizardStep;
   next: () => void;
   back: () => void;
+  goTo: (index: number) => void;
   done: () => void;
 };
 
@@ -102,11 +103,25 @@ export const useWizard = ({ initialSteps, onNext, onBack, onDone }: UseWizardPro
     });
   };
 
+  const goTo = (index: number) => {
+    setSteps((prev) => {
+      const newSteps = [...prev];
+
+      newSteps[activeStep.index].variant = 'inactive';
+      newSteps[index].variant = 'active';
+
+      return newSteps;
+    });
+
+    setActiveStep(steps[index]);
+  };
+
   return {
     activeStep,
     steps,
     next,
     back,
+    goTo,
     done,
   };
 };
