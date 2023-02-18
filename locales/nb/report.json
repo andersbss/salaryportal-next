@@ -41,7 +41,13 @@
             },
             "paragraphY": {
                 "title": "Andre utdanninger",
-                "text": "Dersom du har tid kan du gjerne oppgi flere av gradene dine. Dette vil gjøre dataene enda bedre!"
+                "text": "Dersom du har tid kan du gjerne oppgi flere av utdanningene dine. Dette vil gjøre dataene enda bedre!"
+            },
+            "paragraphZ": {
+                "text": "Dette må du ikke fylle inn, men det hjelper veldig hvis du gjør det!"
+            },
+            "buttons": {
+                "addEducation": "Legg til utdanning"
             },
             "fields": {
                 "title": {

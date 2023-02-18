@@ -54,7 +54,7 @@ const EducationForm = () => {
                 handleAppendDegree();
               }}
             >
-              Legg til ekstra utdanningsnivå
+              {t('forms.education.buttons.addEducation')}
             </button>
           </div>
         </div>
@@ -214,7 +214,7 @@ const EducationRow = ({ index, onRemove }: EducationRowProps) => {
         })}
       />
       <p className=" w-full text-sm text-slate-900 dark:text-gray-400 md:col-span-2">
-        Dette må du ikke fylle inn, men det hjelper veldig hvis du gjør det!
+        {t('forms.education.paragraphZ.text')}
       </p>
       <FormInput
         label={t('forms.education.fields.graduateSchool.label')}
