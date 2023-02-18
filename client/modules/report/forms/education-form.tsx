@@ -2,7 +2,7 @@ import { trpc } from '@client/trpc';
 import { AutoCompleteOption, FormAutocomplete } from '@client/ui/form-autocomplete';
 import { FormInput } from '@client/ui/form-input';
 import useTranslation from 'next-translate/useTranslation';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { AverageGrade, EducationFormInput, EducationGrade } from '../types';
 import { EMPTY_DEGREE } from '../utils';
@@ -41,7 +41,7 @@ const EducationForm = () => {
             <p className="text-sm text-slate-900 dark:text-gray-200">{t('forms.education.paragraphY.text')}</p>
             <div>
               {fields.slice(1).map((field, index) => (
-                <EducationRow key={field.id} index={index + 1} />
+                <EducationRow key={field.id} index={index + 1} onRemove={handleRemoveDegree} />
               ))}
             </div>
           </section>
@@ -67,9 +67,10 @@ export default EducationForm;
 
 type EducationRowProps = {
   index: number;
+  onRemove?: (index: number) => void;
 };
 
-const EducationRow = ({ index }: EducationRowProps) => {
+const EducationRow = ({ index, onRemove }: EducationRowProps) => {
   const { t } = useTranslation('report');
 
   const { register, formState, setValue } = useFormContext<EducationFormInput>();
@@ -109,15 +110,30 @@ const EducationRow = ({ index }: EducationRowProps) => {
     setValue(`degrees.${index}.averageGrade`, label, { shouldValidate: true });
   };
 
+  const handleRemoveDegree = (index: number) => () => {
+    onRemove?.(index);
+  };
+
+  const isFirst = index === 0;
+
   return (
-    <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+    <div className="grid w-full grid-cols-1 gap-4 rounded-lg p-0 shadow-none md:grid-cols-2 md:p-4 md:shadow-lg">
+      <div className="mt-4 flex justify-between md:col-span-2">
+        <h4 className="font-semibold text-slate-900 dark:text-white ">{`${index + 1}.`}</h4>
+        {!isFirst && (
+          <button className="text-red-800" onClick={handleRemoveDegree(index)}>
+            &#x274C;
+          </button>
+        )}
+      </div>
       <FormInput
         label={t('forms.education.fields.title.label')}
         placeholder={t('forms.education.fields.title.placeholder')}
         tooltip={t('forms.education.fields.title.tooltip')}
+        error={formState.errors?.degrees?.[index]?.name}
         fullWidth
         register={register(`degrees.${index}.name`, {
-          required: 'required',
+          required: t('forms.education.fields.title.validation.required'),
         })}
       />
       <FormAutocomplete
@@ -148,7 +164,6 @@ const EducationRow = ({ index }: EducationRowProps) => {
             isInteger: (value) => {
               if (!value) return;
               if (value % 1 !== 0) {
-                console.log('not integer');
                 return t('forms.education.fields.graduateYear.validation.integer');
               }
             },
