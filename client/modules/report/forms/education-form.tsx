@@ -3,7 +3,7 @@ import { AutoCompleteOption, FormAutocomplete } from '@client/ui/form-autocomple
 import { FormInput } from '@client/ui/form-input';
 import useTranslation from 'next-translate/useTranslation';
 import { useCallback, useMemo } from 'react';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { AverageGrade, EducationFormInput, EducationGrade } from '../types';
 import { EMPTY_DEGREE } from '../utils';
 
@@ -90,9 +90,11 @@ const EducationRow = ({ index }: EducationRowProps) => {
   const averageGradeOptions = useMemo<AutoCompleteOption<AverageGrade>[]>(() => {
     if (!averageGradeData) return [];
 
-    return Object.values(averageGradeData).map((grade) => ({
+    const grades = Object.values(averageGradeData);
+
+    return grades.map((grade, index) => ({
       id: grade,
-      label: grade.toString(),
+      label: `${grade} (${grades.length - index})`,
       value: grade,
     }));
   }, [averageGradeData]);
