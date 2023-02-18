@@ -13,7 +13,6 @@ export type Degree = {
 
   // Optional
   graduateSchool: string | null;
-  graduateSchoolId: string | null;
   averageGrade: string | null;
   averageGradeId: AverageGrade | null;
 };

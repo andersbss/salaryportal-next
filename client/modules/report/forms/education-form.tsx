@@ -4,7 +4,7 @@ import { FormInput } from '@client/ui/form-input';
 import useTranslation from 'next-translate/useTranslation';
 import { useCallback, useMemo } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { EducationFormInput, EducationGrade } from '../types';
+import { AverageGrade, EducationFormInput, EducationGrade } from '../types';
 import { EMPTY_DEGREE } from '../utils';
 
 const now = new Date();
@@ -75,6 +75,7 @@ const EducationRow = ({ index }: EducationRowProps) => {
   const { register, formState, setValue } = useFormContext<EducationFormInput>();
 
   const { data: educationGradeData } = trpc.reports.enums.educationGrade.useQuery();
+  const { data: averageGradeData } = trpc.reports.enums.averageGrade.useQuery();
 
   const gradeOptions = useMemo<AutoCompleteOption<EducationGrade>[]>(() => {
     if (!educationGradeData) return [];
@@ -86,9 +87,24 @@ const EducationRow = ({ index }: EducationRowProps) => {
     }));
   }, [educationGradeData]);
 
+  const averageGradeOptions = useMemo<AutoCompleteOption<AverageGrade>[]>(() => {
+    if (!averageGradeData) return [];
+
+    return Object.values(averageGradeData).map((grade) => ({
+      id: grade,
+      label: grade.toString(),
+      value: grade,
+    }));
+  }, [averageGradeData]);
+
   const handleGradeValues = (id: EducationGrade | null, label: string) => {
     setValue(`degrees.${index}.gradeId`, id, { shouldValidate: true });
     setValue(`degrees.${index}.grade`, label, { shouldValidate: true });
+  };
+
+  const handleAverageGradeValues = (id: AverageGrade | null, label: string) => {
+    setValue(`degrees.${index}.averageGradeId`, id, { shouldValidate: true });
+    setValue(`degrees.${index}.averageGrade`, label, { shouldValidate: true });
   };
 
   return (
@@ -179,6 +195,30 @@ const EducationRow = ({ index }: EducationRowProps) => {
             },
           },
         })}
+      />
+      <p className=" w-full text-sm text-slate-900 dark:text-gray-400 md:col-span-2">
+        Dette må du ikke fylle inn, men det hjelper veldig hvis du gjør det!
+      </p>
+      <FormInput
+        label={t('forms.education.fields.graduateSchool.label')}
+        placeholder={t('forms.education.fields.graduateSchool.placeholder')}
+        tooltip={t('forms.education.fields.graduateSchool.tooltip')}
+        fullWidth
+        register={register(`degrees.${index}.graduateSchool`)}
+        error={formState.errors?.degrees?.[index]?.graduateSchool}
+      />
+      <FormAutocomplete
+        label={t('forms.education.fields.averageGrade.label')}
+        placeholder={t('forms.education.fields.averageGrade.placeholder')}
+        tooltip={t('forms.education.fields.averageGrade.tooltip')}
+        mode="select"
+        error={formState.errors?.degrees?.[index]?.averageGrade}
+        fullWidth
+        options={averageGradeOptions}
+        register={register(`degrees.${index}.averageGrade`)}
+        onOptionClick={({ value, label }) => {
+          handleAverageGradeValues(value || null, label);
+        }}
       />
     </div>
   );

@@ -81,6 +81,18 @@
                         "max": "Kan ikke være mer enn 30",
                         "min": "Kan ikke være mindre enn 1"
                     }
+                },
+                "graduateSchool": {
+                    "label": "Hvor gikk du på skole?",
+                    "placeholder": "Høgskolen i Østfold",
+                    "tooltip": "Her kan du skrive inn navnet på skolen du gikk på. Eksempelvis: Høgskolen i Østfold, Sentrum videregående, etc."
+                },
+                "averageGrade": {
+                    "label": "Hva ca. var snittet ditt?",
+                    "placeholderNumbers": "4",
+                    "placeholderLetters": "B",
+                    "tooltipNumbers": "Her kan du skrive inn snittet ditt. Eksempelvis: 4, 4.5, 5, etc. Hvis du ikke husker nøyaktig kan du skrive inn et snitt som er nærmest det du husker. Hvis du ikke husker snittet ditt kan du bare la dette feltet stå tomt.",
+                    "tooltipLetters": "Her kan du skrive inn snittet ditt. Eksempelvis: A, B, C, etc. Hvis du ikke husker nøyaktig kan du skrive inn et snitt som er nærmest det du husker. Hvis du ikke husker snittet ditt kan du bare la dette feltet stå tomt."
                 }
             }
         },
