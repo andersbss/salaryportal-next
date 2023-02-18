@@ -7,9 +7,9 @@ import { trpc } from '@client/trpc';
 import { AutoCompleteOption, FormAutocomplete } from '@client/ui/form-autocomplete';
 import { FormInput } from '@client/ui/form-input';
 
-import { Gender, PersonalInfoFormInput } from './types';
+import { Gender, PersonalInfoFormInput } from '../types';
 
-export const PersonalInfoForm = (): JSX.Element => {
+const PersonalInfoForm = (): JSX.Element => {
   const { t } = useTranslation('report');
 
   const { register, formState, setValue, getValues } = useFormContext<PersonalInfoFormInput>();

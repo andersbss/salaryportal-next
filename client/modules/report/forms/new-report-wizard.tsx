@@ -2,8 +2,8 @@ import { Wizard } from '@client/ui/wizard/wizard';
 import { useWizard, WizardProvider, WizardStep } from '@client/ui/wizard/wizard-ctx';
 import useTranslation from 'next-translate/useTranslation';
 import { FormProvider, useForm } from 'react-hook-form';
+import { PersonalInfoFormInput } from '../types';
 import PersonalInfoForm from './personal-info-form';
-import { PersonalInfoFormInput } from './types';
 
 const NewReportWizard = () => {
   const { t } = useTranslation();
