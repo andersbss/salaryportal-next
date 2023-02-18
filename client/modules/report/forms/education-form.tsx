@@ -127,6 +127,13 @@ const EducationRow = ({ index }: EducationRowProps) => {
         register={register(`degrees.${index}.graduateYear`, {
           required: t('forms.education.fields.graduateYear.validation.required'),
           validate: {
+            isInteger: (value) => {
+              if (!value) return;
+              if (value % 1 !== 0) {
+                console.log('not integer');
+                return t('forms.education.fields.graduateYear.validation.integer');
+              }
+            },
             isMax: (value) => {
               if (!value) return;
               if (value > now.getFullYear()) {
@@ -152,6 +159,12 @@ const EducationRow = ({ index }: EducationRowProps) => {
         register={register(`degrees.${index}.yearsInSchool`, {
           required: t('forms.education.fields.yearsInSchool.validation.required'),
           validate: {
+            isInteger: (value) => {
+              if (!value) return;
+              if (value % 1 !== 0) {
+                return t('forms.education.fields.graduateYear.validation.integer');
+              }
+            },
             isMax: (value) => {
               if (!value) return;
               if (value > 30) {

@@ -69,7 +69,17 @@ const PersonalInfoForm = () => {
             placeholder={t('forms.personalInfo.fields.age.placeholder')}
             fullWidth
             error={formState.errors.age}
-            register={register('age', { required: t('forms.personalInfo.fields.age.validation.required') })}
+            register={register('age', {
+              required: t('forms.personalInfo.fields.age.validation.required'),
+              validate: {
+                isInteger: (value) => {
+                  if (!value) return;
+                  if (value % 1 !== 0) {
+                    return t('forms.personalInfo.fields.age.validation.integer');
+                  }
+                },
+              },
+            })}
             type="number"
           />
           <FormAutocomplete
@@ -82,19 +92,7 @@ const PersonalInfoForm = () => {
             fullWidth
             register={register('gender', {
               required: t('forms.personalInfo.fields.gender.validation.required'),
-              validate: {
-                isOption: (input) => {
-                  const isOption = genderOptions.some((o) => o.label === input);
-                  if (isOption) return;
-                  return t('forms.personalInfo.fields.gender.validation.selectAlternative');
-                },
-              },
             })}
-            onBlur={() => {
-              const isOption = genderOptions.some((o) => o.label === getValues('gender'));
-              if (isOption) return;
-              handleGenderValues(null, '');
-            }}
             onOptionClick={({ value, label }) => {
               handleGenderValues(value || null, label);
             }}
@@ -112,7 +110,7 @@ const PersonalInfoForm = () => {
                 isOption: (input) => {
                   const isOption = countyOptions.some((o) => o.label === input);
                   if (isOption) return;
-                  return 'Velg et av alternativene';
+                  return t('forms.personalInfo.fields.county.validation.selectAlternative');
                 },
               },
             })}
