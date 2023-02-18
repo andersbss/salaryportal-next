@@ -12,7 +12,7 @@ const WizardProgress = () => {
   };
 
   return (
-    <nav data-test="wizard-progress" className="flex justify-evenly">
+    <nav data-test="wizard-progress" className="flex justify-evenly pb-6">
       {steps.map((step, index) => (
         <div key={step.number} className="relative flex w-full items-center justify-center">
           <div
