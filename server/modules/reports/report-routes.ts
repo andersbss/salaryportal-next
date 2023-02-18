@@ -9,6 +9,10 @@ const reports = r({
     gender: reportProcedures.gender,
     averageGrade: reportProcedures.averageGrade,
     educationGrade: reportProcedures.educationGrade,
+    workLocation: reportProcedures.workLocation,
+    workFlow: reportProcedures.workFlow,
+    paymentInterval: reportProcedures.paymentInterval,
+    sector: reportProcedures.sector,
   }),
 });
 

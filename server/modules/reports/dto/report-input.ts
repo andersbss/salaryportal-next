@@ -45,7 +45,7 @@ export const CreateReportInputSchema = z.object({
     years: z.number(),
     workTimePercentage: z.number(),
     vacationDays: z.number(),
-    workLocation: z.enum([WorkLocation.Remote, WorkLocation.Office, WorkLocation.Hybrid]),
+    workLocation: z.nativeEnum(WorkLocation),
     workFlow: z.nativeEnum(WorkFlow),
     paymentInterval: z.nativeEnum(PaymentInterval),
     sector: z.nativeEnum(Sector),
