@@ -1,1 +1,1 @@
-export * from './new-report';
+export * from './new-wizard';

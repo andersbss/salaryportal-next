@@ -1,23 +1,20 @@
 import { Wizard } from '@client/ui/wizard/wizard';
 import { useWizard, WizardProvider, WizardStep } from '@client/ui/wizard/wizard-ctx';
+import useTranslation from 'next-translate/useTranslation';
 import { FormProvider, useForm } from 'react-hook-form';
 import PersonalInfoForm from './personal-info-form';
 import { PersonalInfoFormInput } from './types';
 
 const NewReportWizard = () => {
+  const { t } = useTranslation();
+
   const personalInfoForm = useForm<PersonalInfoFormInput>();
 
   const wizard = useWizard({
     initialSteps: [
-      {
-        label: 'Personal information',
-      },
-      {
-        label: 'Education',
-      },
-      {
-        label: 'Current job',
-      },
+      { label: t('report:personalInfo.label') },
+      { label: t('report:education.label') },
+      { label: t('report:currentJob.label') },
     ],
     onNext: async (step) => {
       let isValid = true;
