@@ -1,8 +1,9 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { AuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
-
 import { DefaultSession } from 'next-auth';
+
+import { prisma } from '../prisma';
 
 declare module 'next-auth' {
   interface Session {
