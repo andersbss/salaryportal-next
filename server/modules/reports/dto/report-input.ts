@@ -37,20 +37,20 @@ export const CreateReportInputSchema = z.object({
 
   currentJob: z.object({
     // Required
-    jobTitle: z.string(),
-    field: z.string(),
+    freeJobTitle: z.string(), // Free text job
+    fixedJobTitleId: z.string(), // Fixed job title id from utdanning.no
+    fieldId: z.string(),
     estimatedTotalYearlySalary: z.number(),
-    county: z.string(),
-    tags: z.array(z.string()),
-    years: z.number(),
-    workTimePercentage: z.number(),
-    vacationDays: z.number(),
-    workLocation: z.nativeEnum(WorkLocation),
-    workFlow: z.nativeEnum(WorkFlow),
-    paymentInterval: z.nativeEnum(PaymentInterval),
     sector: z.nativeEnum(Sector),
+    county: z.string(),
+    yearsInJob: z.number(),
 
     // Optional
+    workTimePercentage: z.number().nullable(),
+    vacationDays: z.number().nullable(),
+    workLocation: z.nativeEnum(WorkLocation).nullable(),
+    workFlow: z.nativeEnum(WorkFlow).nullable(),
+    paymentInterval: z.nativeEnum(PaymentInterval).nullable(),
     leadership: z.boolean().nullable(),
     flexTime: z.boolean().nullable(),
     seniority: z.string().nullable(),
