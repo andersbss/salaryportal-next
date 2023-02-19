@@ -1,5 +1,4 @@
-import { NotFoundError } from '@server/utils';
-
+import { TRPCError } from '@trpc/server';
 import { reportMapper, CreateReportInput, ReportResponse } from './dto';
 
 import ReportRepository from './report-repository';
@@ -10,7 +9,7 @@ const getReportById = async (id: string): Promise<ReportResponse> => {
   const report = await ReportRepository.getById(id);
 
   if (!report) {
-    throw new NotFoundError(`Report ${id} not found`);
+    throw new TRPCError({ code: 'NOT_FOUND', message: `Report ${id} not found` });
   }
 
   return reportMapper.toResponse(report);
@@ -31,7 +30,7 @@ const deleteReportById = async (id: string): Promise<ReportResponse> => {
   const report = await ReportRepository.deleteById(id);
 
   if (!report) {
-    throw new NotFoundError(`Report ${id} not found`);
+    throw new TRPCError({ code: 'NOT_FOUND', message: `Report ${id} not found` });
   }
 
   return reportMapper.toResponse(report);

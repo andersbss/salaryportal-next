@@ -1,5 +1,4 @@
-import { NotFoundError } from '@server/utils';
-
+import { TRPCError } from '@trpc/server';
 import { threadMapper, ThreadResponse } from './dto';
 
 import ThreadRepository from './thread-repository';
@@ -10,7 +9,7 @@ const getThreadById = async (id: string): Promise<ThreadResponse> => {
   const thread = await ThreadRepository.findById(id);
 
   if (!thread) {
-    throw new NotFoundError(`Thread ${id} not found`);
+    throw new TRPCError({ code: 'NOT_FOUND', message: `Thread ${id} not found` });
   }
 
   return threadMapper.toResponse(thread);
@@ -20,7 +19,7 @@ const getByUrlId = async (urlId: string): Promise<ThreadResponse> => {
   const thread = await ThreadRepository.findByUrlId(urlId);
 
   if (!thread) {
-    throw new NotFoundError(`Thread ${urlId} not found`);
+    throw new TRPCError({ code: 'NOT_FOUND', message: `Thread ${urlId} not found` });
   }
 
   return threadMapper.toResponse(thread);
