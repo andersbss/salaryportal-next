@@ -1,25 +1,27 @@
 import prismaClient from '@prisma/client';
 
-import { procedure as p } from '@server/utils/trpc';
+import { publicProcedure, authenticatedProcedure } from '@server/utils/trpc';
 
 import reportService from './report-service';
 import { CreateReportInputSchema } from './dto';
 
-const create = p.input(CreateReportInputSchema).mutation(({ input }) => reportService.createReport(input));
+const create = authenticatedProcedure
+  .input(CreateReportInputSchema)
+  .mutation(({ input, ctx }) => reportService.createReport(input, ctx.session.user.id));
 
-const gender = p.query(() => prismaClient.Gender);
+const gender = publicProcedure.query(() => prismaClient.Gender);
 
-const averageGrade = p.query(() => prismaClient.AverageGrade);
+const averageGrade = publicProcedure.query(() => prismaClient.AverageGrade);
 
-const educationGrade = p.query(() => prismaClient.EducationGrade);
+const educationGrade = publicProcedure.query(() => prismaClient.EducationGrade);
 
-const workLocation = p.query(() => prismaClient.WorkLocation);
+const workLocation = publicProcedure.query(() => prismaClient.WorkLocation);
 
-const workFlow = p.query(() => prismaClient.WorkFlow);
+const workFlow = publicProcedure.query(() => prismaClient.WorkFlow);
 
-const paymentInterval = p.query(() => prismaClient.PaymentInterval);
+const paymentInterval = publicProcedure.query(() => prismaClient.PaymentInterval);
 
-const sector = p.query(() => prismaClient.Sector);
+const sector = publicProcedure.query(() => prismaClient.Sector);
 
 export default {
   create,

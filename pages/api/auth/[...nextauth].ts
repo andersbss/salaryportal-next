@@ -1,46 +1,4 @@
-import NextAuth, { AuthOptions } from 'next-auth';
-import GithubProvider from 'next-auth/providers/github';
+import NextAuth from 'next-auth';
+import { nextAuthOptions } from '@server/utils/auth';
 
-import UserService from '@server/modules/users';
-
-export const authOptions: AuthOptions = {
-  // Configure one or more authentication providers
-  providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID || '',
-      clientSecret: process.env.GITHUB_SECRET || '',
-    }),
-    // ...add more providers here
-  ],
-  callbacks: {
-    async signIn({ user: { id, email, name, image } }) {
-      try {
-        if (!email || !name) {
-          throw new Error('Email or name is missing from the provider response');
-        }
-
-        const existingUser = await UserService.getByProviderId(id, { internal: true });
-
-        if (!existingUser) {
-          const newUser = await UserService.create({
-            providerId: id,
-            username: name,
-            email: email,
-            imageUrl: image || null,
-          });
-
-          if (!newUser) {
-            throw new Error('Failed to create user');
-          }
-        }
-
-        return true;
-      } catch (error) {
-        console.error(error);
-        return false;
-      }
-    },
-  },
-};
-
-export default NextAuth(authOptions);
+export default NextAuth(nextAuthOptions);

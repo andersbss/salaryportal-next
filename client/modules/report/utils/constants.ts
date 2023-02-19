@@ -7,7 +7,6 @@ export const EMPTY_DEGREE: Degree = {
   grade: '',
   gradeId: null,
   graduateSchool: null,
-  graduateSchoolId: null,
   graduateYear: null,
   yearsInSchool: null,
 };

@@ -16,7 +16,7 @@ const getReportById = async (id: string): Promise<ReportResponse> => {
   return reportMapper.toResponse(report);
 };
 
-const createReport = async (input: CreateReportInput): Promise<ReportResponse> => {
+const createReport = async (input: CreateReportInput, userId: string): Promise<ReportResponse> => {
   const report = await ReportRepository.create(reportMapper.toCreateInput(input));
 
   return reportMapper.toResponse(report);

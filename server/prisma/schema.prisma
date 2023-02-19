@@ -146,8 +146,8 @@ model Report {
   updatedAt DateTime @updatedAt
 
   // Relations
-  userId    String?  @db.ObjectId
-  user      User?    @relation(fields: [userId], references: [id])
+  authorId  String?  @db.ObjectId
+  author    User?    @relation(fields: [authorId], references: [id])
   threadIds String[] @db.ObjectId
   threads   Thread[] @relation(fields: [threadIds], references: [id])
 }
@@ -207,30 +207,6 @@ model Thread {
 }
 
 //
-//  USER_SCHEMA
-//
-model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  // Required fields
-  providerId String @unique
-  email      String
-  username   String
-
-  // Optional fields
-  imageUrl String?
-
-  // Generated
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relations
-  ErrorLog ErrorLog[]
-  Comment  Comment[]
-  Report   Report[]
-}
-
-//
 // ERROR_LOG_SCHEMA
 //
 model ErrorLog {
@@ -247,4 +223,66 @@ model ErrorLog {
   // Relations
   userId String? @db.ObjectId
   user   User?   @relation(fields: [userId], references: [id])
+}
+
+//
+//  USER_SCHEMA
+//
+model Account {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? @db.String
+  refresh_token_expires_in Int?
+  access_token             String? @db.String
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? @db.String
+  session_state            String?
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  expires      DateTime
+
+  // Relations
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+
+  // Generated
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  ErrorLog ErrorLog[]
+  Comment  Comment[]
+  Report   Report[]
+  accounts Account[]
+  sessions Session[]
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }

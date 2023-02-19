@@ -1,11 +1,36 @@
-import { initTRPC, inferRouterInputs, inferRouterOutputs } from '@trpc/server';
-// Avoid exporting the entire t-object
-// since it's not very descriptive.
-// For instance, the use of a t variable
-// is common in i18n libraries.
-const t = initTRPC.create();
+import { initTRPC, inferRouterInputs, inferRouterOutputs, TRPCError } from '@trpc/server';
+import { CreateNextContextOptions } from '@trpc/server/adapters/next';
+
+import { getServerAuthSession } from '../auth';
+
+export type { inferRouterInputs, inferRouterOutputs };
+
+export const createContext = async (ctx: CreateNextContextOptions) => {
+  const { req, res } = ctx;
+
+  const session = await getServerAuthSession({ req, res });
+
+  return {
+    session,
+  };
+};
+
+const t = initTRPC.context<typeof createContext>().create();
 
 // Base router and procedure helpers
 export const router = t.router;
-export const procedure = t.procedure;
-export type { inferRouterInputs, inferRouterOutputs };
+
+export const publicProcedure = t.procedure;
+
+export const authenticatedProcedure = publicProcedure.use(async ({ ctx, next }) => {
+  if (!ctx.session || !ctx.session.user) {
+    throw new TRPCError({ code: 'UNAUTHORIZED' });
+  }
+
+  return next({
+    ctx: {
+      // infers the `session` as non-nullable
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
+});
