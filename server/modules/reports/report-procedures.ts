@@ -23,6 +23,8 @@ const paymentInterval = publicProcedure.query(() => prismaClient.PaymentInterval
 
 const sector = publicProcedure.query(() => prismaClient.Sector);
 
+const authTest = authenticatedProcedure.query(() => 'Hello, authenticated user!');
+
 export default {
   create,
   gender,
@@ -32,4 +34,5 @@ export default {
   workFlow,
   paymentInterval,
   sector,
+  authTest,
 };

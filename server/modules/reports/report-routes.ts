@@ -1,11 +1,11 @@
-import { router as r } from '@server/utils/trpc';
+import { router } from '@server/utils/trpc';
 
 import reportProcedures from './report-procedures';
 
-const reports = r({
+const reports = router({
   create: reportProcedures.create,
 
-  enums: r({
+  enums: router({
     gender: reportProcedures.gender,
     averageGrade: reportProcedures.averageGrade,
     educationGrade: reportProcedures.educationGrade,
@@ -14,6 +14,8 @@ const reports = r({
     paymentInterval: reportProcedures.paymentInterval,
     sector: reportProcedures.sector,
   }),
+
+  authTest: reportProcedures.authTest,
 });
 
 export default reports;
