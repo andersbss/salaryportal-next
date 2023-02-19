@@ -1,6 +1,6 @@
 import prismaClient from '@prisma/client';
 
-import { publicProcedure, authenticatedProcedure } from '@server/utils/trpc';
+import { publicProcedure, authenticatedProcedure, adminProcedure } from '@server/utils/trpc';
 
 import reportService from './report-service';
 import { CreateReportInputSchema } from './dto';
@@ -25,6 +25,8 @@ const sector = publicProcedure.query(() => prismaClient.Sector);
 
 const authTest = authenticatedProcedure.query(() => 'Hello, authenticated user!');
 
+const adminTest = adminProcedure.query(() => 'Hello, admin user!');
+
 export default {
   create,
   gender,
@@ -35,4 +37,5 @@ export default {
   paymentInterval,
   sector,
   authTest,
+  adminTest,
 };

@@ -16,6 +16,7 @@ const reports = router({
   }),
 
   authTest: reportProcedures.authTest,
+  adminTest: reportProcedures.adminTest,
 });
 
 export default reports;

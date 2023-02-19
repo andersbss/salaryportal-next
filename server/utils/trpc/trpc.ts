@@ -1,5 +1,6 @@
 import { initTRPC, inferRouterInputs, inferRouterOutputs, TRPCError } from '@trpc/server';
 import { CreateNextContextOptions } from '@trpc/server/adapters/next';
+import prismaClient from '@prisma/client';
 
 import { getServerAuthSession } from '../auth';
 
@@ -29,7 +30,18 @@ export const authenticatedProcedure = publicProcedure.use(async ({ ctx, next }) 
 
   return next({
     ctx: {
-      // infers the `session` as non-nullable
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
+});
+
+export const adminProcedure = authenticatedProcedure.use(async ({ ctx, next }) => {
+  if (!ctx.session?.user?.roles.includes(prismaClient.Role.ADMIN)) {
+    throw new TRPCError({ code: 'FORBIDDEN' });
+  }
+
+  return next({
+    ctx: {
       session: { ...ctx.session, user: ctx.session.user },
     },
   });
