@@ -13,5 +13,11 @@ describe('<LabelledText />', () => {
       cy.get('span').first().should('have.text', 'Label: ');
       cy.get('span').last().should('have.text', 'Value');
     });
+
+    it('should render empty fragment if value is null', () => {
+      cy.mount(<LabelledText label="Label" value={null} />);
+
+      cy.get('span').should('have.length', 0);
+    });
   });
 });

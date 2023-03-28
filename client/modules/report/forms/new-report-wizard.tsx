@@ -34,11 +34,43 @@ const NewReportWizard = () => {
   const educationForm = useForm<EducationFormInput>({
     mode: 'onTouched',
     defaultValues: {
-      degrees: [{ ...EMPTY_DEGREE }],
+      //degrees: [{ ...EMPTY_DEGREE }],
+      //TOOD: Remove
+      degrees: [
+        {
+          name: 'Bachelor of Science',
+          averageGrade: 'A',
+          averageGradeId: 'A',
+          grade: 'Bachelor',
+          graduateSchool: 'NTNU',
+          graduateYear: 2019,
+          yearsInSchool: 4,
+        },
+        {
+          name: 'Bachelor of Science',
+          averageGrade: 'A',
+          averageGradeId: 'A',
+          grade: 'Bachelor',
+          graduateSchool: 'NTNU',
+          graduateYear: 2019,
+          yearsInSchool: 4,
+        },
+      ],
     },
   });
 
-  const currentJobForm = useForm<CurrentJobFormInput>({ mode: 'onTouched' });
+  const currentJobForm = useForm<CurrentJobFormInput>({
+    mode: 'onTouched',
+    //TODO: Remove
+    defaultValues: {
+      county: 'Oslo',
+      countyId: '0301',
+      estimatedTotalYearlySalary: 100000,
+      field: 'IT',
+      fieldId: 'IT',
+      jobTitle: 'Software Engineer',
+    },
+  });
 
   const toggleReviewModal = () => {
     setReviewIsOpen((prev) => !prev);
@@ -150,7 +182,7 @@ const NewReportWizard = () => {
             currentJobFields={currentJobForm.getValues()}
           />
         }
-        buttons={[{ type: 'cta', children: <>SEND INN</>, onClick: onSubmit }]}
+        buttons={[{ type: 'cta', children: <>SEND INN ANONYME DATA</>, onClick: onSubmit }]}
       />
     </>
   );

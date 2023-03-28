@@ -144,16 +144,35 @@
             }
         },
         "review": {
-            "heading": "Sjekk at alt er riktig",
+            "heading": "Sjekk at alt stemmer",
             "forms": {
                 "personalInfo": {
-                    "heading": "Personlig informasjon"
+                    "heading": "Personlig informasjon",
+                    "fields": {
+                        "age": "Alder",
+                        "gender": "Kjønn",
+                        "county": "Fylke"
+                    }
                 },
                 "education": {
-                    "heading": "Utdanning"
+                    "heading": "Utdanning(er)",
+                    "fields": {
+                        "name": "Name",
+                        "grade": "Grad",
+                        "graduateYear": "Uteksaminert",
+                        "yearsInSchool": "År i skole",
+                        "graduateSchool": "Skole",
+                        "averageGrade": "Snittkarakter"
+                    }
                 },
                 "currentJob": {
-                    "heading": "Nåværende jobb"
+                    "heading": "Nåværende jobb",
+                    "fields": {
+                        "jobTitle": "Tittel",
+                        "estimatedYearlySalary": "Årsinntekt (brutto)",
+                        "field": "Bransje",
+                        "county": "Fylke"
+                    }
                 }
             }
         }

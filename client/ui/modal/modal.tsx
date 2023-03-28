@@ -31,7 +31,7 @@ const Modal = ({ title, body, isOpen, buttons, onBackdropClick = () => {} }: Mod
         >
           <div className="bg-white p-6 px-4 pt-5 pb-4 dark:bg-zinc-800">
             <div className="flex items-start">
-              <div className="mt-3 text-left sm:mt-0 sm:ml-4">
+              <div className="mt-3 w-full text-left sm:mt-0 sm:ml-4">
                 <h3 className="text-lg font-medium leading-6 text-slate-900 dark:text-white" id="modal-headline">
                   {title}
                 </h3>
@@ -49,7 +49,11 @@ const Modal = ({ title, body, isOpen, buttons, onBackdropClick = () => {} }: Mod
           <div className="flex flex-row-reverse bg-white px-4 py-3 dark:bg-zinc-800">
             {buttons.map((btn, index) => {
               if (btn.type === 'cta') {
-                return <CtaButton key={index}>SEND INN ANONYME DATA</CtaButton>;
+                return (
+                  <CtaButton key={index} variant="small" action={btn.onClick}>
+                    {btn.children}
+                  </CtaButton>
+                );
               }
               return (
                 <button
