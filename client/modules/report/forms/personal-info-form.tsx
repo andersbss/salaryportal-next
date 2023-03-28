@@ -18,6 +18,7 @@ const PersonalInfoForm = () => {
   const { data: countiesData, refetch: refetchCountiesData } = trpc.thirdParty.kartverket.counties.useQuery(undefined, {
     enabled: false,
   });
+
   const { data: genderData } = trpc.reports.enums.gender.useQuery();
 
   useEffect(() => {
@@ -76,6 +77,12 @@ const PersonalInfoForm = () => {
                   if (!value) return;
                   if (value % 1 !== 0) {
                     return t('forms.personalInfo.fields.age.validation.integer');
+                  }
+                },
+                isPositive: (value) => {
+                  if (!value) return;
+                  if (value < 0) {
+                    return t('forms.personalInfo.fields.age.validation.positive');
                   }
                 },
               },

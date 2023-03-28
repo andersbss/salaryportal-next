@@ -39,7 +39,7 @@ export const CreateReportInputSchema = z.object({
     // Required
     freeJobTitle: z.string(), // Free text job
     fixedJobTitleId: z.string(), // Fixed job title id from utdanning.no
-    fieldId: z.string(),
+    fieldId: z.string(), // Fixed field id from utdanning.no
     estimatedTotalYearlySalary: z.number(),
     sector: z.nativeEnum(Sector),
     county: z.string(),

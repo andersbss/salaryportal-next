@@ -2,12 +2,13 @@ import { Wizard } from '@client/ui/wizard/wizard';
 import { useWizard, WizardProvider, WizardStep } from '@client/ui/wizard/wizard-ctx';
 import useTranslation from 'next-translate/useTranslation';
 import { FormProvider, useForm } from 'react-hook-form';
+import { EMPTY_DEGREE } from '../utils';
 
-import { PersonalInfoFormInput, EducationFormInput } from '../types';
+import { PersonalInfoFormInput, EducationFormInput, CurrentJobFormInput } from '../types';
 
 import PersonalInfoForm from './personal-info-form';
 import EducationForm from './education-form';
-import { EMPTY_DEGREE } from '../utils';
+import CurrentJobForm from './current-job-form';
 
 const NewReportWizard = () => {
   const { t } = useTranslation();
@@ -15,7 +16,7 @@ const NewReportWizard = () => {
   const personalInfoForm = useForm<PersonalInfoFormInput>({
     mode: 'onTouched',
     defaultValues: {
-      //TOOD: Remove
+      //TODO: Remove
       age: 20,
       county: 'Oslo',
       countyId: '0301',
@@ -23,12 +24,15 @@ const NewReportWizard = () => {
       genderId: 'Male',
     },
   });
+
   const educationForm = useForm<EducationFormInput>({
     mode: 'onTouched',
     defaultValues: {
       degrees: [{ ...EMPTY_DEGREE }],
     },
   });
+
+  const currentJobForm = useForm<CurrentJobFormInput>({ mode: 'onTouched' });
 
   const wizard = useWizard({
     initialSteps: [
@@ -59,7 +63,12 @@ const NewReportWizard = () => {
           break;
 
         case 2:
-          console.log('TODO: Current job form validation');
+          isValid = await educationForm.trigger();
+
+          currentJobForm.handleSubmit((data) => {
+            console.log(data);
+            //TODO: Do something
+          })();
           break;
 
         default:
@@ -94,7 +103,11 @@ const NewReportWizard = () => {
           </FormProvider>
         );
       case 2:
-        return <div>TODO: Current job</div>;
+        return (
+          <FormProvider {...currentJobForm}>
+            <CurrentJobForm />
+          </FormProvider>
+        );
       default:
         return <></>;
     }

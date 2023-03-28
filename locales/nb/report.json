@@ -10,7 +10,8 @@
                     "tooltip": "Her kan du skrive inn alderen din. Eksempelvis: 31, 32, 33, etc.",
                     "validation": {
                         "required": "Alder er påkrevd",
-                        "integer": "Du kan ikke oppgi desimaler"
+                        "integer": "Du kan ikke oppgi desimaler",
+                        "positive": "Du kan ikke skrive inn et negativt tall"
                     }
                 },
                 "gender": {
@@ -102,7 +103,45 @@
         },
         "currentJob": {
             "heading": "Vi trenger litt informasjon om jobben din",
-            "label": "Jobb"
+            "label": "Jobb",
+            "fields": {
+                "jobTitle": {
+                    "label": "Hva er tittelen på jobben din?",
+                    "placeholder": "Sosialarbeider",
+                    "tooltip": "Her kan du skrive inn tittelen på jobben din i fritekst. Eksempelvis: Sosialarbeider, Lærer, etc.",
+                    "validation": {
+                        "required": "Tittel er påkrevd"
+                    }
+                },
+                "estimatedYearlySalary": {
+                    "label": "Hvor mye tjener du i brutto (før skatt) i året?",
+                    "placeholder": "400 000",
+                    "tooltip": "Her skriver du inn hvor mye du tjener i året før skatt fra den faste jobben din. Eksempelvis: 400 000, 500 000, 600 000, etc.",
+                    "validation": {
+                        "required": "Årsinntekt er påkrevd",
+                        "integer": "Du kan ikke oppgi desimaler",
+                        "positive": "Du kan ikke skrive inn et negativt tall"
+                    }
+                },
+                "field": {
+                    "label": "I hvilken bransje jobber du?",
+                    "placeholder": "Helse",
+                    "tooltip": "Her kan du velge bransje du jobber i. Eksempelvis: Helse, Utdanning, IT, etc.",
+                    "validation": {
+                        "required": "Bransje er påkrevd",
+                        "selectAlternative": "Velg et av alternativene"
+                    }
+                },
+                "county": {
+                    "label": "I hvilket fylker jobber du?",
+                    "placeholder": "Viken",
+                    "tooltip": "Her kan du velge fylke du jobber i. Eksempelvis: Oslo, Akershus, etc. Hvis du jobber 100% remote skriver du enten hvor du bor eller hvor bedriften din har hovedkontor.",
+                    "validation": {
+                        "required": "Fylke er påkrevd",
+                        "selectAlternative": "Velg et av alternativene"
+                    }
+                }
+            }
         }
     }
 }
