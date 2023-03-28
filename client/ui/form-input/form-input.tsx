@@ -67,7 +67,7 @@ const FormInput = <T extends FieldValues>({
         <Modal
           isOpen={tooltipIsOpen}
           title={label || 'Hjelp'}
-          message={tooltip || ''}
+          body={tooltip || ''}
           buttons={[{ type: 'normal', children: <>Lukk</>, onClick: toggleTooltip }]}
         />
       )}

@@ -1,16 +1,17 @@
 'use client';
 
 import { ReactNode } from 'react';
+import { CtaButton } from '../cta-button';
 
 export type ModalProps = {
   title: string;
-  message: string;
+  body: string | ReactNode;
   isOpen: boolean;
-  buttons: { children: ReactNode; onClick: () => void; type: 'normal' | 'danger' | 'warning' }[];
+  buttons: { children: ReactNode; onClick: () => void; type: 'normal' | 'danger' | 'warning' | 'cta' }[];
   onBackdropClick?: () => void;
 };
 
-const Modal = ({ title, message, isOpen, buttons, onBackdropClick = () => {} }: ModalProps): JSX.Element => {
+const Modal = ({ title, body, isOpen, buttons, onBackdropClick = () => {} }: ModalProps): JSX.Element => {
   if (!isOpen) return <></>;
 
   return (
@@ -34,14 +35,22 @@ const Modal = ({ title, message, isOpen, buttons, onBackdropClick = () => {} }: 
                 <h3 className="text-lg font-medium leading-6 text-slate-900 dark:text-white" id="modal-headline">
                   {title}
                 </h3>
+
                 <div className="mt-2">
-                  <p className="text-sm text-slate-900 opacity-60 dark:text-white">{message}</p>
+                  {typeof body === 'string' ? (
+                    <p className="text-sm text-slate-900 opacity-60 dark:text-white">{body}</p>
+                  ) : (
+                    body
+                  )}
                 </div>
               </div>
             </div>
           </div>
           <div className="flex flex-row-reverse bg-white px-4 py-3 dark:bg-zinc-800">
             {buttons.map((btn, index) => {
+              if (btn.type === 'cta') {
+                return <CtaButton key={index}>SEND INN ANONYME DATA</CtaButton>;
+              }
               return (
                 <button
                   key={index}

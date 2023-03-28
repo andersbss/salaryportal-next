@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Wizard } from '@client/ui/wizard/wizard';
 import { useWizard, WizardProvider, WizardStep } from '@client/ui/wizard/wizard-ctx';
 import useTranslation from 'next-translate/useTranslation';
@@ -9,9 +10,14 @@ import { PersonalInfoFormInput, EducationFormInput, CurrentJobFormInput } from '
 import PersonalInfoForm from './personal-info-form';
 import EducationForm from './education-form';
 import CurrentJobForm from './current-job-form';
+import ReviewReportForm from './review-report-form';
+
+import { Modal } from '@client/ui/modal';
 
 const NewReportWizard = () => {
   const { t } = useTranslation();
+
+  const [reviewIsOpen, setReviewIsOpen] = useState(false);
 
   const personalInfoForm = useForm<PersonalInfoFormInput>({
     mode: 'onTouched',
@@ -33,6 +39,10 @@ const NewReportWizard = () => {
   });
 
   const currentJobForm = useForm<CurrentJobFormInput>({ mode: 'onTouched' });
+
+  const toggleReviewModal = () => {
+    setReviewIsOpen((prev) => !prev);
+  };
 
   const wizard = useWizard({
     initialSteps: [
@@ -62,15 +72,6 @@ const NewReportWizard = () => {
           })();
           break;
 
-        case 2:
-          isValid = await educationForm.trigger();
-
-          currentJobForm.handleSubmit((data) => {
-            console.log(data);
-            //TODO: Do something
-          })();
-          break;
-
         default:
           break;
       }
@@ -79,14 +80,35 @@ const NewReportWizard = () => {
         continue: isValid,
       };
     },
-    onBack: (step) => {
-      console.log('back', step);
+    onBack: () => {
+      return {
+        continue: true,
+      };
+    },
+    onDone: async () => {
+      let isValid = true;
+
+      isValid = await currentJobForm.trigger();
+
+      currentJobForm.handleSubmit((data) => {
+        console.log(data);
+        //TODO: Do something
+      })();
+
+      if (!isValid) {
+        //TODO: Uncomment
+        //return { continue: false };
+      }
+
+      toggleReviewModal();
 
       return {
         continue: true,
       };
     },
   });
+
+  const onSubmit = () => {};
 
   const activeForm = (step: WizardStep) => {
     switch (step.index) {
@@ -114,9 +136,23 @@ const NewReportWizard = () => {
   };
 
   return (
-    <WizardProvider {...wizard}>
-      <Wizard>{activeForm(wizard.activeStep)}</Wizard>
-    </WizardProvider>
+    <>
+      <WizardProvider {...wizard}>
+        <Wizard>{activeForm(wizard.activeStep)}</Wizard>
+      </WizardProvider>
+      <Modal
+        isOpen={reviewIsOpen}
+        title={t('report:forms.review.heading')}
+        body={
+          <ReviewReportForm
+            personalInfoFields={personalInfoForm.getValues()}
+            educationFields={educationForm.getValues()}
+            currentJobFields={currentJobForm.getValues()}
+          />
+        }
+        buttons={[{ type: 'cta', children: <>SEND INN</>, onClick: onSubmit }]}
+      />
+    </>
   );
 };
 

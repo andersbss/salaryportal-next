@@ -142,6 +142,20 @@
                     }
                 }
             }
+        },
+        "review": {
+            "heading": "Sjekk at alt er riktig",
+            "forms": {
+                "personalInfo": {
+                    "heading": "Personlig informasjon"
+                },
+                "education": {
+                    "heading": "Utdanning"
+                },
+                "currentJob": {
+                    "heading": "Nåværende jobb"
+                }
+            }
         }
     }
 }

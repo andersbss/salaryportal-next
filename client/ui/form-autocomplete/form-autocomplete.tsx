@@ -166,7 +166,7 @@ const FormAutocomplete = <T extends FieldValues, TOptionObj>({
         <Modal
           isOpen={tooltipIsOpen}
           title={label || 'Hjelp'}
-          message={tooltip || ''}
+          body={tooltip || ''}
           buttons={[{ type: 'normal', children: <>Lukk</>, onClick: toggleTooltip }]}
         />
       )}
