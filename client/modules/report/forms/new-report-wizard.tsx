@@ -140,7 +140,9 @@ const NewReportWizard = () => {
     },
   });
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    // TODO: Mutate date
+  };
 
   const activeForm = (step: WizardStep) => {
     switch (step.index) {
